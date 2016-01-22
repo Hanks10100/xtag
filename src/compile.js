@@ -43,13 +43,9 @@
         return options;
     }
 
-    // 编译 Table 组件
+    // 编译 Datetimepicker 组件
     function compileDatetimepicker(elem, env) {
-        // console.log('will compile Datetimepicker', elem);
-        var $picker = $('<div class="input-group">datetimepicker</div>');
-        var $input = $('<input type="text" class="form-control" data-today-btn="true">')
-
-        return {$el: $picker.html($input)};
+        return new Datetimepicker(parseOption(elem, env));
     }
 
     // 编译 Table 组件
