@@ -10,6 +10,19 @@
     }
 
     _.extend(SwitchButton.prototype, {
+        enable: function() {
+            this.$el.addClass('enabled').removeClass('disabled');
+            this.$input.prop('disabled', false);
+            return this;
+        },
+        disable: function() {
+            this.$el.addClass('disabled').removeClass('enabled');
+            this.$input.prop('disabled', true);
+            return this;
+        },
+        isEnabled: function() {
+            return this.$input.is(':enabled');
+        },
         isChecked: function() {
             return this.$input.is(':checked');
         },
