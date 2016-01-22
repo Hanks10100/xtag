@@ -7,8 +7,7 @@
     function compile(env) {
         if (!env) env = root;
         _.each(CUSTOM_TAGS, function(tagName) {
-            env.$(TAG_PREFIX + tagName).each(function(index, elem) {
-                // console.log('compile each', tagName);
+            _.each(env.$(TAG_PREFIX + tagName), function(elem) {
                 var widget = { $el: $(elem) };
                 var option = parseOption(elem, env);
 
@@ -29,9 +28,8 @@
     }
 
     function parseOption(elem, env) {
-        // console.log(elem.attributes);
         var options = {};
-        _.each(elem.attributes, function(attr, key) {
+        _.each(elem.attributes, function(attr) {
             if (attr.nodeType !== 2) return;
 
             var value = attr.nodeValue;
