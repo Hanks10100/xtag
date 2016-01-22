@@ -25,6 +25,24 @@
         });
     }
 
+    function parseOption(elem, env) {
+        // console.log(elem.attributes);
+        var options = {};
+        _.each(elem.attributes, function(attr, key) {
+            if (attr.nodeType !== 2) return;
+
+            var value = attr.nodeValue;
+            if (_.isFunction(env[value])) value = env[value]();
+
+            if (attr.nodeName === 'options') {
+                _.extend(options, value);
+            } else {
+                options[attr.nodeName] = value;
+            }
+        });
+        return options;
+    }
+
     // 编译 Table 组件
     function compileDatetimepicker(elem, env) {
         // console.log('will compile Datetimepicker', elem);
@@ -36,19 +54,7 @@
 
     // 编译 Table 组件
     function compileTable(elem, env) {
-        // console.log('will compile Table', elem);
-
-        var body = elem.getAttribute('body');
-        if (_.isString(body) && env[body]) {
-            body = env[body]();
-        }
-
-        var head = elem.getAttribute('head');
-        if (_.isString(head) && env[head]) {
-            head = env[head]();
-        }
-
-        var table = new Table({head: head, body: body});
+        var table = new Table(parseOption(elem, env));
         return table;
     }
 
