@@ -1,15 +1,13 @@
 ;(function(root){
     'use strict';
 
-    var customTags = ['H-Table', 'H-Datetimepicker'];
+    var TAG_PREFIX = 'H-';
+    var CUSTOM_TAGS = ['Table', 'Datetimepicker'];
 
     function compile(env) {
         if (!env) env = root;
-        _.each(customTags, function(tag) {
-            var arr = tag.split('-');
-            var namespace = arr[0];
-            var tagName = arr[1];
-            env.$(tag).each(function(index, elem) {
+        _.each(CUSTOM_TAGS, function(tagName) {
+            env.$(TAG_PREFIX + tagName).each(function(index, elem) {
                 // console.log('compile each', tagName);
                 var res = elem;
                 var name = elem.getAttribute('name');
