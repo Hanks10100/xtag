@@ -10,6 +10,15 @@
     }
 
     _.extend(SwitchButton.prototype, {
+        on: function() {
+            this.$input.on.apply(this.$input, arguments);
+            return this;
+        },
+        onChange: function(callback) {
+            if (!_.isFunction(callback)) return this;
+            this.$input.on('change', _.bind(callback, this));
+            return this;
+        },
         enable: function() {
             this.$el.addClass('enabled').removeClass('disabled');
             this.$input.prop('disabled', false);
@@ -38,7 +47,7 @@
         },
         toggle: function() {
             return this.setValue(!this.isChecked());
-        }
+        },
     });
 
     root.SwitchButton = SwitchButton;
