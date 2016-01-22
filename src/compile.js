@@ -16,7 +16,7 @@
                     case 'table': res = compileTable(elem, env); break;
                     case 'datetimepicker': res = compileDatetimepicker(elem, env); break;
                 }
-                $(elem).replaceWith(res);
+                $(elem).replaceWith(res.$el);
             });
         });
     }
@@ -27,7 +27,7 @@
         var $picker = $('<div class="input-group">datetimepicker</div>');
         var $input = $('<input type="text" class="form-control" data-today-btn="true">')
 
-        return $picker.html($input);
+        return {$el: $picker.html($input)};
     }
 
     // 编译 Table 组件
@@ -45,7 +45,7 @@
         }
 
         var table = new Table({head: head, body: body});
-        return table.$el;
+        return table;
     }
 
     root.compileCustomTag = compile;
