@@ -1,7 +1,7 @@
 ;(function(root){
     'use strict';
 
-    // 日期选择插件的构造函数
+    // Toggle 按钮
     function SwitchButton(options) {
         this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
         this.$el = $('<label class="switch">')
@@ -9,7 +9,14 @@
             .append('<span></span>');
     }
 
-    _.extend(SwitchButton.prototype, {
+    function Checkbox(options) {
+        this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
+        this.$el = $('<label class="i-checks">')
+            .append(this.$input)
+            .append('<span></span>');
+    }
+
+    var protoMixin = {
         on: function() {
             this.$input.on.apply(this.$input, arguments);
             return this;
@@ -48,7 +55,11 @@
         toggle: function() {
             return this.setValue(!this.isChecked());
         },
-    });
+    }
 
+    _.extend(SwitchButton.prototype, protoMixin);
+    _.extend(Checkbox.prototype, protoMixin);
+
+    root.Checkbox = Checkbox;
     root.SwitchButton = SwitchButton;
 })(window)
