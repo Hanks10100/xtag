@@ -12,11 +12,17 @@
             env.$(tag).each(function(index, elem) {
                 // console.log('compile each', tagName);
                 var res = elem;
+                var name = elem.getAttribute('name');
                 switch (tagName.toLowerCase()) {
                     case 'table': res = compileTable(elem, env); break;
                     case 'datetimepicker': res = compileDatetimepicker(elem, env); break;
                 }
                 $(elem).replaceWith(res.$el);
+
+                if (name && _.isString(name)) {
+                    env[name] = res;
+                    env['$' + name] = res.$el;
+                }
             });
         });
     }
