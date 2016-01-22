@@ -3,10 +3,10 @@
 
     // 日期选择插件的构造函数
     function SwitchButton(options) {
-        this.$input = $('<input type="checkbox">');
+        this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
         this.$el = $('<label class="switch">')
             .append(this.$input)
-            .append($('<span></span>'));
+            .append('<span></span>');
     }
 
     _.extend(SwitchButton.prototype, {
