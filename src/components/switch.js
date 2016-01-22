@@ -17,10 +17,6 @@
     }
 
     var protoMixin = {
-        on: function() {
-            this.$input.on.apply(this.$input, arguments);
-            return this;
-        },
         onChange: function(callback) {
             if (!_.isFunction(callback)) return this;
             this.$input.on('change', _.bind(callback, this));
@@ -36,25 +32,16 @@
             this.$input.prop('disabled', true);
             return this;
         },
-        isEnabled: function() {
-            return this.$input.is(':enabled');
-        },
-        isChecked: function() {
-            return this.$input.is(':checked');
-        },
         setValue: function(value) {
             this.$input.prop('checked', !!value);
             return this;
         },
-        check: function() {
-            return this.setValue(true);
-        },
-        uncheck: function() {
-            return this.setValue(false);
-        },
-        toggle: function() {
-            return this.setValue(!this.isChecked());
-        },
+
+        isEnabled: function() { return this.$input.is(':enabled'); },
+        isChecked: function() { return this.$input.is(':checked'); },
+        check:     function() { return this.setValue(true);  },
+        uncheck:   function() { return this.setValue(false); },
+        toggle:    function() { return this.setValue(!this.isChecked()); },
     }
 
     _.extend(SwitchButton.prototype, protoMixin);
