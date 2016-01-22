@@ -2,7 +2,7 @@
     'use strict';
 
     var TAG_PREFIX = 'H-';
-    var CUSTOM_TAGS = ['Table', 'Datetimepicker'];
+    var CUSTOM_TAGS = ['Table', 'Datetimepicker', 'Switch'];
 
     function compile(env) {
         if (!env) env = root;
@@ -13,6 +13,7 @@
 
                 switch (tagName.toLowerCase()) {
                     case 'table': widget = new Table(option); break;
+                    case 'switch': widget = new SwitchButton(option); break;
                     case 'datetimepicker': widget = new Datetimepicker(option); break;
                 }
 

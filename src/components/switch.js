@@ -3,10 +3,9 @@
 
     // 日期选择插件的构造函数
     function SwitchButton(options) {
-        this.$el = $('<div class="switch-container"></div>');
-        var $label = $('<label class="switch-label"></label>');
-
-        this.$el.html($label);
+        this.$el = $('<label class="switch">')
+            .append($('<input type="checkbox" checked="checked">'))
+            .append($('<span></span>'));
     }
 
     root.SwitchButton = SwitchButton;
