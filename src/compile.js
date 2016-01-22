@@ -9,17 +9,20 @@
         _.each(CUSTOM_TAGS, function(tagName) {
             env.$(TAG_PREFIX + tagName).each(function(index, elem) {
                 // console.log('compile each', tagName);
-                var res = elem;
-                var name = elem.getAttribute('name');
-                switch (tagName.toLowerCase()) {
-                    case 'table': res = compileTable(elem, env); break;
-                    case 'datetimepicker': res = compileDatetimepicker(elem, env); break;
-                }
-                $(elem).replaceWith(res.$el);
+                var widget = { $el: $(elem) };
+                var option = parseOption(elem, env);
 
+                switch (tagName.toLowerCase()) {
+                    case 'table': widget = new Table(option); break;
+                    case 'datetimepicker': widget = new Datetimepicker(option); break;
+                }
+
+                $(elem).replaceWith(widget.$el);
+
+                var name = option.name;
                 if (name && _.isString(name)) {
-                    env[name] = res;
-                    env['$' + name] = res.$el;
+                    env[name] = widget;
+                    env['$' + name] = widget.$el;
                 }
             });
         });
@@ -41,17 +44,6 @@
             }
         });
         return options;
-    }
-
-    // 编译 Datetimepicker 组件
-    function compileDatetimepicker(elem, env) {
-        return new Datetimepicker(parseOption(elem, env));
-    }
-
-    // 编译 Table 组件
-    function compileTable(elem, env) {
-        var table = new Table(parseOption(elem, env));
-        return table;
     }
 
     root.compileCustomTag = compile;
