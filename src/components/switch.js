@@ -13,6 +13,19 @@
         isChecked: function() {
             return this.$input.is(':checked');
         },
+        setValue: function(value) {
+            this.$input.prop('checked', !!value);
+            return this;
+        },
+        check: function() {
+            return this.setValue(true);
+        },
+        uncheck: function() {
+            return this.setValue(false);
+        },
+        toggle: function() {
+            return this.setValue(!this.isChecked());
+        }
     });
 
     root.SwitchButton = SwitchButton;
