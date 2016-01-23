@@ -3,6 +3,7 @@
 
     // Toggle 按钮
     function SwitchButton(options) {
+        options || (options = {});
         this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
         this.$el = $('<label class="switch">')
             .append(this.$input)
@@ -10,6 +11,7 @@
     }
 
     function Checkbox(options) {
+        options || (options = {});
         this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
         this.$el = $('<label class="i-checks">')
             .append(this.$input)
