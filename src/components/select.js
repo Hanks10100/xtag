@@ -48,6 +48,7 @@
                 $li.addClass('selected').siblings().removeClass('selected');
                 self.$input.val($li.text());
             });
+            return this;
         },
         toggleOptions: function(event) {
             if (this._optionsIsOpen) {
@@ -63,6 +64,7 @@
                 this.$options.appendTo(this.$root);
                 this._optionsIsOpen = true;
             }
+            return this;
         },
         getValue: function() {
             var val = this.$input.val();
@@ -70,6 +72,13 @@
                 if (opt.name === val) return opt.value;
                 return res;
             }, null);
+        },
+        setValue: function(value) {
+            this.$input.val(_.reduce(this._options, function(res, opt) {
+                if (opt.value === value) return opt.name;
+                return res;
+            }, null));
+            return this;
         },
     });
 
