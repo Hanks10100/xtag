@@ -13,20 +13,20 @@
                 .append('<span class="glyphicon glyphicon-triangle-bottom"></span>');
         this.$el.append(this.$input, this.$button);
 
-        this.options = [];
-        this.$option = $('<ul class="dropdown-list"></ul>');
+        this._options = [];
+        this.$options = $('<ul class="dropdown-list"></ul>');
         _.each(options.children, function(child, index) {
             // console.dir(child);
             var value = child.getAttribute('value');
-            self.options.push({ value: value, name: child.innerHTML });
-            self.$option.append(
+            self._options.push({ value: value, name: child.innerHTML });
+            self.$options.append(
                 $('<li></li>').attr('index', index)
                     .attr('value', value)
                     .html(child.innerHTML)
             );
         });
 
-        // this.$el.append(this.$option);
+        // this.$el.append(this.$options);
         this.bingEvents();
     }
 
@@ -40,10 +40,10 @@
                 }
             });
             this.$root.on('click', function() {
-                self.$option.detach();
+                self.$options.detach();
                 self._optionsIsOpen = false;
             });
-            this.$option.on('click', 'li', function(event) {
+            this.$options.on('click', 'li', function(event) {
                 var $li = $(event.currentTarget);
                 $li.addClass('selected').siblings().removeClass('selected');
                 self.$input.val($li.text());
@@ -51,23 +51,32 @@
         },
         toggleOptions: function(event) {
             if (this._optionsIsOpen) {
-                this.$option.detach();
+                this.$options.detach();
                 this._optionsIsOpen = false;
             } else {
                 var offset = this.$el.offset();
 
-                this.$option.css('top', offset.top + this.$el.height() - 1)
+                this.$options.css('top', offset.top + this.$el.height() - 1)
                     .css('left', offset.left)
                     .width(this.$el.width())
 
-                this.$option.appendTo(this.$root);
+                this.$options.appendTo(this.$root);
                 this._optionsIsOpen = true;
             }
+        },
+        getValue: function() {
+            var val = this.$input.val();
+            return _.reduce(this._options, function(res, opt) {
+                if (opt.name === val) return opt.value;
+                return res;
+            }, null);
         },
     });
 
     // 添加启用和禁用功能
     _.extend(Select.prototype, Framework.mixins.availableMixin);
+
+    Select.prototype.value = Select.prototype.getValue;
 
     Framework.Select = Select;
 })(window, window.UED)
