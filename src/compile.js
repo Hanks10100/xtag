@@ -45,5 +45,5 @@
     Framework.tags = CUSTOM_TAGS;
     if (Object.freeze) Object.freeze(Framework.tags);
 
-    Framework.compileCustomTag = compile;
+    Framework.compile = compile;
 })(window, window.UED)
