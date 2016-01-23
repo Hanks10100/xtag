@@ -44,7 +44,11 @@
 
 
     function preCompile(template) {
-        return template;
+        var $tpl = $('<code>' + template + '</code>');
+        _.each(Framework.staticTags, function(tpl, tagName) {
+            $tpl.find(TAG_PREFIX + tagName).replaceWith(tpl);
+        });
+        return $tpl.html();
     }
 
     Framework.tags = CUSTOM_TAGS;
