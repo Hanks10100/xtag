@@ -5,9 +5,15 @@
     function Select(options) {
         var self = this;
         this.$root = $('body');
-        this.$el = $('<div class="input-group ui-combobox"></div>');
-        this.$option = $('<ul class="dropdown-list"></ul>');
 
+        // 模拟 Fish Combobox 组件的 DOM 结构
+        this.$el = $('<div class="input-group ui-combobox"></div>');
+        this.$input = $('<input type="text" autocomplete="off" class="form-control">');
+        this.$button = $('<span class="input-group-addon clear-input-icon-right"></span>')
+                .append('<span class="glyphicon glyphicon-triangle-bottom"></span>');
+        this.$el.append(this.$input, this.$button);
+
+        this.$option = $('<ul class="dropdown-list"></ul>');
         _.each(options.children, function(child) {
             // console.dir(child);
             self.$option.append(
@@ -17,13 +23,6 @@
             );
         });
 
-
-        // 模拟 Fish Combobox 组件的 DOM 结构
-        this.$el.append(
-            $('<input type="text" autocomplete="off" class="form-control">'),
-            $('<span class="input-group-addon clear-input-icon-right"></span>')
-                .append('<span class="glyphicon glyphicon-triangle-bottom"></span>')
-        );
         // this.$el.append(this.$option);
         this.bingEvents();
     }
