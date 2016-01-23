@@ -21,7 +21,7 @@
             self._options.push({ value: value, name: child.innerHTML });
             self.$options.append(
                 $('<li></li>').attr('index', index)
-                    .attr('value', value)
+                    .data('value', value)
                     .html(child.innerHTML)
             );
         });
@@ -46,7 +46,7 @@
             this.$options.on('click', 'li', function(event) {
                 var $li = $(event.currentTarget);
                 $li.addClass('selected').siblings().removeClass('selected');
-                self.$input.val($li.text());
+                self.setValue($li.data('value'));
             });
             return this;
         },
@@ -66,6 +66,14 @@
             }
             return this;
         },
+
+        // TODO: 手动输入时也应当触发 onChange
+        onChange: function(callback) {
+            if (!_.isFunction(callback)) return this;
+            this.on('change', _.bind(callback, this));
+            return this;
+        },
+
         getValue: function() {
             var val = this.$input.val();
             return _.reduce(this._options, function(res, opt) {
@@ -74,16 +82,24 @@
             }, null);
         },
         setValue: function(value) {
-            this.$input.val(_.reduce(this._options, function(res, opt) {
+            var original = this.$input.val();
+            var newValue = _.reduce(this._options, function(res, opt) {
                 if (opt.value === value) return opt.name;
                 return res;
-            }, null));
+            }, null);
+            if (newValue !== original) {
+                this.$input.val(newValue);
+                this.trigger('change');
+            }
             return this;
         },
     });
 
     // 添加启用和禁用功能
     _.extend(Select.prototype, Framework.mixins.availableMixin);
+
+    // 添加自定义事件的功能
+    _.extend(Select.prototype, Backbone.Events);
 
     Select.prototype.value = Select.prototype.getValue;
 
