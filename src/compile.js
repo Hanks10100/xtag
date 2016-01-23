@@ -44,6 +44,7 @@
                 options[attr.nodeName] = value;
             }
         });
+        options.children = _.toArray(elem.children);
         return options;
     }
 
