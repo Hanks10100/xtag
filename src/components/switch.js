@@ -28,7 +28,7 @@
             return this;
         },
         setValue: function(value) {
-            this.$input.prop('checked', !!value);
+            this.isEnabled() && this.$input.prop('checked', !!value);
             return this;
         },
         isEnabled:    function() { return this.$input.is(':enabled'); },
