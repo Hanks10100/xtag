@@ -44,6 +44,8 @@
     _.extend(SwitchButton.prototype, protoMixin);
     _.extend(Checkbox.prototype, protoMixin);
 
+    SwitchButton.prototype.value =Checkbox.prototype.value =  protoMixin.isChecked;
+
     root.Checkbox = Checkbox;
     root.SwitchButton = SwitchButton;
 })(window)
