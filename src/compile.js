@@ -42,21 +42,8 @@
         return options;
     }
 
-
-    function preCompile(template) {
-        var $tpl = $('<code>' + template + '</code>');
-        _.each(Framework.staticTags, function(tpl, tagName) {
-            _.each($tpl.find(TAG_PREFIX + tagName), function(elem) {
-                if (_.isFunction(tpl)) tpl = tpl(elem);
-                $(elem).replaceWith(tpl);
-            });
-        });
-        return $tpl.html();
-    }
-
     Framework.tags = CUSTOM_TAGS;
     if (Object.freeze) Object.freeze(Framework.tags);
 
     Framework.compile = compile;
-    Framework.preCompile = preCompile;
 })(window, window.UED)
