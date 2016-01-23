@@ -2,7 +2,7 @@
     'use strict';
 
     // Toggle 按钮
-    function SwitchButton(options) {
+    function Switcher(options) {
         options || (options = {});
         this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
         this.$el = $('<label class="switch">')
@@ -34,11 +34,11 @@
         toggle:       function() { return this.setValue(!this.isChecked()); },
     }
 
-    _.extend(SwitchButton.prototype, protoMixin, Framework.mixins.availableMixin);
+    _.extend(Switcher.prototype, protoMixin, Framework.mixins.availableMixin);
     _.extend(Checkbox.prototype, protoMixin, Framework.mixins.availableMixin);
 
-    SwitchButton.prototype.value = Checkbox.prototype.value = protoMixin.isChecked;
+    Switcher.prototype.value = Checkbox.prototype.value = protoMixin.isChecked;
 
     Framework.Checkbox = Checkbox;
-    Framework.SwitchButton = SwitchButton;
+    Framework.Switcher = Switcher;
 })(window, window.UED)
