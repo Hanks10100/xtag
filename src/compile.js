@@ -42,8 +42,14 @@
         return options;
     }
 
+
+    function preCompile(template) {
+        return template;
+    }
+
     Framework.tags = CUSTOM_TAGS;
     if (Object.freeze) Object.freeze(Framework.tags);
 
     Framework.compile = compile;
+    Framework.preCompile = preCompile;
 })(window, window.UED)

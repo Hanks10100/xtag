@@ -11,6 +11,9 @@
         // 可以通过 setView() 加入父组件中，而且可以自动渲染
         config.enableView && extendAsFishView(fish.View);
 
+        // 可以渲染静态的自定义标签
+        customHandlebarsCompile();
+
         var originalRender = fish.View.prototype.__render;
 
         _.extend(fish.View.prototype, {
@@ -48,6 +51,16 @@
             }
         })
     }
+
+    // 自定义 Handlebars 的编译函数
+    function customHandlebarsCompile() {
+        var HandlebarsCompile = Handlebars.compile;
+        Handlebars.compile = function(template, options) {
+            var tpl = Framework.preCompile(template);
+            return HandlebarsCompile(tpl, options);
+        }
+    }
+
 
     Framework.connectToFish = connectToFish;
 })(window, window.UED)
