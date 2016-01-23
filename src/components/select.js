@@ -32,7 +32,9 @@
             var self = this;
             this.$el.on('click', '.input-group-addon', function(event) {
                 event.stopPropagation();
-                self.toggleOptions();
+                if (self.isEnabled()) {
+                    self.toggleOptions();
+                }
             });
             this.$root.on('click', function() {
                 self.$option.detach();
@@ -61,6 +63,8 @@
         },
     });
 
+    // 添加启用和禁用功能
+    _.extend(Select.prototype, Framework.mixins.availableMixin);
 
     Framework.Select = Select;
 })(window, window.UED)
