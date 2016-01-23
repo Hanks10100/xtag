@@ -22,23 +22,19 @@
             this.$input.on('change', _.bind(callback, this));
             return this;
         },
-        enable: function() {
-            this.$el.addClass('enabled').removeClass('disabled');
-            this.$input.prop('disabled', false);
-            return this;
-        },
-        disable: function() {
-            this.$el.addClass('disabled').removeClass('enabled');
-            this.$input.prop('disabled', true);
+        setAvailable: function(value) {
+            this.$el.toggleClass('disabled', !value);
+            this.$input.prop('disabled', !value);
             return this;
         },
         setValue: function(value) {
             this.$input.prop('checked', !!value);
             return this;
         },
-
         isEnabled: function() { return this.$input.is(':enabled'); },
         isChecked: function() { return this.$input.is(':checked'); },
+        enable:    function() { return this.setAvailable(true); },
+        disable:   function() { return this.setAvailable(false); },
         check:     function() { return this.setValue(true);  },
         uncheck:   function() { return this.setValue(false); },
         toggle:    function() { return this.setValue(!this.isChecked()); },
