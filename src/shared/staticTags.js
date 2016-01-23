@@ -11,4 +11,19 @@
         },
     }
 
+    Framework.registerTag = function(tagName, template) {
+        if (!_.isString(tagName)) throw new TypeError('`tagName` must be a string.');
+        if (!_.isString(template) || _.isFunction(template)) {
+            throw new TypeError('`template` must be a string or a function.');
+        }
+        Framework.staticTags[tagName] = template;
+    }
+
+    Framework.unregisterTag = function(tagName) {
+        if (!_.isString(tagName)) throw new TypeError('`tagName` must be a string.');
+        if (Framework.staticTags[tagName]) {
+            delete Framework.staticTags[tagName];
+        }
+    }
+
 })(window, window.UED)
