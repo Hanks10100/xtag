@@ -13,12 +13,15 @@
                 .append('<span class="glyphicon glyphicon-triangle-bottom"></span>');
         this.$el.append(this.$input, this.$button);
 
+        this.options = [];
         this.$option = $('<ul class="dropdown-list"></ul>');
         _.each(options.children, function(child, index) {
             // console.dir(child);
+            var value = child.getAttribute('value');
+            self.options.push({ value: value, name: child.innerHTML });
             self.$option.append(
-                $('<li></li>').attr('index', index + 1)
-                    .attr('value', child.getAttribute('value'))
+                $('<li></li>').attr('index', index)
+                    .attr('value', value)
                     .html(child.innerHTML)
             );
         });
