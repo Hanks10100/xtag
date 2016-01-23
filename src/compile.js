@@ -46,7 +46,10 @@
     function preCompile(template) {
         var $tpl = $('<code>' + template + '</code>');
         _.each(Framework.staticTags, function(tpl, tagName) {
-            $tpl.find(TAG_PREFIX + tagName).replaceWith(tpl);
+            _.each($tpl.find(TAG_PREFIX + tagName), function(elem) {
+                if (_.isFunction(tpl)) tpl = tpl(elem);
+                $(elem).replaceWith(tpl);
+            });
         });
         return $tpl.html();
     }

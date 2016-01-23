@@ -1,9 +1,14 @@
 ;(function(root, Framework){
     'use strict';
 
+    // 静态的编译函数
     Framework.staticTags = {
-        'header': '<header class="page-header"></header>',
-        'footer': '<footer class="page-footer"></footer>',
+        header: function (elem) {
+            return '<header class="page-header">' + elem.innerHTML + '</header>';
+        },
+        footer: function (elem) {
+            return '<footer class="page-footer">' + elem.innerHTML + '</footer>';
+        },
     }
 
 })(window, window.UED)
