@@ -31,13 +31,14 @@
             this.$input.prop('checked', !!value);
             return this;
         },
-        isEnabled: function() { return this.$input.is(':enabled'); },
-        isChecked: function() { return this.$input.is(':checked'); },
-        enable:    function() { return this.setAvailable(true); },
-        disable:   function() { return this.setAvailable(false); },
-        check:     function() { return this.setValue(true);  },
-        uncheck:   function() { return this.setValue(false); },
-        toggle:    function() { return this.setValue(!this.isChecked()); },
+        isEnabled:    function() { return this.$input.is(':enabled'); },
+        isChecked:    function() { return this.$input.is(':checked'); },
+        enable:       function() { return this.setAvailable(true); },
+        disable:      function() { return this.setAvailable(false); },
+        check:        function() { return this.setValue(true);  },
+        uncheck:      function() { return this.setValue(false); },
+        toggle:       function() { return this.setValue(!this.isChecked()); },
+        toggleEnable: function() { return this.setAvailable(!this.isEnabled()); },
     }
 
     _.extend(SwitchButton.prototype, protoMixin);
