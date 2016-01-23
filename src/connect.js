@@ -6,7 +6,9 @@
         if (!fish) return;
         // console.log('connect to fish', fish);
 
-        extendAsFishView();
+        // 调用此函数后，可以将组件视为 fish.View 的子视图
+        // 可以通过 setView() 加入父组件中，而且可以自动渲染
+        extendAsFishView(fish.View);
 
         var originalRender = fish.View.prototype.__render;
 
@@ -23,13 +25,13 @@
     }
 
     // 可以像 fish.View 那样渲染
-    function extendAsFishView() {
+    function extendAsFishView(View) {
         _.each(UED.tags, function(tag) {
             var Type = UED[tag];
             if (_.isFunction(Type)) {
                 UED[tag] = function(options, configs) {
                     var view = new Type(options, configs);
-                    view.__manager__ = {};
+                    View.setupView(view, {});
                     return view;
                 }
                 Type.prototype.render = function() {
