@@ -1,7 +1,7 @@
 ;(function(root, Framework){
     'use strict';
 
-    var TAG_PREFIX = 'H-';
+    var TAG_PREFIX = 'UED-';
     var CUSTOM_TAGS = ['Table', 'Datetimepicker', 'Switcher', 'Checkbox', 'Select'];
 
     function compile(env) {
