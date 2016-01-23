@@ -24,27 +24,18 @@
             this.$input.on('change', _.bind(callback, this));
             return this;
         },
-        setAvailable: function(value) {
-            this.$el.toggleClass('disabled', !value);
-            this.$input.prop('disabled', !value);
-            return this;
-        },
         setValue: function(value) {
             this.isEnabled() && this.$input.prop('checked', !!value);
             return this;
         },
-        isEnabled:    function() { return this.$input.is(':enabled'); },
         isChecked:    function() { return this.$input.is(':checked'); },
-        enable:       function() { return this.setAvailable(true); },
-        disable:      function() { return this.setAvailable(false); },
         check:        function() { return this.setValue(true);  },
         uncheck:      function() { return this.setValue(false); },
         toggle:       function() { return this.setValue(!this.isChecked()); },
-        toggleEnable: function() { return this.setAvailable(!this.isEnabled()); },
     }
 
-    _.extend(SwitchButton.prototype, protoMixin);
-    _.extend(Checkbox.prototype, protoMixin);
+    _.extend(SwitchButton.prototype, protoMixin, Framework.mixins.availableMixin);
+    _.extend(Checkbox.prototype, protoMixin, Framework.mixins.availableMixin);
 
     SwitchButton.prototype.value = Checkbox.prototype.value = protoMixin.isChecked;
 
