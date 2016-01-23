@@ -8,23 +8,17 @@
         if (!env) env = root;
         _.each(CUSTOM_TAGS, function(tagName) {
             _.each(env.$(TAG_PREFIX + tagName), function(elem) {
-                var widget = { $el: $(elem) };
-                var option = parseOption(elem, env);
+                if (_.isFunction(Framework[tagName])) {
+                    var option = parseOption(elem, env);
+                    var widget = new Framework[tagName](option);
 
-                switch (tagName.toLowerCase()) {
-                    case 'table': widget = new Framework.Table(option); break;
-                    case 'select': widget = new Framework.Select(option); break;
-                    case 'switcher': widget = new Framework.Switcher(option); break;
-                    case 'checkbox': widget = new Framework.Checkbox(option); break;
-                    case 'datetimepicker': widget = new Framework.Datetimepicker(option); break;
-                }
+                    $(elem).replaceWith(widget.$el);
 
-                $(elem).replaceWith(widget.$el);
-
-                var name = option.name;
-                if (name && _.isString(name)) {
-                    env[name] = widget;
-                    env['$' + name] = widget.$el;
+                    var name = option.name;
+                    if (name && _.isString(name)) {
+                        env[name] = widget;
+                        env['$' + name] = widget.$el;
+                    }
                 }
             });
         });
