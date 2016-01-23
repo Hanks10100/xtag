@@ -14,10 +14,10 @@
         this.$el.append(this.$input, this.$button);
 
         this.$option = $('<ul class="dropdown-list"></ul>');
-        _.each(options.children, function(child) {
+        _.each(options.children, function(child, index) {
             // console.dir(child);
             self.$option.append(
-                $('<li></li>')
+                $('<li></li>').attr('index', index + 1)
                     .attr('value', child.getAttribute('value'))
                     .html(child.innerHTML)
             );
@@ -37,6 +37,11 @@
             this.$root.on('click', function() {
                 self.$option.detach();
                 self._optionsIsOpen = false;
+            });
+            this.$option.on('click', 'li', function(event) {
+                var $li = $(event.currentTarget);
+                $li.addClass('selected').siblings().removeClass('selected');
+                self.$input.val($li.text());
             });
         },
         toggleOptions: function(event) {
