@@ -1,4 +1,4 @@
-;(function(root){
+;(function(root, Framework){
     'use strict';
 
     var TAG_PREFIX = 'H-';
@@ -12,10 +12,10 @@
                 var option = parseOption(elem, env);
 
                 switch (tagName.toLowerCase()) {
-                    case 'table': widget = new Table(option); break;
-                    case 'switch': widget = new SwitchButton(option); break;
-                    case 'checkbox': widget = new Checkbox(option); break;
-                    case 'datetimepicker': widget = new Datetimepicker(option); break;
+                    case 'table': widget = new Framework.Table(option); break;
+                    case 'switch': widget = new Framework.SwitchButton(option); break;
+                    case 'checkbox': widget = new Framework.Checkbox(option); break;
+                    case 'datetimepicker': widget = new Framework.Datetimepicker(option); break;
                 }
 
                 $(elem).replaceWith(widget.$el);
@@ -46,5 +46,5 @@
         return options;
     }
 
-    root.compileCustomTag = compile;
-})(window)
+    Framework.compileCustomTag = compile;
+})(window, window.UED)

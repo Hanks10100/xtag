@@ -1,4 +1,4 @@
-;(function(root){
+;(function(root, Framework){
     'use strict';
 
     // 生成表格主体内容
@@ -43,5 +43,5 @@
     });
 
 
-    root.Table = Table;
-})(window)
+    Framework.Table = Table;
+})(window, window.UED)

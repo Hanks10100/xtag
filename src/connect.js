@@ -1,4 +1,4 @@
-;(function(root){
+;(function(root, Framework){
     'use strict';
 
     function connectToFish(fish) {
@@ -13,12 +13,12 @@
             // 将自定义标签的编译过程插入到 fish 默认的渲染流程中
             __render: function() {
                 var res = originalRender.apply(this, arguments);
-                compileCustomTag(this);
+                Framework.compileCustomTag(this);
                 return res;
             }
 
         });
     }
 
-    root.connectToFish = connectToFish;
-})(window)
+    Framework.connectToFish = connectToFish;
+})(window, window.UED)

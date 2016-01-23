@@ -1,4 +1,4 @@
-;(function(root){
+;(function(root, Framework){
     'use strict';
 
     // 日期选择插件的构造函数
@@ -9,5 +9,5 @@
         this.$el.html($input);
     }
 
-    root.Datetimepicker = Datetimepicker;
-})(window)
+    Framework.Datetimepicker = Datetimepicker;
+})(window, window.UED)

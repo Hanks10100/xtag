@@ -1,4 +1,4 @@
-;(function(root){
+;(function(root, Framework){
     'use strict';
 
     // Toggle 按钮
@@ -46,6 +46,6 @@
 
     SwitchButton.prototype.value =Checkbox.prototype.value =  protoMixin.isChecked;
 
-    root.Checkbox = Checkbox;
-    root.SwitchButton = SwitchButton;
-})(window)
+    Framework.Checkbox = Checkbox;
+    Framework.SwitchButton = SwitchButton;
+})(window, window.UED)
