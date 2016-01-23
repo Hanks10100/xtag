@@ -46,5 +46,8 @@
         return options;
     }
 
+    Framework.tags = CUSTOM_TAGS;
+    if (Object.freeze) Object.freeze(Framework.tags);
+
     Framework.compileCustomTag = compile;
 })(window, window.UED)
