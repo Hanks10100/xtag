@@ -5,10 +5,13 @@
     var availableMixin = {
         setAvailable: function(value) {
             this.$el.toggleClass('disabled', !value);
-            this.$input.prop('disabled', !value);
+            this.$input && this.$input.prop('disabled', !value);
             return this;
         },
-        isEnabled:    function() { return this.$input.is(':enabled'); },
+        isEnabled: function() {
+            if (this.$input) return this.$input.is(':enabled');
+            return this.$el.hasClass('disabled');
+        },
         enable:       function() { return this.setAvailable(true); },
         disable:      function() { return this.setAvailable(false); },
         toggleEnable: function() { return this.setAvailable(!this.isEnabled()); },
