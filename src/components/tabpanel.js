@@ -14,6 +14,7 @@
             }
         });
         this.initElement();
+        this.bindEvents();
     }
 
 
@@ -26,6 +27,7 @@
             _.each(this.tabs, function(group, index) {
                 self.$trigger.append(
                     $('<li class="tabs-nav-cell"></li>')
+                        .data('index', index)
                         .toggleClass('active', self.activeTab === index)
                         .append($('<span></span>').html(group.trigger.innerHTML))
                     );
@@ -37,6 +39,19 @@
             });
             this.$el = $('<div class="ued-tabs"></div>').append(this.$trigger, this.$targets);
             return this.$el;
+        },
+        bindEvents: function() {
+            var self = this;
+            this.$el.on('click', '.tabs-nav-cell', function(event) {
+                var $cell = $(event.currentTarget);
+                var index = $cell.data('index');
+                $cell.addClass('active').siblings().removeClass('active');
+                self.$targets.find(':nth-child('+(index+1)+')').show().siblings().hide();
+                if (this.activeTab !== index) {
+                    // TODO: 触发 change 事件
+                    this.activeTab = index;
+                }
+            });
         },
         afterMount: function() {
         }
