@@ -9,6 +9,7 @@
         this.tabs = _.map(options.children, function(group, index) {
             if (group.getAttribute('default')) self.activeTab = index;
             return {
+                index: index,
                 trigger: _.first(group.getElementsByTagName('trigger')),
                 target: _.first(group.getElementsByTagName('target')),
             }
@@ -60,7 +61,7 @@
         },
         afterMount: function() {
         },
-        value: function() {
+        getCurrentTabIndex: function() {
             return this.activeTab;
         },
     });
@@ -70,6 +71,8 @@
 
     // 添加自定义事件的功能
     _.extend(TabPanel.prototype, Backbone.Events);
+
+    TabPanel.prototype.value = TabPanel.prototype.getCurrentTabIndex;
 
     Framework.TabPanel = TabPanel;
 })(window, window.UED)
