@@ -54,7 +54,10 @@
             });
         },
         afterMount: function() {
-        }
+        },
+        value: function() {
+            return this.activeTab;
+        },
     });
 
     // 添加启用和禁用功能
