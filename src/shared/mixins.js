@@ -10,7 +10,7 @@
         },
         isEnabled: function() {
             if (this.$input) return this.$input.is(':enabled');
-            return this.$el.hasClass('disabled');
+            return !this.$el.hasClass('disabled');
         },
         enable:       function() { return this.setAvailable(true); },
         disable:      function() { return this.setAvailable(false); },

@@ -41,19 +41,24 @@
         bindEvents: function() {
             var self = this;
             this.$el.on('click', '.tabs-nav-cell', function(event) {
-                var $cell = $(event.currentTarget);
-                var index = $cell.data('index');
-                $cell.addClass('active').siblings().removeClass('active');
-                self.$targets.find(':nth-child('+(index+1)+')').show().siblings().hide();
-                if (self.activeTab !== index) {
-                    self.trigger('change');
-                    self.activeTab = index;
+                if (self.isEnabled()) {
+                    var $cell = $(event.currentTarget);
+                    var index = $cell.data('index');
+                    $cell.addClass('active').siblings().removeClass('active');
+                    self.$targets.find(':nth-child('+(index+1)+')').show().siblings().hide();
+                    if (self.activeTab !== index) {
+                        self.trigger('change');
+                        self.activeTab = index;
+                    }
                 }
             });
         },
         afterMount: function() {
         }
     });
+
+    // 添加启用和禁用功能
+    _.extend(TabPanel.prototype, Framework.mixins.availableMixin);
 
     // 添加自定义事件的功能
     _.extend(TabPanel.prototype, Backbone.Events);
