@@ -17,8 +17,6 @@
         this.bindEvents();
     }
 
-
-
     _.extend(TabPanel.prototype, {
         initElement: function() {
             var self = this;
@@ -47,15 +45,18 @@
                 var index = $cell.data('index');
                 $cell.addClass('active').siblings().removeClass('active');
                 self.$targets.find(':nth-child('+(index+1)+')').show().siblings().hide();
-                if (this.activeTab !== index) {
-                    // TODO: 触发 change 事件
-                    this.activeTab = index;
+                if (self.activeTab !== index) {
+                    self.trigger('change');
+                    self.activeTab = index;
                 }
             });
         },
         afterMount: function() {
         }
     });
+
+    // 添加自定义事件的功能
+    _.extend(TabPanel.prototype, Backbone.Events);
 
     Framework.TabPanel = TabPanel;
 })(window, window.UED)
