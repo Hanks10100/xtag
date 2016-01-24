@@ -24,17 +24,15 @@
             this.$trigger = $('<ul class="tabs-nav"></ul>');
             this.$targets = $('<div class="tabs-content"></div>');
             _.each(this.tabs, function(group, index) {
-                self.$trigger.append(
-                    $('<li class="tabs-nav-cell"></li>')
-                        .data('index', index)
-                        .toggleClass('active', self.activeTab === index)
-                        .append($('<span></span>').html(group.trigger.innerHTML))
-                    );
-                self.$targets.append(
-                    $('<div class="tabs-panel"></div>')
-                        .toggle(self.activeTab === index)
-                        .html(group.target.innerHTML)
-                );
+                group.trigger = $('<li class="tabs-nav-cell"></li>')
+                    .data('index', index)
+                    .toggleClass('active', self.activeTab === index)
+                    .append($('<span></span>').html(group.trigger.innerHTML))
+                self.$trigger.append(group.trigger);
+                group.target = $('<div class="tabs-panel"></div>')
+                    .toggle(self.activeTab === index)
+                    .html(group.target.innerHTML)
+                self.$targets.append(group.target);
             });
             this.$el = $('<div class="ued-tabs"></div>').append(this.$trigger, this.$targets);
             return this.$el;
@@ -61,6 +59,9 @@
         },
         afterMount: function() {
         },
+        getCurrentTab: function() {
+            return this.tabs[this.activeTab];
+        },
         getCurrentTabIndex: function() {
             return this.activeTab;
         },
@@ -72,7 +73,7 @@
     // 添加自定义事件的功能
     _.extend(TabPanel.prototype, Backbone.Events);
 
-    TabPanel.prototype.value = TabPanel.prototype.getCurrentTabIndex;
+    TabPanel.prototype.value = TabPanel.prototype.getCurrentTab;
 
     Framework.TabPanel = TabPanel;
 })(window, window.UED)
