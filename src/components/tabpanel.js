@@ -48,9 +48,9 @@
                 if (self.isEnabled()) {
                     var $cell = $(event.currentTarget);
                     var index = $cell.data('index');
-                    $cell.addClass('active').siblings().removeClass('active');
-                    self.$contents.find(':nth-child('+(index+1)+')').show().siblings().hide();
                     if (self.activeTab !== index) {
+                        $cell.addClass('active').siblings().removeClass('active');
+                        self.$contents.find(':nth-child('+(index+1)+')').show().siblings().hide();
                         self.activeTab = index;
                         self.trigger('change');
                     }
