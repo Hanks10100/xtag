@@ -47,11 +47,16 @@
                     $cell.addClass('active').siblings().removeClass('active');
                     self.$targets.find(':nth-child('+(index+1)+')').show().siblings().hide();
                     if (self.activeTab !== index) {
-                        self.trigger('change');
                         self.activeTab = index;
+                        self.trigger('change');
                     }
                 }
             });
+        },
+        onChange: function(callback) {
+            if (!_.isFunction(callback)) return this;
+            this.on('change', _.bind(callback, this));
+            return this;
         },
         afterMount: function() {
         },
