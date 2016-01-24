@@ -7,7 +7,7 @@
         var self = this;
         this.activeTab = 0;
         this.tabs = _.map(options.children, function(group, index) {
-            if (group.getAttribute('default')) self.activeTab = index;
+            if (group.getAttribute('active')) self.activeTab = index;
             return {
                 index: index,
                 trigger: _.first(group.getElementsByTagName('trigger')),
