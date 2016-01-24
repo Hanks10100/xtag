@@ -14,13 +14,22 @@
                 target: _.first(group.getElementsByTagName('target')),
             }
         });
-        this.initElement();
+        this.initElement(options);
         this.bindEvents();
     }
 
     _.extend(TabPanel.prototype, {
-        initElement: function() {
+        initElement: function(options) {
             var self = this;
+            this.$el = $('<div class="ued-tabs"></div>');
+            this.tabStyle = 'horizontal';
+            this.align = options.align || 'top';
+            if (this.align === 'left' || this.align === 'right') {
+                this.tabStyle = 'vertical';
+            }
+            this.$el.addClass('tabs-' + this.tabStyle);
+            if (this.align) this.$el.addClass('align-' + this.align);
+
             this.$navs = $('<ul class="tabs-nav"></ul>');
             this.$contents = $('<div class="tabs-content"></div>');
             _.each(this.tabs, function(group, index) {
@@ -39,7 +48,12 @@
                 self.$navs.append(group.trigger);
                 self.$contents.append(group.target);
             });
-            this.$el = $('<div class="ued-tabs"></div>').append(this.$navs, this.$contents);
+
+            if (this.align === 'bottom') {
+                this.$el.append(this.$contents, this.$navs);
+            } else {
+                this.$el.append(this.$navs, this.$contents);
+            }
             return this.$el;
         },
         bindEvents: function() {
