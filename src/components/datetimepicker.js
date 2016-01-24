@@ -4,10 +4,16 @@
     // 日期选择插件的构造函数
     function Datetimepicker(options) {
         this.$el = $('<div class="input-group"></div>');
-        var $input = $('<input type="text" class="form-control">');
+        this.$input = $('<input type="text" class="form-control">');
 
-        this.$el.html($input);
+        this.$el.html(this.$input);
     }
+
+    _.extend(Datetimepicker.prototype, {
+        afterMount: function() {
+            this.$input.datetimepicker();
+        }
+    });
 
     Framework.Datetimepicker = Datetimepicker;
 })(window, window.UED)

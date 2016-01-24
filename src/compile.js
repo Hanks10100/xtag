@@ -19,6 +19,8 @@
                         env[name] = widget;
                         env['$' + name] = widget.$el;
                     }
+
+                    _.isFunction(widget.afterMount) && widget.afterMount();
                 }
             });
         });
