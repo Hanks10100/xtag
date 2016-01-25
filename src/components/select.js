@@ -5,12 +5,10 @@
     function Select() {
         this.$root = $('body');
 
-        try {
-            Object.defineProperty(this, 'value', {
-                get: function() { return this.getValue(); },
-                set: function(value) { this.setValue(value); }
-            });
-        } catch (e) {}
+        this.defineShadowValue('value', {
+            get: function() { return this.getValue(); },
+            set: function(value) { this.setValue(value); return value; }
+        });
 
         this.initElement.apply(this, arguments);
         this.bingEvents();
@@ -109,6 +107,9 @@
 
     // 添加启用和禁用功能
     _.extend(Select.prototype, Framework.mixins.availableMixin);
+
+    // 添加 getter/setter 相关功能
+    _.extend(Select.prototype, Framework.mixins.shadowMixin);
 
     // 添加自定义事件的功能
     _.extend(Select.prototype, Backbone.Events);

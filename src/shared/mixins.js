@@ -56,7 +56,7 @@
 
             this.createShadowObject();
 
-            this[KEY][name] = opt.get.apply(this) || opt.defaultValue;
+            this[KEY][name] = opt.defaultValue || null;
 
             try {
                 Object.defineProperty(this, name, {
