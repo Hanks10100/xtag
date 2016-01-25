@@ -2,7 +2,7 @@
     'use strict';
 
     var TAG_PREFIX = 'UED-';
-    var CUSTOM_TAGS = ['Table', 'Datetimepicker', 'Switcher', 'Checkbox', 'Select', 'TabPanel'];
+    var CUSTOM_TAGS = ['TabPanel', 'Select', 'Table', 'Datetimepicker', 'Switcher', 'Checkbox'];
 
     function compile(env) {
         if (!env) env = root;

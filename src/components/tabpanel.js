@@ -39,7 +39,6 @@
                     .toggleClass('active', self.activeTab === index)
                     .append($('<span></span>').html(group.title))
 
-                // TODO: 编译 panel 中的内容，使其可以嵌套自定义的组件
                 group.panel = group.target.innerHTML;
                 group.target = $('<div class="tabs-panel"></div>')
                     .toggle(self.activeTab === index)
