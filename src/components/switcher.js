@@ -39,7 +39,12 @@
             return this;
         },
         setValue: function(value) {
-            this.isEnabled() && this.$input.prop('checked', !!value);
+            if (!this.isEnabled()) return this;
+            var oldValue = this.isChecked();
+            if (!!value !== oldValue) {
+                this.$input.prop('checked', !!value);
+                this.$input.trigger('change');
+            }
             return this;
         },
         isChecked:    function() { return this.$input.is(':checked'); },
