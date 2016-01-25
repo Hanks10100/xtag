@@ -5,17 +5,6 @@
     function TabPanel(options) {
         options || (options = {});
         var self = this;
-        this.tabs = _.map(options.children, function(group, index) {
-            if (group.getAttribute('active')) self.activeTab = index;
-            return {
-                index: index,
-                trigger: _.first(group.getElementsByTagName('trigger')),
-                target: _.first(group.getElementsByTagName('target')),
-            }
-        });
-        this.createShadowObject();
-        this.initElement.apply(this, arguments);
-        this.bindEvents();
 
         // 定义影子变量，可在 getter/setter 中绑定额外操作
         this.defineShadowValue('align', {
@@ -25,6 +14,19 @@
             set: function(index) { this.switchTo(index); return index; }
         });
 
+        this.tabs = _.map(options.children, function(group, index) {
+            if (group.getAttribute('active')) {
+                self.setShadowValue('activeTab', index);
+            }
+            return {
+                index: index,
+                trigger: _.first(group.getElementsByTagName('trigger')),
+                target: _.first(group.getElementsByTagName('target')),
+            }
+        });
+
+        this.initElement.apply(this, arguments);
+        this.bindEvents();
     }
 
     _.extend(TabPanel.prototype, {
