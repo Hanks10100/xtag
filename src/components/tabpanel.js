@@ -7,11 +7,13 @@
         var self = this;
 
         // 定义影子变量，可在 getter/setter 中绑定额外操作
-        this.defineShadowValue('align', {
-            set: function(index) { this.alignTo(index); return index; }
-        });
-        this.defineShadowValue('activeTab', {
-            set: function(index) { this.switchTo(index); return index; }
+        this.defineShadowValues({
+            align: {
+                set: function(index) { this.alignTo(index); return index; }
+            },
+            activeTab: {
+                set: function(index) { this.switchTo(index); return index; }
+            }
         });
 
         this.tabs = _.map(options.children, function(group, index) {

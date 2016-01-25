@@ -34,9 +34,18 @@
                     this[KEY] = {};
                 }
             }
+            return this;
+        },
+        defineShadowValues: function(options) {
+            // TODO: 校验参数
+            var self = this;
+            _.each(options, function(option, name) {
+                self.defineShadowValue(name, option)
+            });
+            return this;
         },
         defineShadowValue: function(name, option) {
-            var opt = _.pick(option, 'get', 'set');
+            var opt = _.pick(option, 'get', 'set', 'defaultValue');
 
             if (!_.isFunction(opt.get)) {
                 opt.get = function() { return this[KEY][name]; }
@@ -47,7 +56,7 @@
 
             this.createShadowObject();
 
-            this[KEY][name] = opt.get.apply(this);
+            this[KEY][name] = opt.get.apply(this) || opt.defaultValue;
 
             try {
                 Object.defineProperty(this, name, {
@@ -59,6 +68,7 @@
             } catch (e) {
                 this[name] = this[KEY][name];
             }
+            return this;
         },
         setShadowValue: function(name, value) {
             if (this.hasShadowObject()) {
@@ -66,6 +76,7 @@
             } else {
                 this[name] = value;
             }
+            return this;
         },
     }
 
