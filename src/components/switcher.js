@@ -2,37 +2,34 @@
     'use strict';
 
     // Toggle 按钮
-    function Switcher(options) {
-        options || (options = {});
-        this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
-        this.$el = $('<label class="switch">')
-            .append(this.$input)
-            .append('<span></span>');
-
-        try {
-            Object.defineProperty(this, 'value', {
-                get: function() { return this.isChecked(); },
-                set: function(value) { this.setValue(value); }
-            });
-        } catch (e) {}
+    function Switcher() {
+        this.className = 'switch';
+        this.initElement.apply(this, arguments);
     }
 
-    function Checkbox(options) {
-        options || (options = {});
-        this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
-        this.$el = $('<label class="i-checks">')
-            .append(this.$input)
-            .append('<span></span>');
-
-        try {
-            Object.defineProperty(this, 'value', {
-                get: function() { return this.isChecked(); },
-                set: function(value) { this.setValue(value); }
-            });
-        } catch (e) {}
+    function Checkbox() {
+        this.className = 'i-checks';
+        this.initElement.apply(this, arguments);
     }
 
     var protoMixin = {
+        initElement: function(options) {
+            options || (options = {});
+            this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
+            this.$el = $('<label></label>')
+                .addClass(this.className)
+                .append(this.$input)
+                .append('<span></span>');
+
+            try {
+                Object.defineProperty(this, 'value', {
+                    get: function() { return this.isChecked(); },
+                    set: function(value) { this.setValue(value); }
+                });
+            } catch (e) {}
+
+            return this.$el;
+        },
         onChange: function(callback) {
             if (!_.isFunction(callback)) return this;
             this.$input.on('change', _.bind(callback, this));

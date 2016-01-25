@@ -14,7 +14,7 @@
                 target: _.first(group.getElementsByTagName('target')),
             }
         });
-        this.initElement(options);
+        this.initElement.apply(this, arguments);
         this.bindEvents();
 
         try {
