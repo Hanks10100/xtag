@@ -8,6 +8,9 @@
 
         // 定义影子变量，可在 getter/setter 中绑定额外操作
         this.defineShadowValues({
+            value: {
+                get: function() { return this.tabs[this.activeTab]; }
+            },
             align: {
                 set: function(dir) {
                     dir = dir.toLowerCase();
@@ -162,8 +165,6 @@
 
     // 添加自定义事件的功能
     _.extend(TabPanel.prototype, Backbone.Events);
-
-    TabPanel.prototype.value = TabPanel.prototype.getCurrentTab;
 
     Framework.TabPanel = TabPanel;
 })(window, window.UED)

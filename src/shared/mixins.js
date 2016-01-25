@@ -49,7 +49,7 @@
                 opt.get = function() { return this[KEY][name]; }
             }
             if (!_.isFunction(opt.set)) {
-                throw new TypeError('`option.set` must be a function.');
+                opt.set = function(value) { return this[KEY][name] = value; }
             }
 
             this.createShadowObject();
