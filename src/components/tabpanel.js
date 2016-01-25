@@ -9,7 +9,11 @@
         // 定义影子变量，可在 getter/setter 中绑定额外操作
         this.defineShadowValues({
             align: {
-                set: function(index) { this.alignTo(index); return index; }
+                set: function(dir) {
+                    dir = dir.toLowerCase();
+                    if (_.indexOf(['left', 'right', 'top', 'bottom'], dir) === -1) return this.align;
+                    this.alignTo(dir); return dir;
+                }
             },
             activeTab: {
                 set: function(index) { this.switchTo(index); return index; }
@@ -69,10 +73,12 @@
         },
         alignTo: function(direction) {
             if (!direction || !_.isString(direction)) return this;
-            var dir = direction.toLowerCase();
-            if (_.indexOf(['left', 'right', 'top', 'bottom'], dir) === -1) return this;
+            var originalAlign = this.align;
+            this.setShadowValue('align', direction);
 
-            switch (dir) {
+            if (originalAlign === this.align) return this;
+
+            switch (this.align) {
                 case 'left': case 'right': this.tabStyle = 'vertical';   break;
                 case 'top': case 'bottom': this.tabStyle = 'horizontal'; break;
                 default: this.tabStyle = 'unknown';
@@ -82,15 +88,14 @@
             this.$contents.detach();
             this.$el.empty()
                 .removeClass('tabs-vertical tabs-horizontal tabs-unknown')
-                .addClass('tabs-' + this.tabStyle).attr('align', dir);
+                .addClass('tabs-' + this.tabStyle).attr('align', this.align);
 
-            if (dir === 'bottom') {
+            if (this.align === 'bottom') {
                 this.$el.append(this.$contents, this.$navs);
             } else {
                 this.$el.append(this.$navs, this.$contents);
             }
 
-            this.setShadowValue('align', dir);
             this.adjustLayout();
             return this;
         },
