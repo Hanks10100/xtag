@@ -30,23 +30,26 @@
             this.$el.addClass('tabs-' + this.tabStyle);
             if (this.align) this.$el.addClass('align-' + this.align);
 
-            this.$navs = $('<ul class="tabs-nav"></ul>');
+            this.$navList = $('<ul class="tabs-nav-list"></ul>');
             this.$contents = $('<div class="tabs-content"></div>');
             _.each(this.tabs, function(group, index) {
                 group.title = group.trigger.innerHTML;
                 group.trigger = $('<li class="tabs-nav-cell"></li>')
                     .data('index', index)
+                    .attr('title', group.title)
                     .toggleClass('active', self.activeTab === index)
                     .append($('<span></span>').html(group.title))
 
                 group.panel = group.target.innerHTML;
-                group.target = $('<div class="tabs-panel"></div>')
+                group.target = $('<section class="tabs-panel"></section>')
+                    .data('index', index)
                     .toggle(self.activeTab === index)
                     .html(group.panel)
 
-                self.$navs.append(group.trigger);
+                self.$navList.append(group.trigger);
                 self.$contents.append(group.target);
             });
+            this.$navs = $('<nav class="tabs-nav"></nav>').append(this.$navList);
 
             if (this.align === 'bottom') {
                 this.$el.append(this.$contents, this.$navs);
