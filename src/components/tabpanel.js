@@ -81,6 +81,25 @@
             return this;
         },
         afterMount: function() {
+            this.adjustLayout();
+        },
+        adjustLayout: function() {
+            var el = {
+                width: this.$el.outerWidth(),
+                height: this.$el.outerHeight()
+            };
+            var nav = {
+                width: this.$navs.outerWidth(),
+                height: this.$navs.outerHeight()
+            };
+            var panel = {
+                width: this.$contents.outerWidth(),
+                height: this.$contents.outerHeight()
+            };
+            if (this.tabStyle === 'vertical') {
+                var maxHeight = Math.max(el.height, nav.height, panel.height);
+                this.$el.height(maxHeight);
+            }
         },
         getCurrentTab: function() {
             return this.tabs[this.activeTab];
