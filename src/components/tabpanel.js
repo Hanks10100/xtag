@@ -16,6 +16,22 @@
         });
         this.initElement(options);
         this.bindEvents();
+
+        try {
+            // 当浏览器版本较高时，使用 setter 自动调整 tab 位置
+            this['((align))'] = 'top';
+            Object.defineProperty(this, 'align', {
+                get: function() {
+                    return this['((align))'];
+                },
+                set: function(index) {
+                    this.alignTo(index);
+                }
+            });
+        } catch (e) {
+            this.align = 'top';
+        }
+
     }
 
     _.extend(TabPanel.prototype, {
@@ -56,11 +72,10 @@
         },
         alignTo: function(direction) {
             if (!direction || !_.isString(direction)) return this;
-            direction = direction.toLowerCase();
-            if (_.indexOf(['left', 'right', 'top', 'bottom'], direction) === -1) return this;
+            var dir = direction.toLowerCase();
+            if (_.indexOf(['left', 'right', 'top', 'bottom'], dir) === -1) return this;
 
-            this.align = direction;
-            switch (this.align) {
+            switch (dir) {
                 case 'left': case 'right': this.tabStyle = 'vertical';   break;
                 case 'top': case 'bottom': this.tabStyle = 'horizontal'; break;
                 default: this.tabStyle = 'unknown';
@@ -70,12 +85,18 @@
             this.$contents.detach();
             this.$el.empty()
                 .removeClass('tabs-vertical tabs-horizontal tabs-unknown')
-                .addClass('tabs-' + this.tabStyle).attr('align', this.align);
+                .addClass('tabs-' + this.tabStyle).attr('align', dir);
 
-            if (this.align === 'bottom') {
+            if (dir === 'bottom') {
                 this.$el.append(this.$contents, this.$navs);
             } else {
                 this.$el.append(this.$navs, this.$contents);
+            }
+
+            if (this['((align))']) {
+                this['((align))'] = dir;
+            } else {
+                this.align = dir;
             }
 
             this.adjustLayout();
