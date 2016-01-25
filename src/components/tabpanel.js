@@ -16,7 +16,10 @@
                 }
             },
             activeTab: {
-                set: function(index) { this.switchTo(index); return index; }
+                set: function(index) {
+                    if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this.activeTab;
+                    this.switchTo(index); return index;
+                }
             }
         });
 
@@ -100,14 +103,15 @@
             return this;
         },
         switchTo: function(index) {
-            if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this;
             if (this.isEnabled()) {
-                if (this.activeTab !== index) {
+                var originalIndex = this.activeTab;
+                this.setShadowValue('activeTab', index);
+
+                if (this.activeTab !== originalIndex) {
                     var $cell = this.$navs.find('.tabs-nav-cell:nth-child('+(index+1)+')');
                     var $target = this.$contents.find('.tabs-panel:nth-child('+(index+1)+')');
                     $cell.addClass('active').siblings().removeClass('active');
                     $target.show().siblings().hide();
-                    this.setShadowValue('activeTab', index);
                     this.trigger('change');
                 }
             }
