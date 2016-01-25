@@ -39,16 +39,16 @@
             // TODO: 校验参数
             var opt = _.pick(option, 'get', 'set');
 
-            this[KEY][name] = opt.get.call(this);
+            if (!_.isFunction(opt.get)) {
+                opt.get = function() { return this[KEY][name]; }
+            }
+
+            this[KEY][name] = opt.get.apply(this);
 
             try {
                 Object.defineProperty(this, name, {
                     get: function() {
-                        if (_.isFunction(opt.get)) {
-                            return opt.get.call(this);
-                        } else {
-                            return this[KEY][name];
-                        }
+                        return opt.get.apply(this);
                     },
                     set: function() {
                         this[KEY][name] = opt.set.apply(this, arguments);

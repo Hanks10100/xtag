@@ -13,33 +13,17 @@
                 target: _.first(group.getElementsByTagName('target')),
             }
         });
+        this.createShadowObject();
         this.initElement.apply(this, arguments);
         this.bindEvents();
 
-        try {
-            // 当浏览器版本较高时，使用 setter 自动调整 tab 位置
-            this['((align))'] = 'top';
-            Object.defineProperty(this, 'align', {
-                get: function() {
-                    return this['((align))'];
-                },
-                set: function(index) {
-                    this.alignTo(index);
-                }
-            });
-            this['((activeTab))'] = 0;
-            Object.defineProperty(this, 'activeTab', {
-                get: function() {
-                    return this['((activeTab))'];
-                },
-                set: function(index) {
-                    this.switchTo(index);
-                }
-            });
-        } catch (e) {
-            this.align = 'top';
-            this.activeTab = 0;
-        }
+        // 定义影子变量，可在 getter/setter 中绑定额外操作
+        this.defineShadowValue('align', {
+            set: function(index) { this.alignTo(index); return index; }
+        });
+        this.defineShadowValue('activeTab', {
+            set: function(index) { this.switchTo(index); return index; }
+        });
 
     }
 
@@ -102,12 +86,7 @@
                 this.$el.append(this.$navs, this.$contents);
             }
 
-            if (this['((align))']) {
-                this['((align))'] = dir;
-            } else {
-                this.align = dir;
-            }
-
+            this.setShadowValue('align', dir);
             this.adjustLayout();
             return this;
         },
@@ -119,11 +98,7 @@
                     var $target = this.$contents.find('.tabs-panel:nth-child('+(index+1)+')');
                     $cell.addClass('active').siblings().removeClass('active');
                     $target.show().siblings().hide();
-                    if (_.isNumber(this['((activeTab))'])) {
-                        this['((activeTab))'] = index;
-                    } else {
-                        this.activeTab = index;
-                    }
+                    this.setShadowValue('activeTab', index);
                     this.trigger('change');
                 }
             }
