@@ -58,18 +58,22 @@
         bindEvents: function() {
             var self = this;
             this.$el.on('click', '.tabs-nav-cell', function(event) {
-                if (self.isEnabled()) {
-                    var $cell = $(event.currentTarget);
-                    var index = $cell.data('index');
-                    if (self.activeTab !== index) {
-                        var $target = self.$contents.find('.tabs-panel:nth-child('+(index+1)+')');
-                        $cell.addClass('active').siblings().removeClass('active');
-                        $target.show().siblings().hide();
-                        self.activeTab = index;
-                        self.trigger('change');
-                    }
-                }
+                self.switchTo($(event.currentTarget).data('index'));
             });
+        },
+        switchTo: function(index) {
+            if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this;
+            if (this.isEnabled()) {
+                if (this.activeTab !== index) {
+                    var $cell = this.$navs.find('.tabs-nav-cell:nth-child('+(index+1)+')');
+                    var $target = this.$contents.find('.tabs-panel:nth-child('+(index+1)+')');
+                    $cell.addClass('active').siblings().removeClass('active');
+                    $target.show().siblings().hide();
+                    this.activeTab = index;
+                    this.trigger('change');
+                }
+            }
+            return this;
         },
         onChange: function(callback) {
             if (!_.isFunction(callback)) return this;
