@@ -5,7 +5,6 @@
     function TabPanel(options) {
         options || (options = {});
         var self = this;
-        this.activeTab = 0;
         this.tabs = _.map(options.children, function(group, index) {
             if (group.getAttribute('active')) self.activeTab = index;
             return {
@@ -28,8 +27,18 @@
                     this.alignTo(index);
                 }
             });
+            this['((activeTab))'] = 0;
+            Object.defineProperty(this, 'activeTab', {
+                get: function() {
+                    return this['((activeTab))'];
+                },
+                set: function(index) {
+                    this.switchTo(index);
+                }
+            });
         } catch (e) {
             this.align = 'top';
+            this.activeTab = 0;
         }
 
     }
@@ -110,7 +119,11 @@
                     var $target = this.$contents.find('.tabs-panel:nth-child('+(index+1)+')');
                     $cell.addClass('active').siblings().removeClass('active');
                     $target.show().siblings().hide();
-                    this.activeTab = index;
+                    if (_.isNumber(this['((activeTab))'])) {
+                        this['((activeTab))'] = index;
+                    } else {
+                        this.activeTab = index;
+                    }
                     this.trigger('change');
                 }
             }
