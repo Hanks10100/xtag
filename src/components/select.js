@@ -31,6 +31,7 @@
     }
 
     _.extend(Select.prototype, {
+        type: 'Select',
         bingEvents: function() {
             var self = this;
             this.$el.on('click', '.input-group-addon', function(event) {

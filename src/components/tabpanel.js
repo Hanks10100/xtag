@@ -19,6 +19,7 @@
     }
 
     _.extend(TabPanel.prototype, {
+        type: 'Tabs',
         initElement: function(options) {
             var self = this;
             this.$el = $('<div class="ued-tabs"></div>');

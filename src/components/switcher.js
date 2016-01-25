@@ -34,8 +34,13 @@
         toggle:       function() { return this.setValue(!this.isChecked()); },
     }
 
-    _.extend(Switcher.prototype, protoMixin, Framework.mixins.availableMixin);
-    _.extend(Checkbox.prototype, protoMixin, Framework.mixins.availableMixin);
+    _.extend(Switcher.prototype, protoMixin, {
+        type: 'Switcher',
+    }, Framework.mixins.availableMixin);
+
+    _.extend(Checkbox.prototype, protoMixin, {
+        type: 'Checkbox',
+    }, Framework.mixins.availableMixin);
 
     Switcher.prototype.value = Checkbox.prototype.value = protoMixin.isChecked;
 

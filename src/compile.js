@@ -11,6 +11,7 @@
                 if (_.isFunction(Framework[tagName])) {
                     var option = parseOption(elem, env);
                     var widget = new Framework[tagName](option);
+                    widget.$el.attr('data-via', 'compiled').attr('data-type', widget.type);
 
                     $(elem).replaceWith(widget.$el);
 

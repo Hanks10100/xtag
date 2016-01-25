@@ -39,7 +39,7 @@
 
     // 给表格组件添加接口
     _.extend(Table.prototype, {
-
+        type: 'Table',
     });
 
 

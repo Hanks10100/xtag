@@ -10,6 +10,7 @@
     }
 
     _.extend(Datetimepicker.prototype, {
+        type: 'Datetimepicker',
         afterMount: function() {
             this.$input.datetimepicker();
         }
