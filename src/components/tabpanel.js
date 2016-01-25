@@ -23,13 +23,6 @@
         initElement: function(options) {
             var self = this;
             this.$el = $('<div class="ued-tabs"></div>');
-            this.tabStyle = 'horizontal';
-            this.align = options.align || 'top';
-            if (this.align === 'left' || this.align === 'right') {
-                this.tabStyle = 'vertical';
-            }
-            this.$el.addClass('tabs-' + this.tabStyle);
-            if (this.align) this.$el.addClass('align-' + this.align);
 
             this.$navList = $('<ul class="tabs-nav-list"></ul>');
             this.$contents = $('<div class="tabs-content"></div>');
@@ -52,11 +45,7 @@
             });
             this.$navs = $('<nav class="tabs-nav"></nav>').append(this.$navList);
 
-            if (this.align === 'bottom') {
-                this.$el.append(this.$contents, this.$navs);
-            } else {
-                this.$el.append(this.$navs, this.$contents);
-            }
+            this.alignTo(options.align || 'top');
             return this.$el;
         },
         bindEvents: function() {
@@ -64,6 +53,31 @@
             this.$el.on('click', '.tabs-nav-cell', function(event) {
                 self.switchTo($(event.currentTarget).data('index'));
             });
+        },
+        alignTo: function(direction) {
+            if (!direction || !_.isString(direction)) return this;
+            direction = direction.toLowerCase();
+            if (_.indexOf(['left', 'right', 'top', 'bottom'], direction) === -1) return this;
+
+            this.align = direction;
+            switch (this.align) {
+                case 'left': case 'right': this.tabStyle = 'vertical';   break;
+                case 'top': case 'bottom': this.tabStyle = 'horizontal'; break;
+                default: this.tabStyle = 'unknown';
+            }
+
+            this.$navs.detach();
+            this.$contents.detach();
+            this.$el.empty()
+                .removeClass('tabs-vertical tabs-horizontal tabs-unknown')
+                .addClass('tabs-' + this.tabStyle).attr('align', this.align);
+
+            if (this.align === 'bottom') {
+                this.$el.append(this.$contents, this.$navs);
+            } else {
+                this.$el.append(this.$navs, this.$contents);
+            }
+            return this;
         },
         switchTo: function(index) {
             if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this;
