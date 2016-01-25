@@ -169,6 +169,9 @@
     // 添加启用和禁用功能
     _.extend(TabPanel.prototype, Framework.mixins.availableMixin);
 
+    // 添加 getter/setter 相关功能
+    _.extend(TabPanel.prototype, Framework.mixins.shadowMixin);
+
     // 添加自定义事件的功能
     _.extend(TabPanel.prototype, Backbone.Events);
 
