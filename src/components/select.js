@@ -5,6 +5,13 @@
     function Select() {
         this.$root = $('body');
 
+        try {
+            Object.defineProperty(this, 'value', {
+                get: function() { return this.getValue(); },
+                set: function(value) { this.setValue(value); }
+            });
+        } catch (e) {}
+
         this.initElement.apply(this, arguments);
         this.bingEvents();
     }
@@ -91,7 +98,7 @@
             var newValue = _.reduce(this._options, function(res, opt) {
                 if (opt.value === value) return opt.name;
                 return res;
-            }, null);
+            }, original);
             if (newValue !== original) {
                 this.$input.val(newValue);
                 this.trigger('change');
@@ -105,8 +112,6 @@
 
     // 添加自定义事件的功能
     _.extend(Select.prototype, Backbone.Events);
-
-    Select.prototype.value = Select.prototype.getValue;
 
     Framework.Select = Select;
 })(window, window.UED)
