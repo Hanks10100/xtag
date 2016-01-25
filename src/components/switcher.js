@@ -8,6 +8,13 @@
         this.$el = $('<label class="switch">')
             .append(this.$input)
             .append('<span></span>');
+
+        try {
+            Object.defineProperty(this, 'value', {
+                get: function() { return this.isChecked(); },
+                set: function(value) { this.setValue(value); }
+            });
+        } catch (e) {}
     }
 
     function Checkbox(options) {
@@ -16,6 +23,13 @@
         this.$el = $('<label class="i-checks">')
             .append(this.$input)
             .append('<span></span>');
+
+        try {
+            Object.defineProperty(this, 'value', {
+                get: function() { return this.isChecked(); },
+                set: function(value) { this.setValue(value); }
+            });
+        } catch (e) {}
     }
 
     var protoMixin = {
