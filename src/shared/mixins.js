@@ -30,9 +30,7 @@
                         writable: true,
                         value: Object.create(null),
                     });
-                } catch (e) {
-                    this[KEY] = {};
-                }
+                } catch (e) {}
             }
             return this;
         },
@@ -56,9 +54,8 @@
 
             this.createShadowObject();
 
-            this[KEY][name] = opt.defaultValue || null;
-
             try {
+                this[KEY][name] = opt.defaultValue || null;
                 Object.defineProperty(this, name, {
                     get: _.bind(opt.get, this),
                     set: function() {
@@ -66,7 +63,7 @@
                     }
                 });
             } catch (e) {
-                this[name] = this[KEY][name];
+                this[name] = opt.defaultValue || null;
             }
             return this;
         },

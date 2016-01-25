@@ -27,6 +27,7 @@
     var protoMixin = {
         initElement: function(options) {
             options || (options = {});
+            this.setShadowValue('value', !!options.checked);
             this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
             this.$el = $('<label></label>')
                 .addClass(this.className)
