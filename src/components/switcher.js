@@ -4,11 +4,23 @@
     // Toggle 按钮
     function Switcher() {
         this.className = 'switch';
+
+        this.defineShadowValue('value', {
+            get: function() { return this.isChecked(); },
+            set: function(value) { this.setValue(value); return value; }
+        });
+
         this.initElement.apply(this, arguments);
     }
 
     function Checkbox() {
         this.className = 'i-checks';
+
+        this.defineShadowValue('value', {
+            get: function() { return this.isChecked(); },
+            set: function(value) { this.setValue(value); return value; }
+        });
+
         this.initElement.apply(this, arguments);
     }
 
@@ -20,14 +32,6 @@
                 .addClass(this.className)
                 .append(this.$input)
                 .append('<span></span>');
-
-            try {
-                Object.defineProperty(this, 'value', {
-                    get: function() { return this.isChecked(); },
-                    set: function(value) { this.setValue(value); }
-                });
-            } catch (e) {}
-
             return this.$el;
         },
         onChange: function(callback) {
@@ -60,6 +64,10 @@
     _.extend(Checkbox.prototype, protoMixin, {
         type: 'Checkbox',
     }, Framework.mixins.availableMixin);
+
+    // 添加 getter/setter 相关功能
+    _.extend(Switcher.prototype, Framework.mixins.shadowMixin);
+    _.extend(Checkbox.prototype, Framework.mixins.shadowMixin);
 
     Switcher.prototype.value = Checkbox.prototype.value = protoMixin.isChecked;
 
