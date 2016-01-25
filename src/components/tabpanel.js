@@ -77,6 +77,8 @@
             } else {
                 this.$el.append(this.$navs, this.$contents);
             }
+
+            this.adjustLayout();
             return this;
         },
         switchTo: function(index) {
@@ -102,6 +104,8 @@
             this.adjustLayout();
         },
         adjustLayout: function() {
+            if (!this.$el.is(':visible')) return this;
+
             var el = {
                 width: this.$el.outerWidth(),
                 height: this.$el.outerHeight()
@@ -118,6 +122,7 @@
                 var maxHeight = Math.max(el.height, nav.height, panel.height);
                 this.$el.height(maxHeight);
             }
+            return this;
         },
         getCurrentTab: function() {
             return this.tabs[this.activeTab];
