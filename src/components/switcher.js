@@ -35,15 +35,18 @@
             this.$input.on('change', _.bind(callback, this));
             return this;
         },
-        setValue: function(value) {
+
+        // 若 silent 为 true ，则不会触发 onChange 事件
+        setValue: function(value, silent) {
             if (!this.isEnabled()) return this;
             var oldValue = this.isChecked();
             if (!!value !== oldValue) {
                 this.$input.prop('checked', !!value);
-                this.$input.trigger('change');
+                silent || this.$input.trigger('change');
             }
             return this;
         },
+
         isChecked:    function() { return this.$input.is(':checked'); },
         check:        function() { return this.setValue(true);  },
         uncheck:      function() { return this.setValue(false); },
