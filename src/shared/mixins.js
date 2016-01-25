@@ -31,30 +31,34 @@
                         value: Object.create(null),
                     });
                 } catch (e) {
-                    this[key] = {};
+                    this[KEY] = {};
                 }
             }
         },
         defineShadowValue: function(name, option) {
-            // TODO: 校验参数
             var opt = _.pick(option, 'get', 'set');
 
             if (!_.isFunction(opt.get)) {
                 opt.get = function() { return this[KEY][name]; }
             }
+            if (!_.isFunction(opt.set)) {
+                throw new TypeError('`option.set` must be a function.');
+            }
+
+            this.createShadowObject();
 
             this[KEY][name] = opt.get.apply(this);
 
             try {
                 Object.defineProperty(this, name, {
-                    get: function() {
-                        return opt.get.apply(this);
-                    },
+                    get: _.bind(opt.get, this),
                     set: function() {
                         this[KEY][name] = opt.set.apply(this, arguments);
                     }
                 });
-            } catch (e) {}
+            } catch (e) {
+                this[name] = this[KEY][name];
+            }
         },
         setShadowValue: function(name, value) {
             if (this.hasShadowObject()) {
