@@ -63,8 +63,9 @@
                     var $cell = $(event.currentTarget);
                     var index = $cell.data('index');
                     if (self.activeTab !== index) {
+                        var $target = self.$contents.find('.tabs-panel:nth-child('+(index+1)+')');
                         $cell.addClass('active').siblings().removeClass('active');
-                        self.$contents.find(':nth-child('+(index+1)+')').show().siblings().hide();
+                        $target.show().siblings().hide();
                         self.activeTab = index;
                         self.trigger('change');
                     }
