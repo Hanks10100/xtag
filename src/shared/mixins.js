@@ -146,6 +146,13 @@
             });
             return this;
         },
+
+        disconnectObserver: function() {
+            _.each(this._observers, function(observer) {
+                observer.disconnect();
+            });
+            return this;
+        },
     };
 
     Framework.mixins = {
