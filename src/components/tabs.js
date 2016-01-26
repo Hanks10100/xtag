@@ -56,6 +56,7 @@
         type: 'Tabs',
         crateObserver: function() {
             var self = this;
+            if (!MutationObserver) return null;
             var observer = new MutationObserver(function(mutations) {
                 _.each(mutations, function(mutation) {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'align') {
@@ -71,6 +72,8 @@
 
             // 监听目标节点
             observer.observe(this.$el[0], { attributes: true });
+
+            return observer;
         },
         initElement: function(options) {
             var self = this;
