@@ -171,13 +171,13 @@
     });
 
     // 添加启用和禁用功能
-    _.extend(Tabs.prototype, Framework.mixins.availableMixin);
+    _.extend(Tabs.prototype, Framework.mixins.authorize);
 
     // 添加 getter/setter 相关功能
-    _.extend(Tabs.prototype, Framework.mixins.shadowMixin);
+    _.extend(Tabs.prototype, Framework.mixins.shadow);
 
     // 添加 observer 相关功能
-    _.extend(Tabs.prototype, Framework.mixins.observerMixin);
+    _.extend(Tabs.prototype, Framework.mixins.observer);
 
     // 添加自定义事件的功能
     _.extend(Tabs.prototype, Backbone.Events);

@@ -2,7 +2,7 @@
     'use strict';
 
     // 与“启用”、“禁用” 相关的 函数
-    var availableMixin = {
+    var authorizeMixin = {
         setAvailable: function(value) {
             this.$el.toggleClass('disabled', !value);
             this.$input && this.$input.prop('disabled', !value);
@@ -75,7 +75,7 @@
             }
             return this;
         },
-    }
+    };
 
     var observerMixin = {
         createObserver: function(dom, config, manager) {
@@ -156,9 +156,9 @@
     };
 
     Framework.mixins = {
-        availableMixin: availableMixin,
-        shadowMixin: shadowMixin,
-        observerMixin: observerMixin,
+        authorize: authorizeMixin,
+        shadow: shadowMixin,
+        observer: observerMixin,
     };
 
 })(window, window.XXX)

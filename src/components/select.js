@@ -106,10 +106,10 @@
     });
 
     // 添加启用和禁用功能
-    _.extend(Select.prototype, Framework.mixins.availableMixin);
+    _.extend(Select.prototype, Framework.mixins.authorize);
 
     // 添加 getter/setter 相关功能
-    _.extend(Select.prototype, Framework.mixins.shadowMixin);
+    _.extend(Select.prototype, Framework.mixins.shadow);
 
     // 添加自定义事件的功能
     _.extend(Select.prototype, Backbone.Events);

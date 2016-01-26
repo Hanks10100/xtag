@@ -60,15 +60,15 @@
 
     _.extend(Switcher.prototype, protoMixin, {
         type: 'Switcher',
-    }, Framework.mixins.availableMixin);
+    }, Framework.mixins.authorize);
 
     _.extend(Checkbox.prototype, protoMixin, {
         type: 'Checkbox',
-    }, Framework.mixins.availableMixin);
+    }, Framework.mixins.authorize);
 
     // 添加 getter/setter 相关功能
-    _.extend(Switcher.prototype, Framework.mixins.shadowMixin);
-    _.extend(Checkbox.prototype, Framework.mixins.shadowMixin);
+    _.extend(Switcher.prototype, Framework.mixins.shadow);
+    _.extend(Checkbox.prototype, Framework.mixins.shadow);
 
     Switcher.prototype.value = Checkbox.prototype.value = protoMixin.isChecked;
 
