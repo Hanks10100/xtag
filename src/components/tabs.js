@@ -27,14 +27,7 @@
                     get: function() { return this.tabs[this.activeTab]; }
                 },
                 align: {
-                    set: function(dir) {
-                        dir = isValidateDirection(dir);
-                        if (dir) {
-                            this.alignTo(dir); return dir;
-                        } else {
-                            return this.align;
-                        }
-                    }
+                    set: function(dir) { return this.alignTo(dir).align; }
                 },
                 activeTab: {
                     set: function(index) {
