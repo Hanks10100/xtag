@@ -85,6 +85,7 @@
             }
 
             try {
+                var MutationObserver = MutationObserver || WebKitMutationObserver || MozMutationObserver;
                 if (!MutationObserver) return null;
                 var observer = new MutationObserver(manager);
                 observer.observe(dom, config);
