@@ -10,17 +10,15 @@
         this.bindEvents();
 
         // 创建属性监听函数，自动更新 align 的值
-        this.createObserver(this.$el, { attributes: true }, function(mutations) {
-            _.each(mutations, function(mutation) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'align') {
-                    var dir = isValidateDirection(mutation.target.align);
-                    if (dir) {
-                        self.alignTo(dir);
-                    } else {
-                        mutation.target.align = self.align;
-                    }
+        this.observeAttributes(this.$el, function(attr, mutation) {
+            if (attr === 'align') {
+                var dir = isValidateDirection(mutation.target.align);
+                if (dir) {
+                    self.alignTo(dir);
+                } else {
+                    mutation.target.align = self.align;
                 }
-            });
+            }
         });
     }
 

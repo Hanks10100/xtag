@@ -96,6 +96,18 @@
                 return null;
             }
         },
+
+        // 仅监听 attributes 的变化
+        observeAttributes: function(dom, manager) {
+            var self = this;
+            this.createObserver(dom, { attributes: true }, function(mutations) {
+                _.each(mutations, function(mutation) {
+                    if (mutation.type === 'attributes') {
+                        return manager.call(self, mutation.attributeName, mutation);
+                    }
+                });
+            })
+        },
     };
 
     Framework.mixins = {
