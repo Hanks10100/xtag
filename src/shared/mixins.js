@@ -77,9 +77,27 @@
         },
     }
 
+    var observerMixin = {
+        createObserver: function(dom, config, manager) {
+            if ($ && dom instanceof $) dom = dom[0];
+            if (!manager || !_.isFunction(manager)) {
+                throw new TypeError('`manager` must be a function');
+            }
+
+            try {
+                if (!MutationObserver) return null;
+                var observer = new MutationObserver(manager);
+                observer.observe(dom, config);
+            } catch (e) {
+                return null;
+            }
+        },
+    };
+
     Framework.mixins = {
         availableMixin: availableMixin,
         shadowMixin: shadowMixin,
+        observerMixin: observerMixin,
     };
 
 })(window, window.XXX)
