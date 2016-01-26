@@ -3,7 +3,6 @@
 
     // 日期选择插件的构造函数
     function Select() {
-        this.$root = $('body');
 
         this.defineShadowValue('value', {
             get: function() { return this.getValue(); },
@@ -11,13 +10,16 @@
         });
 
         this.initElement.apply(this, arguments);
-        this.bingEvents();
+        this.bindEvents();
     }
 
     _.extend(Select.prototype, {
         type: 'Select',
+
         initElement: function(options) {
             var self = this;
+
+            this.$root = $('body');
 
             // 模拟 Fish Combobox 组件的 DOM 结构
             this.$el = $('<div class="input-group ui-combobox"></div>');
@@ -41,18 +43,20 @@
 
             return this.$el;
         },
-        bingEvents: function() {
+
+        bindEvents: function() {
             var self = this;
+
             this.$el.on('click', '.input-group-addon', function(event) {
                 event.stopPropagation();
-                if (self.isEnabled()) {
-                    self.toggleOptions();
-                }
+                self.isEnabled() && self.toggleDropdown();
             });
+
             this.$root.on('click', function() {
                 self.$options.detach();
                 self._optionsIsOpen = false;
             });
+
             this.$options.on('click', 'li', function(event) {
                 var $li = $(event.currentTarget);
                 $li.addClass('selected').siblings().removeClass('selected');
@@ -60,7 +64,8 @@
             });
             return this;
         },
-        toggleOptions: function(event) {
+
+        toggleDropdown: function() {
             if (this._optionsIsOpen) {
                 this.$options.detach();
                 this._optionsIsOpen = false;
@@ -78,18 +83,20 @@
         },
 
         getValue: function() {
-            var val = this.$input.val();
-            return _.reduce(this._options, function(res, opt) {
-                if (opt.name === val) return opt.value;
+            var original = this.$input.val();
+            return _.reduce(this._options, function(res, option) {
+                if (option.name === original) return option.value;
                 return res;
             }, null);
         },
+
         setValue: function(value) {
             var original = this.$input.val();
-            var newValue = _.reduce(this._options, function(res, opt) {
-                if (opt.value === value) return opt.name;
+            var newValue = _.reduce(this._options, function(res, option) {
+                if (option.value === value) return option.name;
                 return res;
             }, original);
+
             if (newValue !== original) {
                 this.$input.val(newValue);
                 this.trigger('change');
