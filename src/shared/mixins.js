@@ -98,15 +98,20 @@
         },
 
         // 仅监听 attributes 的变化
-        observeAttributes: function(dom, manager) {
+        observeAttributes: function(dom, manager, filter) {
             var self = this;
-            this.createObserver(dom, { attributes: true, attributeOldValue: true }, function(mutations) {
+            var config = {
+                attributes: true,
+                attributeOldValue: true,
+                attributeFilter: filter
+            }
+            this.createObserver(dom, config, function(mutations) {
                 _.each(mutations, function(record) {
-                    if (record.type === 'attributes') {
-                        return manager.call(self, record.attributeName, record, record.oldValue);
-                    }
+                    if (record.type !== 'attributes') return;
+                    manager.call(self, record.attributeName, record, record.oldValue);
                 });
-            })
+            });
+            return this;
         },
     };
 

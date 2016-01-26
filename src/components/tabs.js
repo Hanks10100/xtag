@@ -93,15 +93,9 @@
 
             // 创建属性监听函数，自动更新 align 的值
             this.observeAttributes(this.$el, function(attr, mutation, oldValue) {
-                if (attr === 'align') {
-                    var dir = isValidateDirection(mutation.target.align);
-                    if (dir) {
-                        this.alignTo(dir);
-                    } else {
-                        mutation.target.align = oldValue;
-                    }
-                }
-            });
+                var dir = isValidateDirection(mutation.target.align);
+                dir ? this.alignTo(dir) : (mutation.target.align = oldValue);
+            }, ['align']);
 
             return this;
         },
