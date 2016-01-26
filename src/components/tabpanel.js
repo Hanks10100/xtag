@@ -93,12 +93,13 @@
         },
         alignTo: function(direction) {
             if (!direction || !_.isString(direction)) return this;
-            var originalAlign = this.align;
-            this.setShadowValue('align', direction);
+            var dir = direction.toLowerCase();
+            if (_.indexOf(['left', 'right', 'top', 'bottom'], dir) === -1) return this.align;
 
-            if (originalAlign === this.align) return this;
+            if (dir === this.align) return this;
 
-            switch (this.align) {
+            this.setShadowValue('align', dir);
+            switch (dir) {
                 case 'left': case 'right': this.tabStyle = 'vertical';   break;
                 case 'top': case 'bottom': this.tabStyle = 'horizontal'; break;
                 default: this.tabStyle = 'unknown';
@@ -108,9 +109,9 @@
             this.$contents.detach();
             this.$el.empty()
                 .removeClass('tabs-vertical tabs-horizontal tabs-unknown')
-                .addClass('tabs-' + this.tabStyle).attr('align', this.align);
+                .addClass('tabs-' + this.tabStyle).attr('align', dir);
 
-            if (this.align === 'bottom') {
+            if (dir === 'bottom') {
                 this.$el.append(this.$contents, this.$navs);
             } else {
                 this.$el.append(this.$navs, this.$contents);
