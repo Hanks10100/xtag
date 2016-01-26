@@ -1,7 +1,7 @@
 ;(function(root, Framework){
     'use strict';
 
-    var TAG_PREFIX = 'UED-';
+    var TAG_PREFIX = 'X-';
 
     // 静态的编译函数
     var staticTags = {
@@ -41,4 +41,4 @@
     }
 
     Framework.preCompile = preCompile;
-})(window, window.UED)
+})(window, window.XXX)

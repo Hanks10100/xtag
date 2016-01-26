@@ -1,7 +1,7 @@
 ;(function(root, Framework){
     'use strict';
 
-    var TAG_PREFIX = 'UED-';
+    var TAG_PREFIX = 'X-';
     var CUSTOM_TAGS = ['TabPanel', 'Select', 'Table', 'Datetimepicker', 'Switcher', 'Checkbox'];
 
     function compile(env) {
@@ -49,4 +49,4 @@
     if (Object.freeze) Object.freeze(Framework.tags);
 
     Framework.compile = compile;
-})(window, window.UED)
+})(window, window.XXX)

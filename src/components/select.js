@@ -115,4 +115,4 @@
     _.extend(Select.prototype, Backbone.Events);
 
     Framework.Select = Select;
-})(window, window.UED)
+})(window, window.XXX)

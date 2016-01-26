@@ -74,4 +74,4 @@
 
     Framework.Checkbox = Checkbox;
     Framework.Switcher = Switcher;
-})(window, window.UED)
+})(window, window.XXX)

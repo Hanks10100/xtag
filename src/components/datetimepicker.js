@@ -17,4 +17,4 @@
     });
 
     Framework.Datetimepicker = Datetimepicker;
-})(window, window.UED)
+})(window, window.XXX)

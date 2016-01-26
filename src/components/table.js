@@ -44,4 +44,4 @@
 
 
     Framework.Table = Table;
-})(window, window.UED)
+})(window, window.XXX)

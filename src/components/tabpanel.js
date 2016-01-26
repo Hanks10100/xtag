@@ -195,4 +195,4 @@
     _.extend(TabPanel.prototype, Backbone.Events);
 
     Framework.TabPanel = TabPanel;
-})(window, window.UED)
+})(window, window.XXX)

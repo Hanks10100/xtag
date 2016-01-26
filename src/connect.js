@@ -63,4 +63,4 @@
 
 
     Framework.connectToFish = connectToFish;
-})(window, window.UED)
+})(window, window.XXX)

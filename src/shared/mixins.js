@@ -82,4 +82,4 @@
         shadowMixin: shadowMixin,
     };
 
-})(window, window.UED)
+})(window, window.XXX)
