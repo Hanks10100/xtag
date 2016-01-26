@@ -38,11 +38,25 @@
         });
 
         this.initElement.apply(this, arguments);
+        this.crateObserver();
         this.bindEvents();
     }
 
     _.extend(TabPanel.prototype, {
         type: 'Tabs',
+        crateObserver: function() {
+            var self = this;
+            var observer = new MutationObserver(function(mutations) {
+                _.each(mutations, function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'align') {
+                        self.alignTo(mutation.target.align);
+                    }
+                });
+            });
+
+            // 监听目标节点
+            observer.observe(this.$el[0], { attributes: true });
+        },
         initElement: function(options) {
             var self = this;
             this.$el = $('<div class="ued-tabs"></div>');
