@@ -128,6 +128,24 @@
             });
             return this;
         },
+
+        // 仅监听子节点的变化
+        observeChildList: function(dom, manager) {
+            var self = this;
+
+            if (_.isFunction(arguments[0])) {
+                dom = this.$el[0];
+                manager = arguments[0];
+            }
+
+            this.createObserver(dom, { childList: true }, function(mutations) {
+                _.each(mutations, function(record) {
+                    if (record.type !== 'childList') return;
+                    manager.call(self, record);
+                });
+            });
+            return this;
+        },
     };
 
     Framework.mixins = {
