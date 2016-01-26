@@ -3,46 +3,13 @@
 
     // Tab 页签
     function Tabs(options) {
-        options || (options = {});
         var self = this;
 
-        // 定义影子变量，可在 getter/setter 中绑定额外操作
-        this.defineShadowValues({
-            value: {
-                get: function() { return this.tabs[this.activeTab]; }
-            },
-            align: {
-                set: function(dir) {
-                    dir = isValidateDirection(dir);
-                    if (dir) {
-                        this.alignTo(dir); return dir;
-                    } else {
-                        return this.align;
-                    }
-                }
-            },
-            activeTab: {
-                set: function(index) {
-                    if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this.activeTab;
-                    this.switchTo(index); return index;
-                }
-            }
-        });
-
-        this.tabs = _.map(options.children, function(group, index) {
-            if (group.getAttribute('active')) {
-                self.setShadowValue('activeTab', index);
-            }
-            return {
-                index: index,
-                trigger: _.first(group.getElementsByTagName('trigger')),
-                target: _.first(group.getElementsByTagName('target')),
-            }
-        });
-
+        this.initialize.apply(this, arguments);
         this.initElement.apply(this, arguments);
         this.bindEvents();
 
+        // 创建属性监听函数，自动更新 align 的值
         this.createObserver(this.$el, { attributes: true }, function(mutations) {
             _.each(mutations, function(mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'align') {
@@ -66,6 +33,46 @@
 
     _.extend(Tabs.prototype, {
         type: 'Tabs',
+        initialize: function(options) {
+            options || (options = {});
+            var self = this;
+
+            // 定义影子变量，可在 getter/setter 中绑定额外操作
+            this.defineShadowValues({
+                value: {
+                    get: function() { return this.tabs[this.activeTab]; }
+                },
+                align: {
+                    set: function(dir) {
+                        dir = isValidateDirection(dir);
+                        if (dir) {
+                            this.alignTo(dir); return dir;
+                        } else {
+                            return this.align;
+                        }
+                    }
+                },
+                activeTab: {
+                    set: function(index) {
+                        if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this.activeTab;
+                        this.switchTo(index); return index;
+                    }
+                }
+            });
+
+            this.tabs = _.map(options.children, function(group, index) {
+                if (group.getAttribute('active')) {
+                    self.setShadowValue('activeTab', index);
+                }
+                return {
+                    index: index,
+                    trigger: _.first(group.getElementsByTagName('trigger')),
+                    target: _.first(group.getElementsByTagName('target')),
+                }
+            });
+
+            return this;
+        },
         initElement: function(options) {
             var self = this;
             this.$el = $('<div class="ued-tabs"></div>');
