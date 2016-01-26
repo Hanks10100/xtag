@@ -3,23 +3,9 @@
 
     // Tab 页签
     function Tabs(options) {
-        var self = this;
-
         this.initialize.apply(this, arguments);
         this.initElement.apply(this, arguments);
         this.bindEvents();
-
-        // 创建属性监听函数，自动更新 align 的值
-        this.observeAttributes(this.$el, function(attr, mutation) {
-            if (attr === 'align') {
-                var dir = isValidateDirection(mutation.target.align);
-                if (dir) {
-                    self.alignTo(dir);
-                } else {
-                    mutation.target.align = self.align;
-                }
-            }
-        });
     }
 
     function isValidateDirection(direction) {
@@ -104,6 +90,20 @@
             this.$el.on('click', '.tabs-nav-cell', function(event) {
                 self.switchTo($(event.currentTarget).data('index'));
             });
+
+            // 创建属性监听函数，自动更新 align 的值
+            this.observeAttributes(this.$el, function(attr, mutation) {
+                if (attr === 'align') {
+                    var dir = isValidateDirection(mutation.target.align);
+                    if (dir) {
+                        this.alignTo(dir);
+                    } else {
+                        mutation.target.align = this.align;
+                    }
+                }
+            });
+
+            return this;
         },
         alignTo: function(direction) {
             var dir = isValidateDirection(direction);
