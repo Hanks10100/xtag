@@ -30,10 +30,10 @@
 
     // 可以像 fish.View 那样渲染
     function extendAsFishView(View) {
-        _.each(UED.tags, function(tag) {
-            var Type = UED[tag];
+        _.each(Framework.tags, function(tag) {
+            var Type = Framework[tag];
             if (_.isFunction(Type)) {
-                UED[tag] = function(options, configs) {
+                Framework[tag] = function(options, configs) {
                     var view = new Type(options, configs);
                     View.setupView(view, {});
                     return view;
