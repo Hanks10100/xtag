@@ -17,6 +17,7 @@
 
     _.extend(Tabs.prototype, {
         type: 'Tabs',
+
         initialize: function(options) {
             options || (options = {});
             var self = this;
@@ -41,6 +42,7 @@
 
             return this;
         },
+
         initElement: function(options) {
             var self = this;
             this.$el = $('<div class="ued-tabs"></div>');
@@ -69,6 +71,7 @@
             this.alignTo(options.align || 'top');
             return this.$el;
         },
+
         bindEvents: function() {
             var self = this;
             this.$el.on('click', '.tabs-nav-cell', function(event) {
@@ -83,6 +86,7 @@
 
             return this;
         },
+
         alignTo: function(direction) {
             var dir = isValidateDirection(direction);
 
@@ -110,6 +114,7 @@
             this.adjustLayout();
             return this;
         },
+
         switchTo: function(index) {
             if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this;
             if (this.isEnabled()) {
@@ -127,14 +132,17 @@
             }
             return this;
         },
+
         onChange: function(callback) {
             if (!_.isFunction(callback)) return this;
             this.on('change', _.bind(callback, this));
             return this;
         },
+
         afterMount: function() {
             this.adjustLayout();
         },
+
         adjustLayout: function() {
             if (!this.$el.is(':visible')) return this;
 
@@ -156,11 +164,9 @@
             }
             return this;
         },
+
         getCurrentTab: function() {
             return this.tabs[this.activeTab];
-        },
-        getCurrentTabIndex: function() {
-            return this.activeTab;
         },
     });
 
