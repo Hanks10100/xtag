@@ -13,9 +13,12 @@
             },
             align: {
                 set: function(dir) {
-                    dir = dir.toLowerCase();
-                    if (_.indexOf(['left', 'right', 'top', 'bottom'], dir) === -1) return this.align;
-                    this.alignTo(dir); return dir;
+                    dir = isValidateDirection(dir);
+                    if (dir) {
+                        this.alignTo(dir); return dir;
+                    } else {
+                        return this.align;
+                    }
                 }
             },
             activeTab: {
@@ -40,6 +43,13 @@
         this.initElement.apply(this, arguments);
         this.crateObserver();
         this.bindEvents();
+    }
+
+    function isValidateDirection(direction) {
+        if (!direction || !_.isString(direction)) return false;
+        var dir = direction.toLowerCase();
+        if (_.indexOf(['left', 'right', 'top', 'bottom'], dir) === -1) return false;
+        return dir;
     }
 
     _.extend(TabPanel.prototype, {
@@ -92,13 +102,10 @@
             });
         },
         alignTo: function(direction) {
-            if (!direction || !_.isString(direction)) return this;
-            var dir = direction.toLowerCase();
-            if (_.indexOf(['left', 'right', 'top', 'bottom'], dir) === -1) return this.align;
+            var dir = isValidateDirection(direction);
 
-            if (dir === this.align) return this;
+            if (!dir || (dir === this.align)) return this;
 
-            this.setShadowValue('align', dir);
             switch (dir) {
                 case 'left': case 'right': this.tabStyle = 'vertical';   break;
                 case 'top': case 'bottom': this.tabStyle = 'horizontal'; break;
@@ -117,6 +124,7 @@
                 this.$el.append(this.$navs, this.$contents);
             }
 
+            this.setShadowValue('align', dir);
             this.adjustLayout();
             return this;
         },
