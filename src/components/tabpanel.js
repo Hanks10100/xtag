@@ -59,7 +59,12 @@
             var observer = new MutationObserver(function(mutations) {
                 _.each(mutations, function(mutation) {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'align') {
-                        self.alignTo(mutation.target.align);
+                        var dir = isValidateDirection(mutation.target.align);
+                        if (dir) {
+                            self.alignTo(dir);
+                        } else {
+                            mutation.target.align = self.align;
+                        }
                     }
                 });
             });
