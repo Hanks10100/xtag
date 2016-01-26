@@ -133,12 +133,6 @@
             return this;
         },
 
-        onChange: function(callback) {
-            if (!_.isFunction(callback)) return this;
-            this.on('change', _.bind(callback, this));
-            return this;
-        },
-
         afterMount: function() {
             this.adjustLayout();
         },
@@ -180,7 +174,7 @@
     _.extend(Tabs.prototype, Framework.mixins.observer);
 
     // 添加自定义事件的功能
-    _.extend(Tabs.prototype, Backbone.Events);
+    _.extend(Tabs.prototype, Framework.mixins.events);
 
     Framework.Tabs = Tabs;
 })(window, window.XXX)

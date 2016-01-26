@@ -77,13 +77,6 @@
             return this;
         },
 
-        // TODO: 手动输入时也应当触发 onChange
-        onChange: function(callback) {
-            if (!_.isFunction(callback)) return this;
-            this.on('change', _.bind(callback, this));
-            return this;
-        },
-
         getValue: function() {
             var val = this.$input.val();
             return _.reduce(this._options, function(res, opt) {
@@ -112,7 +105,7 @@
     _.extend(Select.prototype, Framework.mixins.shadow);
 
     // 添加自定义事件的功能
-    _.extend(Select.prototype, Backbone.Events);
+    _.extend(Select.prototype, Framework.mixins.events);
 
     Framework.Select = Select;
 })(window, window.XXX)

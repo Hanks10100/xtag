@@ -1,6 +1,15 @@
 ;(function(root, Framework){
     'use strict';
 
+    // 自定义事件的 mixin
+    var eventsMixin = _.extend({
+        onChange: function(callback) {
+            if (!_.isFunction(callback)) return this;
+            this.on('change', _.bind(callback, this));
+            return this;
+        },
+    }, Backbone.Events);
+
     // 与“启用”、“禁用” 相关的 函数
     var authorizeMixin = {
         setAvailable: function(value) {
@@ -156,6 +165,7 @@
     };
 
     Framework.mixins = {
+        events: eventsMixin,
         authorize: authorizeMixin,
         shadow: shadowMixin,
         observer: observerMixin,
