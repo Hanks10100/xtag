@@ -88,6 +88,9 @@
                 if (!MutationObserver) return null;
                 var observer = new MutationObserver(manager);
                 observer.observe(dom, config);
+
+                this._observers = this._observers || [];
+                this._observers.push(observer);
             } catch (e) {
                 return null;
             }
