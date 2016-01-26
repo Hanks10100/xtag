@@ -92,13 +92,13 @@
             });
 
             // 创建属性监听函数，自动更新 align 的值
-            this.observeAttributes(this.$el, function(attr, mutation) {
+            this.observeAttributes(this.$el, function(attr, mutation, oldValue) {
                 if (attr === 'align') {
                     var dir = isValidateDirection(mutation.target.align);
                     if (dir) {
                         this.alignTo(dir);
                     } else {
-                        mutation.target.align = this.align;
+                        mutation.target.align = oldValue;
                     }
                 }
             });
