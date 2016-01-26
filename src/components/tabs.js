@@ -23,18 +23,9 @@
 
             // 定义影子变量，可在 getter/setter 中绑定额外操作
             this.defineShadowValues({
-                value: {
-                    get: function() { return this.tabs[this.activeTab]; }
-                },
-                align: {
-                    set: function(dir) { return this.alignTo(dir).align; }
-                },
-                activeTab: {
-                    set: function(index) {
-                        if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this.activeTab;
-                        this.switchTo(index); return index;
-                    }
-                }
+                value:     { get: function()    { return this.tabs[this.activeTab] } },
+                align:     { set: function(dir) { return this.alignTo(dir).align } },
+                activeTab: { set: function(idx) { return this.switchTo(idx).activeTab } }
             });
 
             this.tabs = _.map(options.children, function(group, index) {
@@ -120,15 +111,17 @@
             return this;
         },
         switchTo: function(index) {
+            if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this;
             if (this.isEnabled()) {
-                var originalIndex = this.activeTab;
-                this.setShadowValue('activeTab', index);
 
-                if (this.activeTab !== originalIndex) {
+                if (this.activeTab !== index) {
                     var $cell = this.$navs.find('.tabs-nav-cell:nth-child('+(index+1)+')');
                     var $target = this.$contents.find('.tabs-panel:nth-child('+(index+1)+')');
                     $cell.addClass('active').siblings().removeClass('active');
                     $target.show().siblings().hide();
+
+                    this.setShadowValue('activeTab', index);
+
                     this.trigger('change');
                 }
             }
