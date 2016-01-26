@@ -98,8 +98,23 @@
         },
 
         // 仅监听 attributes 的变化
-        observeAttributes: function(dom, manager, filter) {
+        observeAttributes: function(dom, filter, manager) {
             var self = this;
+            var args = _.toArray(arguments);
+
+            // 使支持缺省参数值
+            // 参数长度 1: manager
+            // 参数长度 2: dom 或 filter, manager
+            // 参数长度 3: dom, filter, manager
+            if (!_.isElement(args[0]) && !(args[0] instanceof $)) dom = this.$el[0];
+
+            if (_.isFunction(args[0])) {
+                manager = args[0];
+            } else if (_.isFunction(args[1])) {
+                _.isArray(args[0]) ? (filter = args[0]) : (dom = args[0]);
+                manager = args[1];
+            }
+
             var config = {
                 attributes: true,
                 attributeOldValue: true,
