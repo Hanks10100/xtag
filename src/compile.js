@@ -2,7 +2,7 @@
     'use strict';
 
     var TAG_PREFIX = 'X-';
-    var CUSTOM_TAGS = ['TabPanel', 'Select', 'Table', 'Datetimepicker', 'Switcher', 'Checkbox'];
+    var CUSTOM_TAGS = ['Tabs', 'Select', 'Table', 'Datetimepicker', 'Switcher', 'Checkbox'];
 
     function compile(env) {
         if (!env) env = root;
