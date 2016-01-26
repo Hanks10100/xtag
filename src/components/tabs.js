@@ -41,8 +41,20 @@
         });
 
         this.initElement.apply(this, arguments);
-        this.crateObserver();
         this.bindEvents();
+
+        this.createObserver(this.$el, { attributes: true }, function(mutations) {
+            _.each(mutations, function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'align') {
+                    var dir = isValidateDirection(mutation.target.align);
+                    if (dir) {
+                        self.alignTo(dir);
+                    } else {
+                        mutation.target.align = self.align;
+                    }
+                }
+            });
+        });
     }
 
     function isValidateDirection(direction) {
@@ -54,27 +66,6 @@
 
     _.extend(Tabs.prototype, {
         type: 'Tabs',
-        crateObserver: function() {
-            var self = this;
-            if (!MutationObserver) return null;
-            var observer = new MutationObserver(function(mutations) {
-                _.each(mutations, function(mutation) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'align') {
-                        var dir = isValidateDirection(mutation.target.align);
-                        if (dir) {
-                            self.alignTo(dir);
-                        } else {
-                            mutation.target.align = self.align;
-                        }
-                    }
-                });
-            });
-
-            // 监听目标节点
-            observer.observe(this.$el[0], { attributes: true });
-
-            return observer;
-        },
         initElement: function(options) {
             var self = this;
             this.$el = $('<div class="ued-tabs"></div>');
@@ -193,6 +184,9 @@
 
     // 添加 getter/setter 相关功能
     _.extend(Tabs.prototype, Framework.mixins.shadowMixin);
+
+    // 添加 observer 相关功能
+    _.extend(Tabs.prototype, Framework.mixins.observerMixin);
 
     // 添加自定义事件的功能
     _.extend(Tabs.prototype, Backbone.Events);
