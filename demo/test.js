@@ -40,12 +40,10 @@ define(['hbs!LayoutTpl'], function(LayoutTpl) {
         afterRender: function() {
             var self = this;
             console.log('after render', this);
-            setTimeout(function() {
-                // console.log('Switch:', self.switcher.isChecked());
-                window.switcher = self.switcher;
-                window.checkbox = self.checkbox;
-            }, 2000);
-            // this.$picker.datetimepicker();
+            window.switcher = this.switcher;
+            window.checkbox = this.checkbox;
+            window.select = this.select;
+            window.picker = this.picker;
 
             // 绑定 change 事件
             // this.switcher.onChange(function(event) {
