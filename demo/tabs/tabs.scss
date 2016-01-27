@@ -1,0 +1,121 @@
+.ued-tabs {
+    width: 100%;
+    *zoom: 1;
+    &:before, &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    &.disabled {
+        background-color: #DDD;
+        cursor: not-allowed;
+    }
+}
+
+.tabs-nav {
+    width: 100%;
+}
+
+$tab-nav-cell-height: 38px;
+$tab-nav-cell-width: 100px;
+$tab-nav-vertical-width: 220px;
+
+.tabs-nav-list {
+    width: 100%;
+    height: $tab-nav-cell-height;
+    margin: 0;
+    padding: 0;
+    padding: 0 8px;
+
+    @at-root .tabs-vertical & {
+        height: auto;
+        width: $tab-nav-vertical-width;
+        border: 0;
+        *zoom: 1;
+        padding: 0;
+    }
+
+    @at-root [align="top"] & {
+        border-bottom: 1px solid #DDD;
+    }
+    @at-root [align="bottom"] & {
+        border-top: 1px solid #DDD;
+    }
+    @at-root [align="left"] & {
+        float: left;
+    }
+    @at-root [align="right"] & {
+        float: right;
+    }
+}
+
+.tabs-nav-cell {
+    display: block;
+    float: left;
+    width: 100px;
+    height: $tab-nav-cell-height - 1px;
+    line-height: $tab-nav-cell-height - 1px;
+    text-align: center;
+    -webkit-user-select: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 18px;
+    &.active {
+        height: $tab-nav-cell-height;
+        color: #66AAFF;
+        border-color: #DDD;
+        background-color: #FFF;
+        &:hover {
+            background-color: #F4F4F4;
+        }
+    }
+
+    &:hover  {
+        background-color: #F4F4F4;
+    }
+
+    @at-root .tabs-vertical & {
+        float: none;
+        width: 100%;
+        height: $tab-nav-cell-height;
+        border: 0;
+        border-radius: 0;
+        &.active {
+            background-color: #F8F8F8;
+            border-left-color: #66AAFF;
+            border-right-color: #66AAFF;
+        }
+    }
+
+    @at-root [align="left"] & {
+        border-right: 2px solid #DDD;
+    }
+    @at-root [align="right"] & {
+        border-left: 2px solid #DDD;
+    }
+    @at-root [align="top"] & {
+        border-bottom: 0;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+    @at-root [align="bottom"] & {
+        border-top: 0;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        margin-top: -1px;
+    }
+}
+
+.tabs-content {
+    padding: 6px 16px;
+    background-color: #F8F6F8;
+    height: 100%;
+    @at-root [align="left"] & {
+        margin-left: $tab-nav-vertical-width;
+    }
+    @at-root [align="right"] & {
+        margin-right: $tab-nav-vertical-width;
+    }
+}

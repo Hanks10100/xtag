@@ -1,0 +1,33 @@
+<x-header>Header</x-header>
+<div class="page-content">
+    <main>
+        <section class="page-section">Section A</section>
+        <section class="page-section">
+            <h3>Switch Button</h3>
+            <x-switcher name="switcher" checked="checked"></x-switcher>
+            <x-checkbox name="checkbox" checked="checked"></x-checkbox>
+            <label>是否选中</label>
+            <div id="icheck"></div>
+        </section>
+        <section class="page-section">
+            <h3>Select</h3>
+            <x-select name="select">
+                <x-option value="A">--- A ---</x-option>
+                <x-option value="B">--- B ---</x-option>
+                <x-option value="C">--- C ---</x-option>
+                <x-option value="D">--- D ---</x-option>
+            </x-select>
+        </section>
+        <section class="page-section">
+            <h3>Datetimepicker</h3>
+            <foo>Foo</foo>
+            <x-datetimepicker name="picker"></x-datetimepicker>
+        </section>
+        <section class="page-section">
+            <h3>Table</h3>
+            <x-table name="table" options="getTableOption"></x-table>
+
+        </section>
+    </main>
+</div>
+<x-footer>Footer</x-footer>
