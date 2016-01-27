@@ -28,7 +28,7 @@
 
     // 表格构造函数
     function Table(options) {
-        this.$el = $('<div class="simple-grid"></div>');
+        this.$el = $('<div class="simple-grid"></div>').attr('data-type', this.type);
         this.el = this.$el[0];
 
         this.$el.html(

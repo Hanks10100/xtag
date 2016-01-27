@@ -30,6 +30,7 @@
             this.setShadowValue('value', !!options.checked);
             this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
             this.$el = $('<label></label>')
+                .attr('data-type', this.type)
                 .addClass(this.className)
                 .append(this.$input)
                 .append('<span></span>');
