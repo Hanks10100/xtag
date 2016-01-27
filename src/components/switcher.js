@@ -62,10 +62,10 @@
         toggle:    function() { return this.setValue(!this.isChecked()); },
         isChecked: function() { return this.$input.is(':checked'); },
 
-        consistentWith: function(twin) {
+        consistentWith: function(twin, silent) {
             // TODO: 参数校验
-            this.onChange(function() { twin.setValue(this.value) });
-            twin.onChange(function() { this.setValue(twin.value) });
+            this.onChange(function() { twin.setValue(this.value, !!silent) });
+            twin.onChange(function() { this.setValue(twin.value, !!silent) });
         },
     };
 
