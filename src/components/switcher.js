@@ -61,6 +61,12 @@
         uncheck:   function() { return this.setValue(false); },
         toggle:    function() { return this.setValue(!this.isChecked()); },
         isChecked: function() { return this.$input.is(':checked'); },
+
+        consistentWith: function(twin) {
+            // TODO: 参数校验
+            this.onChange(function() { twin.setValue(this.value) });
+            twin.onChange(function() { this.setValue(twin.value) });
+        },
     };
 
     // 添加启用和禁用功能
