@@ -41,6 +41,7 @@
                 );
             });
 
+            this.el = this.$el[0];
             return this.$el;
         },
 

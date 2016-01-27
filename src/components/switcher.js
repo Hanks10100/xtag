@@ -33,6 +33,8 @@
                 .addClass(this.className)
                 .append(this.$input)
                 .append('<span></span>');
+
+            this.el = this.$el[0];
             return this.$el;
         },
 
