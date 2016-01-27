@@ -29,6 +29,7 @@
     // 表格构造函数
     function Table(options) {
         this.$el = $('<div class="simple-grid"></div>');
+        this.el = this.$el[0];
 
         this.$el.html(
             $('<table></table>')

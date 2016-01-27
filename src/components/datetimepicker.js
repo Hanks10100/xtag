@@ -5,8 +5,8 @@
     function Datetimepicker(options) {
         this.$el = $('<div class="input-group"></div>');
         this.$input = $('<input type="text" class="form-control">');
-
         this.$el.html(this.$input);
+        this.el = this.$el[0];
     }
 
     _.extend(Datetimepicker.prototype, {
