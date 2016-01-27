@@ -44,6 +44,9 @@ define(['hbs!LayoutTpl'], function(LayoutTpl) {
             window.checkbox = this.checkbox;
             window.select = this.select;
             window.picker = this.picker;
+            window.tab = this.tab;
+            window.table = this.table;
+            window.tabSwitcher = this.tabSwitcher;
 
             // 绑定 change 事件
             // this.switcher.onChange(function(event) {
@@ -56,7 +59,7 @@ define(['hbs!LayoutTpl'], function(LayoutTpl) {
         }
     });
 
-    var demo = new DemoView();
+    var demo = window.demo = new DemoView();
     demo.render();
 
 });
