@@ -2,7 +2,7 @@
 define(['hbs!LayoutTpl'], function(LayoutTpl) {
     // console.log('tpl:', LayoutTpl())
 
-    XXX.connectToFish(fish);
+    // XXX.connectToFish(fish);
     // XXX.connectToFish(fish, { enableView: true });
     // console.log(XXX);
 
