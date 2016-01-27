@@ -62,10 +62,14 @@
         toggle:    function() { return this.setValue(!this.isChecked()); },
         isChecked: function() { return this.$input.is(':checked'); },
 
+        // 使当前组件可以和其他组件保持一致
         consistentWith: function(twin, silent) {
-            // TODO: 参数校验
-            this.onChange(function() { twin.setValue(this.value, !!silent) });
-            twin.onChange(function() { this.setValue(twin.value, !!silent) });
+            if ((twin instanceof Switcher) || (twin instanceof Checkbox)) {
+                var self = this;
+                this.onChange(function() { twin.setValue(self.value, !!silent) });
+                twin.onChange(function() { self.setValue(twin.value, !!silent) });
+            }
+            return this;
         },
     };
 
