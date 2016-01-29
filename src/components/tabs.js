@@ -198,4 +198,4 @@
     _.extend(Tabs.prototype, Framework.mixins.events);
 
     Framework.Tabs = Tabs;
-})(window, window.XXX)
+})(window, window.XTag)

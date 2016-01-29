@@ -45,4 +45,4 @@
 
 
     Framework.Table = Table;
-})(window, window.XXX)
+})(window, window.XTag)

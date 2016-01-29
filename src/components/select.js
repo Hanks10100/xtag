@@ -116,4 +116,4 @@
     _.extend(Select.prototype, Framework.mixins.events);
 
     Framework.Select = Select;
-})(window, window.XXX)
+})(window, window.XTag)

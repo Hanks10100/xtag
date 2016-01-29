@@ -2,16 +2,16 @@
 define(['hbs!LayoutTpl'], function(LayoutTpl) {
     // console.log('tpl:', LayoutTpl())
 
-    // XXX.connectToFish(fish);
-    // XXX.connectToFish(fish, { enableView: true });
-    // console.log(XXX);
+    // XTag.connectToFish(fish);
+    // XTag.connectToFish(fish, { enableView: true });
+    // console.log(XTag);
 
     fish.View.configure({ manage: true });
     var DemoView = fish.View.extend({
         el: $('#pageRoot'),
         template: LayoutTpl,
         initialize: function() {
-            // this.setView('#icheck', new XXX.Checkbox());
+            // this.setView('#icheck', new XTag.Checkbox());
         },
         getTableOption: function() {
             return {

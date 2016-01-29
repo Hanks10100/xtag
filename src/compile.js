@@ -116,4 +116,4 @@
 
     Framework.compile = compile;
     Framework.compileElement = compileElement;
-})(window, window.XXX)
+})(window, window.XTag)

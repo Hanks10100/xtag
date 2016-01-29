@@ -84,4 +84,4 @@
 
     Framework.Checkbox = Checkbox;
     Framework.Switcher = Switcher;
-})(window, window.XXX)
+})(window, window.XTag)

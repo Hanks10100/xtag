@@ -6,8 +6,8 @@ define(function(LayoutTpl) {
     document.createElement('ued-select');
 
 
-    XXX.connectToFish(fish);
-    // console.log(XXX);
+    XTag.connectToFish(fish);
+    // console.log(XTag);
 
     var tpl =
         '<section class="page-section">'+

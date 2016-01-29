@@ -2,8 +2,8 @@
 define(function(LayoutTpl) {
     // console.log('tpl:', LayoutTpl())
 
-    XXX.connectToFish(fish);
-    // console.log(XXX);
+    XTag.connectToFish(fish);
+    // console.log(XTag);
 
     var tpl =
         '<section class="page-section">'+
