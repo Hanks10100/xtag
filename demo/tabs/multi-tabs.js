@@ -15,8 +15,12 @@ define(['hbs!multi-tabs'], function(LayoutTpl) {
             console.log('after render', this);
             window.tab = this.tab;
             window.$tab = this.$tab;
+            window.childTab = this.childTab;
+            window.$childTab = this.$childTab;
             window.switcher = this.switcher;
             window.$switcher = this.$switcher;
+            window.checkbox = this.checkbox;
+            window.$checkbox = this.$checkbox;
 
             // this.tab.onChange(function() {
             //     console.log('change To:', this.getCurrentTab().index);
