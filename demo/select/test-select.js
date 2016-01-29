@@ -7,7 +7,7 @@ define(function(LayoutTpl) {
 
     var tpl =
         '<section class="page-section">'+
-            '<h3>Select</h3>'+
+            '<v-title name="title"></v-title>'+
             '<x-select name="select">'+
                 '<x-option value="A">--- A ---</x-option>'+
                 '<x-option value="B">--- B ---</x-option>'+
@@ -19,13 +19,23 @@ define(function(LayoutTpl) {
     function LayoutTpl() {return tpl}
 
     fish.View.configure({ manage: true });
+
+    var TitleView = fish.View.extend({
+        tagName: 'h3',
+        className: 'section-title',
+        template: function() { return '<sapn>Select</sapn>' }
+    });
+
     var DemoView = fish.View.extend({
+        viewTags: {
+            title: TitleView,
+        },
         el: $('#pageRoot'),
         template: LayoutTpl,
         afterRender: function() {
             var self = this;
             console.log('after render', this);
-            console.log(this.select);
+            window.title = this.title;
             window.select = this.select;
 
             this.select.onChange(function() {
