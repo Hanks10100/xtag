@@ -139,6 +139,20 @@
         },
 
         afterMount: function() {
+            var count = this.$el.parents('.ued-tabs').length + 1;
+            this.$el.attr('level', count).data('level', count);
+            switch (count) {
+                case 1: this.$el.addClass('root-tab');   break;
+                case 2: this.$el.addClass('second-tab');  break;
+                case 3: this.$el.addClass('third-tab');   break;
+                case 4: this.$el.addClass('fourth-tab');  break;
+                case 5: this.$el.addClass('fifth-tab');   break;
+                case 6: this.$el.addClass('sixth-tab');   break;
+                case 7: this.$el.addClass('seventh-tab'); break;
+                case 8: this.$el.addClass('eighth-tab');  break;
+                case 9: this.$el.addClass('ninth-tab');   break;
+            }
+
             // 编译 Tabs 面板中的内容
             Framework.compileElement(this.$contents, this._scope);
             this.adjustLayout();
