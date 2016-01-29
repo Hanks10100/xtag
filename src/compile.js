@@ -11,9 +11,8 @@
         return scope;
     }
 
-    function isUnknownElement(element) {
-        return (element.constructor === HTMLUnknownElement)
-            || (/[\-\:]/.test(element.tagName));
+    function shouldCompile(element) {
+        return /x[\-\:]/i.test(element.tagName);
     }
 
     function compileElement(element, scope) {
@@ -27,7 +26,7 @@
         _.each(elements, function(elem) {
             if (!_.isElement(elem)) return;
 
-            if (isUnknownElement(elem)) {
+            if (shouldCompile(elem)) {
                 var widget = convert(parse(elem, scope));
 
                 widget.$el.attr('data-via', 'compiled');
