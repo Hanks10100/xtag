@@ -12,7 +12,7 @@
     }
 
     function shouldCompile(element) {
-        return /x[\-\:]/i.test(element.tagName);
+        return /[xv][\-\:]/i.test(element.tagName);
     }
 
     function compileElement(element, scope) {
@@ -75,11 +75,15 @@
     function parse(element, scope) {
         var tagName = element.tagName.toLowerCase();
         var tags = tagName.split('-');
-        var type = _.last(tags).replace(/^\S/, function(s){return s.toUpperCase()});
+        var namespace = _.first(tags);
+        var type = _.last(tags);
 
-        if (tags.length === 1 && scope.views) {
+        if (namespace === 'v' && scope.viewTags) {
             // TODO: 在 scope 中找到相应的视图构造函数，使其支持 Backbone 的 View
-            type = scope.views[type];
+            type = scope.viewTags[type];
+        } else if (namespace === 'x') {
+            // 将首字母转成大写，其他字母均为小写（待修改）
+            type = type.replace(/^\S/, function(s){return s.toUpperCase()});
         }
 
         return {
