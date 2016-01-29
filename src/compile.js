@@ -5,14 +5,10 @@
     var CUSTOM_TAGS = ['Tabs', 'Select', 'Table', 'Datetimepicker', 'Switcher', 'Checkbox'];
 
     function compile(env) {
-        if (!env) env = root;
-        _.each(CUSTOM_TAGS, function(tagName) {
-            _.each(env.$(TAG_PREFIX + tagName), function(elem) {
-                if (_.isFunction(Framework[tagName])) {
-                    compileElement(elem, env);
-                }
-            });
-        });
+        var scope = env || {};
+        var elements = scope.el || document.getElementsByTagName('body')[0];
+        compileElement(elements, scope);
+        return scope;
     }
 
     function isUnknownElement(element) {
