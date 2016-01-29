@@ -117,7 +117,8 @@
         },
 
         switchTo: function(index) {
-            if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this;
+            if (!_.isNumber(index)) return this;
+            index = parseInt(index + this.tabs.length, 10) % this.tabs.length;
             if (this.isEnabled()) {
 
                 if (this.activeTab !== index) {
