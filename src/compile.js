@@ -33,6 +33,13 @@
         return new Framework[vdom.type](vdom.options, vdom.configs);
     }
 
+    // 将组件实例挂载到 DOM 节点上
+    function mount(element, widget) {
+        if (_.isElement(element) && _.isElement(widget.el)) {
+            element.parentNode.replaceChild(widget.el, element);
+        }
+    }
+
     function parseOption(elem, env) {
         var options = {};
         _.each(elem.attributes, function(attr) {
