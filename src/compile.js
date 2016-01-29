@@ -9,19 +9,33 @@
         _.each(CUSTOM_TAGS, function(tagName) {
             _.each(env.$(TAG_PREFIX + tagName), function(elem) {
                 if (_.isFunction(Framework[tagName])) {
-
-                    var widget = convert(parse(elem, env));
-
-                    widget.$el.attr('data-via', 'compiled');
-                    var name = elem.getAttribute('name');
-                    if (name && _.isString(name)) {
-                        env[name] = widget;
-                        env['$' + name] = widget.$el;
-                    }
-
-                    mount(elem, widget);
+                    compileElement(elem, env);
                 }
             });
+        });
+    }
+
+    function compileElement(element, scope) {
+        var elements = [];
+        if (_.isElement(element)) {
+            elements.push(element);
+        } else {
+            elements = _.toArray(element);
+        }
+
+        _.each(elements, function(elem) {
+            if (!_.isElement(elem)) return;
+
+            var widget = convert(parse(elem, scope));
+
+            widget.$el.attr('data-via', 'compiled');
+            var name = elem.getAttribute('name');
+            if (name && _.isString(name)) {
+                scope[name] = widget;
+                scope['$' + name] = widget.$el;
+            }
+
+            mount(elem, widget);
         });
     }
 
