@@ -109,4 +109,5 @@
     if (Object.freeze) Object.freeze(Framework.tags);
 
     Framework.compile = compile;
+    Framework.compileElement = compileElement;
 })(window, window.XXX)
