@@ -31,14 +31,26 @@
     // 将虚拟 DOM 转换成组件对象
     function convert(vdom) {
         // TODO: 判断 vdom 格式，支持 React/Deku 等框架
-        return new Framework[vdom.type](vdom.options, vdom.configs);
+        var type = vdom.type;
+        if (_.isString(type)) {
+            return new Framework[vdom.type](vdom.options, vdom.configs);
+        } else if (_.isFunction(type)) {
+            if (root.Backbone && type.prototype instanceof root.Backbone.View) {
+                return new type(vdom.options, vdom.configs);
+            }
+        }
     }
 
     // 将组件实例挂载到 DOM 节点上
     function mount(element, widget) {
         if (_.isElement(element) && _.isElement(widget.el)) {
             element.parentNode.replaceChild(widget.el, element);
-            _.isFunction(widget.afterMount) && widget.afterMount();
+
+            if (root.Backbone && widget instanceof root.Backbone.View) {
+                widget.render();
+            } else if (_.isFunction(widget.afterMount)) {
+                widget.afterMount();
+            }
         }
     }
 
