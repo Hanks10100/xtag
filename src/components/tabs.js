@@ -23,6 +23,8 @@
             configs || (configs = {});
             var self = this;
 
+            this._scope = configs.scope;
+
             // 定义影子变量，可在 getter/setter 中绑定额外操作
             this.defineShadowValues({
                 value:     { get: function()    { return this.tabs[this.activeTab] } },
@@ -59,13 +61,11 @@
                     .toggleClass('active', self.activeTab === index)
                     .append($('<span></span>').html(group.title))
 
-                // 编译 Tabs 面板中的内容
-                var contents = Framework.compileElement(group.target.children, configs.scope);
-
+                group.panel = group.target.innerHTML;
                 group.target = $('<section class="tabs-panel"></section>')
                     .data('index', index)
                     .toggle(self.activeTab === index)
-                    .html(contents)
+                    .html(group.panel)
 
                 self.$navList.append(group.trigger);
                 self.$contents.append(group.target);
@@ -139,6 +139,8 @@
         },
 
         afterMount: function() {
+            // 编译 Tabs 面板中的内容
+            Framework.compileElement(this.$contents, this._scope);
             this.adjustLayout();
         },
 
