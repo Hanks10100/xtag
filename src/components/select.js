@@ -22,7 +22,7 @@
             this.$root = $('body');
 
             // 模拟 Fish Combobox 组件的 DOM 结构
-            this.$el = $('<div class="input-group ui-combobox"></div>');
+            this.$el = $('<div class="input-group ui-combobox"></div>').attr('data-type', this.type);
             this.$input = $('<input type="text" autocomplete="off" class="form-control">');
             this.$button = $('<span class="input-group-addon clear-input-icon-right"></span>')
                     .append('<span class="glyphicon glyphicon-triangle-bottom"></span>');
@@ -41,6 +41,7 @@
                 );
             });
 
+            this.el = this.$el[0];
             return this.$el;
         },
 

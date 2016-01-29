@@ -2,7 +2,7 @@
 define(['hbs!LayoutTpl'], function(LayoutTpl) {
     // console.log('tpl:', LayoutTpl())
 
-    XXX.connectToFish(fish);
+    // XXX.connectToFish(fish);
     // XXX.connectToFish(fish, { enableView: true });
     // console.log(XXX);
 
@@ -40,12 +40,13 @@ define(['hbs!LayoutTpl'], function(LayoutTpl) {
         afterRender: function() {
             var self = this;
             console.log('after render', this);
-            setTimeout(function() {
-                // console.log('Switch:', self.switcher.isChecked());
-                window.switcher = self.switcher;
-                window.checkbox = self.checkbox;
-            }, 2000);
-            // this.$picker.datetimepicker();
+            window.switcher = this.switcher;
+            window.checkbox = this.checkbox;
+            window.select = this.select;
+            window.picker = this.picker;
+            window.tab = this.tab;
+            window.table = this.table;
+            window.tabSwitcher = this.tabSwitcher;
 
             // 绑定 change 事件
             // this.switcher.onChange(function(event) {
@@ -55,10 +56,14 @@ define(['hbs!LayoutTpl'], function(LayoutTpl) {
             // this.checkbox.onChange(function() {
             //     console.log('%ccheckbox:', 'color:blue', self.checkbox.isChecked());
             // });
+
+            tabSwitcher.onChange(function() { table.$el.toggle(this.value) });
+            switcher.onChange(function() { tab.activeTab = (tab.activeTab + 1)%3 });
+            checkbox.onChange(function() { switcher.value = this.value });
         }
     });
 
-    var demo = new DemoView();
+    var demo = window.demo = new DemoView();
     demo.render();
 
 });

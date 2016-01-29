@@ -30,9 +30,12 @@
             this.setShadowValue('value', !!options.checked);
             this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
             this.$el = $('<label></label>')
+                .attr('data-type', this.type)
                 .addClass(this.className)
                 .append(this.$input)
                 .append('<span></span>');
+
+            this.el = this.$el[0];
             return this.$el;
         },
 
@@ -58,6 +61,16 @@
         uncheck:   function() { return this.setValue(false); },
         toggle:    function() { return this.setValue(!this.isChecked()); },
         isChecked: function() { return this.$input.is(':checked'); },
+
+        // 使当前组件可以和其他组件保持一致
+        consistentWith: function(twin, silent) {
+            if ((twin instanceof Switcher) || (twin instanceof Checkbox)) {
+                var self = this;
+                this.onChange(function() { twin.setValue(self.value, !!silent) });
+                twin.onChange(function() { self.setValue(twin.value, !!silent) });
+            }
+            return this;
+        },
     };
 
     // 添加启用和禁用功能

@@ -27,7 +27,7 @@
 }
 .tabs-vertical .tabs-nav-list {
   height: auto;
-  width: 220px;
+  width: 160px;
   border: 0;
   *zoom: 1;
   padding: 0;
@@ -105,8 +105,8 @@
   height: 100%;
 }
 [align="left"] .tabs-content {
-  margin-left: 220px;
+  margin-left: 160px;
 }
 [align="right"] .tabs-content {
-  margin-right: 220px;
+  margin-right: 160px;
 }

@@ -45,7 +45,8 @@
 
         initElement: function(options) {
             var self = this;
-            this.$el = $('<div class="ued-tabs"></div>');
+            this.$el = $('<div class="ued-tabs"></div>').attr('data-type', this.type);
+            this.el = this.$el[0];
 
             this.$navList = $('<ul class="tabs-nav-list"></ul>');
             this.$contents = $('<div class="tabs-content"></div>');
