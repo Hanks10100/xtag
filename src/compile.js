@@ -16,16 +16,13 @@
                     });
 
                     widget.$el.attr('data-via', 'compiled');
-
-                    mount(elem, widget)
-
                     var name = elem.getAttribute('name');
                     if (name && _.isString(name)) {
                         env[name] = widget;
                         env['$' + name] = widget.$el;
                     }
 
-                    _.isFunction(widget.afterMount) && widget.afterMount();
+                    mount(elem, widget);
                 }
             });
         });
@@ -41,6 +38,7 @@
     function mount(element, widget) {
         if (_.isElement(element) && _.isElement(widget.el)) {
             element.parentNode.replaceChild(widget.el, element);
+            _.isFunction(widget.afterMount) && widget.afterMount();
         }
     }
 
