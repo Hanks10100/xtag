@@ -17,7 +17,7 @@
 
     function isUnknownElement(element) {
         return (element.constructor === HTMLUnknownElement)
-            || (element.constructor === HTMLElement);
+            || (/[\-\:]/.test(element.tagName));
     }
 
     function compileElement(element, scope) {
