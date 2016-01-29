@@ -2,7 +2,7 @@
     'use strict';
 
     // Tab 页签
-    function Tabs(options) {
+    function Tabs() {
         this.initialize.apply(this, arguments);
         this.initElement.apply(this, arguments);
         this.bindEvents();
@@ -18,8 +18,9 @@
     _.extend(Tabs.prototype, {
         type: 'Tabs',
 
-        initialize: function(options) {
+        initialize: function(options, configs) {
             options || (options = {});
+            configs || (configs = {});
             var self = this;
 
             // 定义影子变量，可在 getter/setter 中绑定额外操作
@@ -43,7 +44,7 @@
             return this;
         },
 
-        initElement: function(options) {
+        initElement: function(options, configs) {
             var self = this;
             this.$el = $('<div class="ued-tabs"></div>').attr('data-type', this.type);
             this.el = this.$el[0];

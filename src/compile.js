@@ -83,7 +83,8 @@
 
         return {
             type: type,
-            options: parseOption(element, scope)
+            options: parseOption(element, scope),
+            configs: { scope: scope }
         };
     }
 
