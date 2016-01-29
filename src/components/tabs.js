@@ -59,11 +59,13 @@
                     .toggleClass('active', self.activeTab === index)
                     .append($('<span></span>').html(group.title))
 
-                group.panel = group.target.innerHTML;
+                // 编译 Tabs 面板中的内容
+                var contents = Framework.compileElement(group.target.children, configs.scope);
+
                 group.target = $('<section class="tabs-panel"></section>')
                     .data('index', index)
                     .toggle(self.activeTab === index)
-                    .html(group.panel)
+                    .html(contents)
 
                 self.$navList.append(group.trigger);
                 self.$contents.append(group.target);

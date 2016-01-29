@@ -42,6 +42,8 @@
                 compileElement(_.toArray(elem.children), scope);
             }
         });
+
+        return elements;
     }
 
     // 将虚拟 DOM 转换成组件对象
