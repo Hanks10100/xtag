@@ -9,13 +9,17 @@
         _.each(CUSTOM_TAGS, function(tagName) {
             _.each(env.$(TAG_PREFIX + tagName), function(elem) {
                 if (_.isFunction(Framework[tagName])) {
-                    var option = parseOption(elem, env);
-                    var widget = new Framework[tagName](option);
+
+                    var widget = convert({
+                        type: tagName,
+                        options: parseOption(elem, env)
+                    });
+
                     widget.$el.attr('data-via', 'compiled');
 
-                    $(elem).replaceWith(widget.$el);
+                    mount(elem, widget)
 
-                    var name = option.name;
+                    var name = elem.getAttribute('name');
                     if (name && _.isString(name)) {
                         env[name] = widget;
                         env['$' + name] = widget.$el;
