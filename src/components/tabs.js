@@ -78,7 +78,7 @@
 
         bindEvents: function() {
             var self = this;
-            this.$el.on('click', '.tabs-nav-cell', function(event) {
+            this.$navs.on('click', '.tabs-nav-cell', function(event) {
                 self.switchTo($(event.currentTarget).data('index'));
             });
 
