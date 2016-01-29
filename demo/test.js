@@ -57,9 +57,9 @@ define(['hbs!LayoutTpl'], function(LayoutTpl) {
             //     console.log('%ccheckbox:', 'color:blue', self.checkbox.isChecked());
             // });
 
-            tabSwitcher.onChange(function() { table.$el.toggle(this.value) });
-            switcher.onChange(function() { tab.activeTab = (tab.activeTab + 1)%3 });
-            checkbox.onChange(function() { switcher.value = this.value });
+            // tabSwitcher.onChange(function() { table.$el.toggle(this.value) });
+            // switcher.onChange(function() { tab.activeTab = (tab.activeTab + 1)%3 });
+            // checkbox.onChange(function() { switcher.value = this.value });
         }
     });
 

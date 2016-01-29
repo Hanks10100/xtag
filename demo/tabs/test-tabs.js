@@ -48,12 +48,12 @@ define(function(LayoutTpl) {
             window.switcher = this.switcher;
             window.$switcher = this.$switcher;
 
-            this.tab.onChange(function() {
-                console.log('change To:', this.getCurrentTab().index);
-            });
-            this.switcher.onChange(function() {
-                console.log('switcher:', this.isChecked());
-            });
+            // this.tab.onChange(function() {
+            //     console.log('change To:', this.getCurrentTab().index);
+            // });
+            // this.switcher.onChange(function() {
+            //     console.log('switcher:', this.isChecked());
+            // });
         }
     });
 
