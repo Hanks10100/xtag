@@ -10,10 +10,7 @@
             _.each(env.$(TAG_PREFIX + tagName), function(elem) {
                 if (_.isFunction(Framework[tagName])) {
 
-                    var widget = convert({
-                        type: tagName,
-                        options: parseOption(elem, env)
-                    });
+                    var widget = convert(parse(elem, env));
 
                     widget.$el.attr('data-via', 'compiled');
                     var name = elem.getAttribute('name');
@@ -52,6 +49,23 @@
                 widget.afterMount();
             }
         }
+    }
+
+    // 解析标签元素，转为 vdom
+    function parse(element, scope) {
+        var tagName = element.tagName.toLowerCase();
+        var tags = tagName.split('-');
+        var type = _.last(tags).replace(/^\S/, function(s){return s.toUpperCase()});
+
+        if (tags.length === 1 && scope.views) {
+            // TODO: 在 scope 中找到相应的视图构造函数，使其支持 Backbone 的 View
+            type = scope.views[type];
+        }
+
+        return {
+            type: type,
+            options: parseOption(element, scope)
+        };
     }
 
     function parseOption(elem, env) {
