@@ -15,6 +15,11 @@
         });
     }
 
+    function isUnknownElement(element) {
+        return (element.constructor === HTMLUnknownElement)
+            || (element.constructor === HTMLElement);
+    }
+
     function compileElement(element, scope) {
         var elements = [];
         if (_.isElement(element)) {
@@ -26,16 +31,20 @@
         _.each(elements, function(elem) {
             if (!_.isElement(elem)) return;
 
-            var widget = convert(parse(elem, scope));
+            if (isUnknownElement(elem)) {
+                var widget = convert(parse(elem, scope));
 
-            widget.$el.attr('data-via', 'compiled');
-            var name = elem.getAttribute('name');
-            if (name && _.isString(name)) {
-                scope[name] = widget;
-                scope['$' + name] = widget.$el;
+                widget.$el.attr('data-via', 'compiled');
+                var name = elem.getAttribute('name');
+                if (name && _.isString(name)) {
+                    scope[name] = widget;
+                    scope['$' + name] = widget.$el;
+                }
+
+                mount(elem, widget);
+            } else {
+                compileElement(_.toArray(elem.children), scope);
             }
-
-            mount(elem, widget);
         });
     }
 
