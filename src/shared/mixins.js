@@ -39,12 +39,12 @@ const shadow = {
         }
         return this;
     },
-    defineShadowValues(options) {
+    defineShadowValues(options = []) {
         // TODO: 校验参数
         _.each(options, (option, name) => this.defineShadowValue(name, option));
         return this;
     },
-    defineShadowValue(name, option) {
+    defineShadowValue(name, option = {}) {
         var opt = _.pick(option, 'get', 'set', 'defaultValue');
 
         if (!_.isFunction(opt.get)) {
@@ -87,9 +87,9 @@ const observer = {
         }
 
         try {
-            var MutationObserver = MutationObserver || WebKitMutationObserver || MozMutationObserver;
+            const MutationObserver = MutationObserver || WebKitMutationObserver || MozMutationObserver;
             if (!MutationObserver) return null;
-            var observer = new MutationObserver(manager);
+            const observer = new MutationObserver(manager);
             observer.observe(dom, config);
 
             if (!this._observers) {
