@@ -41,16 +41,15 @@ export function compileElement(element, scope) {
 }
 
 // 将虚拟 DOM 转换成组件对象
-export function convert(vdom) {
+export function convert({ type, options, configs }) {
     // TODO: 判断 vdom 格式，支持 React/Deku 等框架
-    const type = vdom.type;
     if (_.isString(type)) {
         if (_.isFunction(components[type])) {
-            return new components[type](vdom.options, vdom.configs);
+            return new components[type](options, configs);
         }
     } else if (_.isFunction(type)) {
         if (utils.isBackboneView(type)) {
-            return new type(vdom.options, vdom.configs);
+            return new type(options, configs);
         }
     }
 }
@@ -72,7 +71,7 @@ export function mount(element, widget = {}) {
 export function parse(element, scope = {}) {
     const res = element.tagName.toLowerCase().match(/(\w+)[\-\:](\w+)/i);
     const namespace = res[1];
-    var type = res[2];
+    let type = res[2];
 
     switch (namespace) {
         case 'v': if (scope.viewTags) type = scope.viewTags[type];  break;
@@ -88,13 +87,13 @@ export function parse(element, scope = {}) {
 }
 
 function parseOption(element, scope = {}) {
-    var options = {};
+    const options = {};
     if (!_.isElement(element)) return options;
 
     _.each(element.attributes, attr => {
         if (attr.nodeType !== 2) return;
 
-        var value = attr.nodeValue;
+        let value = attr.nodeValue;
         if (_.isFunction(scope[value])) value = scope[value]();
 
         if (attr.nodeName === 'options') {

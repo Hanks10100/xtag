@@ -40,7 +40,6 @@ const shadow = {
         return this;
     },
     defineShadowValues(options = []) {
-        // TODO: 校验参数
         _.each(options, (option, name) => this.defineShadowValue(name, option));
         return this;
     },
@@ -60,9 +59,7 @@ const shadow = {
             this[KEY][name] = opt.defaultValue || null;
             Object.defineProperty(this, name, {
                 get: _.bind(opt.get, this),
-                set() {
-                    this[KEY][name] = opt.set.apply(this, arguments);
-                }
+                set() { this[KEY][name] = opt.set(...arguments) }
             });
         } catch (e) {
             this[name] = opt.defaultValue || null;
@@ -87,16 +84,19 @@ const observer = {
         }
 
         try {
-            const MutationObserver = MutationObserver || WebKitMutationObserver || MozMutationObserver;
+            const MutationObserver = window.MutationObserver
+                || window.WebKitMutationObserver
+                || window.MozMutationObserver;
             if (!MutationObserver) return null;
-            const observer = new MutationObserver(manager);
-            observer.observe(dom, config);
+
+            const ob = new MutationObserver(manager);
+            ob.observe(dom, config);
 
             if (!this._observers) {
                 Object.defineProperty(this, '_observers', { value: [] });
             }
 
-            this._observers.push(observer);
+            this._observers.push(ob);
         } catch (e) {
             return null;
         }
@@ -150,7 +150,7 @@ const observer = {
     },
 
     disconnectObserver() {
-        _.each(this._observers, observer => observer.disconnect());
+        _.each(this._observers, ob => ob.disconnect());
         return this;
     },
 }
