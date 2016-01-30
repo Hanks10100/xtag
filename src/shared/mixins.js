@@ -2,8 +2,7 @@
 // 自定义事件的 mixin
 const events = _.extend({
     onChange(callback) {
-        if (!_.isFunction(callback)) return this;
-        this.on('change', _.bind(callback, this));
+        _.isFunction(callback) && this.on('change', callback.bind(this));
         return this;
     },
 }, Backbone.Events);
@@ -58,7 +57,7 @@ const shadow = {
         try {
             this[KEY][name] = opt.defaultValue || null;
             Object.defineProperty(this, name, {
-                get: _.bind(opt.get, this),
+                get: opt.get.bind(this),
                 set() { this[KEY][name] = opt.set(...arguments) }
             });
         } catch (e) {

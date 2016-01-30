@@ -42,7 +42,7 @@ const proto = {
     },
 
     onChange(callback) {
-        _.isFunction(callback) && this.$input.on('change', _.bind(callback, this));
+        _.isFunction(callback) && this.$input.on('change', callback.bind(this));
         return this;
     },
 

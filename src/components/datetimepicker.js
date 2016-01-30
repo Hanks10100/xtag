@@ -19,7 +19,7 @@ export class Datetimepicker {
             'value', 'setEndDate', 'setStartDate', 'option', 'setDatesDisabled',
             'widget', 'setDaysOfWeekDisabled', 'setDaysOfWeekHighlighted'
         ];
-        _.each(methods, method => this[method] = _.bind($picker.datetimepicker, $picker, method));
+        _.each(methods, method => this[method] = $picker.datetimepicker.bind($picker, method));
     }
 
     afterMount() {
