@@ -171,4 +171,4 @@
         observer: observerMixin,
     };
 
-})(window, window.XXX)
+})(window, window.XTag)

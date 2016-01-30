@@ -41,4 +41,4 @@
     }
 
     Framework.preCompile = preCompile;
-})(window, window.XXX)
+})(window, window.XTag)

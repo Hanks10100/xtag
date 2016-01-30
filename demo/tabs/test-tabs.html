@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Tag Test</title>
+    <link rel="stylesheet" href="../../frm/fish-desktop/css/fish-desktop-default.css">
+    <link rel="stylesheet" href="../test.css">
+    <link rel="stylesheet" href="./tabs.css">
+
+    <script src="../../frm/fish-desktop/js/fish-desktop-all.js"></script>
+
+    <!-- 下列代码应该按序打包进同一个库里 -->
+    <script>window.XTag={};</script>
+    <script src="../../src/shared/utils.js"></script>
+    <script src="../../src/shared/mixins.js"></script>
+    <script src="../../src/components/switcher.js"></script>
+    <script src="../../src/components/tabs.js"></script>
+    <script src="../../src/compile.js"></script>
+    <script src="../../src/connect.js"></script>
+
+    <!--[if lte IE 8]>
+        <script src="../../frm/fish-desktop/libs/bootstrap/html5shiv.js"></script>
+        <script src="../../frm/fish-desktop/console.silent.js"></script>
+    <![endif]-->
+
+    <script src="../../frm/fish-desktop/js/fish-desktop-require.js" data-main="test-tabs.js"></script>
+</head>
+<body>
+    <h1>Custom Tag Test</h1>
+    <div id="pageRoot"></div>
+</body>
+</html>

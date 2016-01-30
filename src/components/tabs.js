@@ -2,7 +2,7 @@
     'use strict';
 
     // Tab 页签
-    function Tabs(options) {
+    function Tabs() {
         this.initialize.apply(this, arguments);
         this.initElement.apply(this, arguments);
         this.bindEvents();
@@ -18,9 +18,12 @@
     _.extend(Tabs.prototype, {
         type: 'Tabs',
 
-        initialize: function(options) {
+        initialize: function(options, configs) {
             options || (options = {});
+            configs || (configs = {});
             var self = this;
+
+            this._scope = configs.scope;
 
             // 定义影子变量，可在 getter/setter 中绑定额外操作
             this.defineShadowValues({
@@ -43,9 +46,10 @@
             return this;
         },
 
-        initElement: function(options) {
+        initElement: function(options, configs) {
             var self = this;
-            this.$el = $('<div class="ued-tabs"></div>');
+            this.$el = $('<div class="ued-tabs"></div>').attr('data-type', this.type);
+            this.el = this.$el[0];
 
             this.$navList = $('<ul class="tabs-nav-list"></ul>');
             this.$contents = $('<div class="tabs-content"></div>');
@@ -74,7 +78,7 @@
 
         bindEvents: function() {
             var self = this;
-            this.$el.on('click', '.tabs-nav-cell', function(event) {
+            this.$navs.on('click', '.tabs-nav-cell', function(event) {
                 self.switchTo($(event.currentTarget).data('index'));
             });
 
@@ -116,7 +120,8 @@
         },
 
         switchTo: function(index) {
-            if (!_.isNumber(index) || (index < 0) || (index >= this.tabs.length)) return this;
+            if (!_.isNumber(index)) return this;
+            index = parseInt(index + this.tabs.length, 10) % this.tabs.length;
             if (this.isEnabled()) {
 
                 if (this.activeTab !== index) {
@@ -134,6 +139,22 @@
         },
 
         afterMount: function() {
+            var count = this.$el.parents('.ued-tabs').length + 1;
+            this.$el.attr('level', count).data('level', count);
+            switch (count) {
+                case 1: this.$el.addClass('root-tab');   break;
+                case 2: this.$el.addClass('second-tab');  break;
+                case 3: this.$el.addClass('third-tab');   break;
+                case 4: this.$el.addClass('fourth-tab');  break;
+                case 5: this.$el.addClass('fifth-tab');   break;
+                case 6: this.$el.addClass('sixth-tab');   break;
+                case 7: this.$el.addClass('seventh-tab'); break;
+                case 8: this.$el.addClass('eighth-tab');  break;
+                case 9: this.$el.addClass('ninth-tab');   break;
+            }
+
+            // 编译 Tabs 面板中的内容
+            Framework.compileElement(this.$contents, this._scope);
             this.adjustLayout();
         },
 
@@ -177,4 +198,4 @@
     _.extend(Tabs.prototype, Framework.mixins.events);
 
     Framework.Tabs = Tabs;
-})(window, window.XXX)
+})(window, window.XTag)

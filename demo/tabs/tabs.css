@@ -1,0 +1,112 @@
+.ued-tabs {
+  width: 100%;
+  *zoom: 1;
+}
+.ued-tabs:before, .ued-tabs:after {
+  content: "";
+  display: table;
+}
+.ued-tabs:after {
+  clear: both;
+}
+.ued-tabs.disabled {
+  background-color: #DDD;
+  cursor: not-allowed;
+}
+
+.tabs-nav {
+  width: 100%;
+}
+
+.tabs-nav-list {
+  width: 100%;
+  height: 38px;
+  margin: 0;
+  padding: 0;
+  padding: 0 8px;
+}
+.tabs-vertical .tabs-nav-list {
+  height: auto;
+  width: 160px;
+  border: 0;
+  *zoom: 1;
+  padding: 0;
+}
+[align="top"] .tabs-nav-list {
+  border-bottom: 1px solid #DDD;
+}
+[align="bottom"] .tabs-nav-list {
+  border-top: 1px solid #DDD;
+}
+[align="left"] .tabs-nav-list {
+  float: left;
+}
+[align="right"] .tabs-nav-list {
+  float: right;
+}
+
+.tabs-nav-cell {
+  display: block;
+  float: left;
+  width: 100px;
+  height: 37px;
+  line-height: 37px;
+  text-align: center;
+  -webkit-user-select: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 18px;
+}
+.tabs-nav-cell.active {
+  height: 38px;
+  color: #66AAFF;
+  border-color: #DDD;
+  background-color: #FFF;
+}
+.tabs-nav-cell.active:hover {
+  background-color: #F4F4F4;
+}
+.tabs-nav-cell:hover {
+  background-color: #F4F4F4;
+}
+.tabs-vertical .tabs-nav-cell {
+  float: none;
+  width: 100%;
+  height: 38px;
+  border: 0;
+  border-radius: 0;
+}
+.tabs-vertical .tabs-nav-cell.active {
+  background-color: #F8F8F8;
+  border-left-color: #66AAFF;
+  border-right-color: #66AAFF;
+}
+[align="left"] .tabs-nav-cell {
+  border-right: 2px solid #DDD;
+}
+[align="right"] .tabs-nav-cell {
+  border-left: 2px solid #DDD;
+}
+[align="top"] .tabs-nav-cell {
+  border-bottom: 0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+[align="bottom"] .tabs-nav-cell {
+  border-top: 0;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-top: -1px;
+}
+
+.tabs-content {
+  padding: 6px 16px;
+  background-color: #F8F6F8;
+  height: 100%;
+}
+[align="left"] .tabs-content {
+  margin-left: 160px;
+}
+[align="right"] .tabs-content {
+  margin-right: 160px;
+}

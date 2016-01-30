@@ -1,0 +1,46 @@
+<section class="page-section">
+    <h3>Tabs</h3>
+    <x-tabs name="tab">
+        <group>
+            <trigger>AA</trigger>
+            <target>
+                <h4>AAA Panel</h4>
+                <p>there is something of A.</p>
+            </target>
+        </group>
+        <group>
+            <trigger>BB</trigger>
+            <target>
+                <h4>BBB Panel</h4>
+                <p><x-switcher name="switcher" checked="checked"></x-switcher><b>switcher</b></p>
+            </target>
+        </group>
+        <group active="active">
+            <trigger>CC</trigger>
+            <target>
+                <h4>CCC Panel</h4>
+                <x-tabs name="childTab" align="left">
+                        <group active="active">
+                            <trigger>1</trigger>
+                            <target>
+                                <h4>111 Panel</h4>
+                                <x-checkbox name="checkbox" checked="checked"></x-checkbox>
+                            </target>
+                        </group>
+                        <group>
+                            <trigger>2</trigger>
+                            <target>
+                                <h4>222 Panel</h4>
+                            </target>
+                        </group>
+                        <group>
+                            <trigger>3</trigger>
+                            <target><h4>333 Panel</h4></target>
+                        </group>
+                    </x-tabs>
+
+
+            </target>
+        </group>
+    </x-tabs>
+</section>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Tag Test</title>
+    <link rel="stylesheet" href="../frm/fish-desktop/css/fish-desktop-default.css">
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="tabs/tabs.css">
+
+    <!-- 引入了 fish 的文件是因为会用到 jQuery 和 underscore -->
+    <script src="../frm/fish-desktop/js/fish-desktop-all.js"></script>
+
+    <!--[if lte IE 8]>
+        <script src="../frm/fish-desktop/libs/bootstrap/html5shiv.js"></script>
+        <script src="../frm/fish-desktop/console.silent.js"></script>
+    <![endif]-->
+
+    <!-- 下列代码应该按序打包进同一个库里 -->
+    <script>window.XTag={}</script>
+    <script src="../src/shared/utils.js"></script>
+    <script src="../src/shared/mixins.js"></script>
+    <script src="../src/shared/staticTags.js"></script>
+    <script src="../src/components/tabs.js"></script>
+    <script src="../src/components/select.js"></script>
+    <script src="../src/components/table.js"></script>
+    <script src="../src/components/switcher.js"></script>
+    <script src="../src/components/datetimepicker.js"></script>
+    <script src="../src/compile.js"></script>
+    <script src="../src/connect.js"></script>
+    <script>$(function(){ window.demo = XTag.compile() })</script>
+
+</head>
+<body>
+    <div id="pageRoot">
+        <header class="page-header">Header</header>
+        <div class="page-content">
+            <main>
+                <section class="page-section">
+                    <h3>Switch Button</h3>
+                    <x-switcher name="switcher"></x-switcher>
+                    <x-checkbox name="checkbox" checked="checked"></x-checkbox>
+                </section>
+
+                <section class="page-section">
+                    <h3>Select</h3>
+                    <x-select name="select">
+                        <x-option value="A">--- A ---</x-option>
+                        <x-option value="B">--- B ---</x-option>
+                        <x-option value="C">--- C ---</x-option>
+                        <x-option value="D">--- D ---</x-option>
+                    </x-select>
+                </section>
+
+                <section class="page-section">
+                    <h3>Datetimepicker</h3>
+                    <x-datetimepicker name="picker"></x-datetimepicker>
+                </section>
+
+                <section class="page-section">
+                    <h3>Tabs</h3>
+                    <x-tabs name="tab">
+                        <group>
+                            <trigger>AA</trigger>
+                            <target>
+                                <h4>AAA Panel</h4>
+                                <p>there is something of A.</p>
+                            </target>
+                        </group>
+                        <group active="active">
+                            <trigger>BB</trigger>
+                            <target>
+                                <h4>BBB Panel</h4>
+                                <p><x-switcher name="tabSwitcher" checked="checked"></x-switcher><b>switcher</b></p>
+                            </target>
+                        </group>
+                        <group>
+                            <trigger>CC</trigger>
+                            <target><h4>CCC Panel</h4></target>
+                        </group>
+                    </x-tabs>
+                </section>
+            </main>
+        </div>
+        <footer class="page-footer">Footer</footer>
+    </div>
+</body>
+</html>
