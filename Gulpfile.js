@@ -4,6 +4,8 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
+var webpack = require('webpack-stream');
+var webpackConfig = require('./webpack.config.js');
 
 var filePath = [
     'src/shared/*.js',
