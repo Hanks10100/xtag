@@ -5,6 +5,7 @@ import { preCompile, registerTag, unregisterTag } from './shared/staticTags';
 import { Switcher, Checkbox } from './components/switcher';
 import { Datetimepicker } from './components/datetimepicker';
 import { Select } from './components/select';
+import { Table } from './components/Table';
 
 const XTag = {
     utils,
@@ -16,6 +17,7 @@ const XTag = {
     Checkbox,
     Select,
     Datetimepicker,
+    Table,
 };
 console.log(XTag);
 
