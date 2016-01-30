@@ -93,6 +93,8 @@
 
     function parseOption(element, scope) {
         var options = {};
+        if (!_.isElement(element)) return options;
+
         _.each(element.attributes, function(attr) {
             if (attr.nodeType !== 2) return;
 
