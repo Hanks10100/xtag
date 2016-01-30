@@ -3,6 +3,7 @@ import mixins from './shared/mixins';
 import { preCompile, registerTag, unregisterTag } from './shared/staticTags';
 
 import { Switcher, Checkbox } from './components/switcher';
+import { Select } from './components/select';
 
 const XTag = {
     utils,
@@ -12,6 +13,7 @@ const XTag = {
     unregisterTag,
     Switcher,
     Checkbox,
+    Select,
 };
 console.log(XTag);
 
