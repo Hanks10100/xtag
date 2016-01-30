@@ -3,6 +3,7 @@ import mixins from './shared/mixins';
 import { preCompile, registerTag, unregisterTag } from './shared/staticTags';
 
 import { Switcher, Checkbox } from './components/switcher';
+import { Datetimepicker } from './components/datetimepicker';
 import { Select } from './components/select';
 
 const XTag = {
@@ -14,6 +15,7 @@ const XTag = {
     Switcher,
     Checkbox,
     Select,
+    Datetimepicker,
 };
 console.log(XTag);
 

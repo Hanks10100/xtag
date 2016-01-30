@@ -1,8 +1,9 @@
-;(function(root, Framework){
-    'use strict';
+import mixins from '../shared/mixins';
 
-    // 日期选择插件的构造函数
-    function Datetimepicker(options) {
+
+// 日期选择插件的构造函数
+export class Datetimepicker {
+    constructor(options) {
         this.options = options || {};
         this.$el = $('<div class="input-group"></div>').attr('data-type', this.type);
         this.$input = $('<input type="text" class="form-control">');
@@ -11,24 +12,22 @@
         this.mapMethods();
     }
 
-    _.extend(Datetimepicker.prototype, {
-        type: 'Datetimepicker',
-        mapMethods: function() {
-            var self = this;
-            var $picker = this.$input;
-            var methods = [
-                'destroy', 'disable', 'enable', 'getDate', 'setDate', 'hide', 'show',
-                'value', 'setEndDate', 'setStartDate', 'option', 'setDatesDisabled',
-                'widget', 'setDaysOfWeekDisabled', 'setDaysOfWeekHighlighted'
-            ];
-            _.each(methods, function(method) {
-                self[method] = _.bind($picker.datetimepicker, $picker, method);
-            });
-        },
-        afterMount: function() {
-            this.$input.datetimepicker(this.options);
-        }
-    });
+    mapMethods() {
+        var self = this;
+        var $picker = this.$input;
+        var methods = [
+            'destroy', 'disable', 'enable', 'getDate', 'setDate', 'hide', 'show',
+            'value', 'setEndDate', 'setStartDate', 'option', 'setDatesDisabled',
+            'widget', 'setDaysOfWeekDisabled', 'setDaysOfWeekHighlighted'
+        ];
+        _.each(methods, function(method) {
+            self[method] = _.bind($picker.datetimepicker, $picker, method);
+        });
+    }
 
-    Framework.Datetimepicker = Datetimepicker;
-})(window, window.XTag)
+    afterMount() {
+        this.$input.datetimepicker(this.options);
+    }
+}
+
+Datetimepicker.prototype.type = 'Datetimepicker';
