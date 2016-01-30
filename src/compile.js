@@ -26,14 +26,16 @@
             if (shouldCompile(elem)) {
                 var widget = convert(parse(elem, scope));
 
-                widget.$el.attr('data-via', 'compiled');
-                var name = elem.getAttribute('name');
-                if (name && _.isString(name)) {
-                    scope[name] = widget;
-                    scope['$' + name] = widget.$el;
-                }
+                if (widget) {
+                    widget.$el.attr('data-via', 'compiled');
+                    var name = elem.getAttribute('name');
+                    if (name && _.isString(name)) {
+                        scope[name] = widget;
+                        scope['$' + name] = widget.$el;
+                    }
 
-                mount(elem, widget);
+                    mount(elem, widget);
+                }
             } else {
                 compileElement(_.toArray(elem.children), scope);
             }
@@ -47,7 +49,9 @@
         // TODO: 判断 vdom 格式，支持 React/Deku 等框架
         var type = vdom.type;
         if (_.isString(type)) {
-            return new Framework[vdom.type](vdom.options, vdom.configs);
+            if (_.isFunction(Framework[type])) {
+                return new Framework[type](vdom.options, vdom.configs);
+            }
         } else if (_.isFunction(type)) {
             if (root.Backbone && type.prototype instanceof root.Backbone.View) {
                 return new type(vdom.options, vdom.configs);
@@ -80,6 +84,8 @@
         } else if (namespace === 'x') {
             // 将首字母转成大写，其他字母均为小写（待修改）
             type = type.replace(/^\S/, function(s){return s.toUpperCase()});
+        } else {
+            type = '?' + type;
         }
 
         return {
