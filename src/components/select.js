@@ -24,7 +24,7 @@ export class Select {
 
         this._options = [];
         this.$options = $('<ul class="dropdown-list"></ul>');
-        _.each(options.children, (child, index) => {
+        options.children.forEach((child, index) => {
             const value = child.getAttribute('value');
             this._options.push({ value, name: child.innerHTML });
             this.$options.append(

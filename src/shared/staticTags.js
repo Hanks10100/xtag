@@ -9,7 +9,7 @@ var staticTags = {
 export function preCompile(template) {
     var $tpl = $(`<code>${template}</code>`);
     _.each(staticTags, (tpl, tagName) => {
-        _.each($tpl.find(TAG_PREFIX + tagName), elem => {
+        $tpl.find(TAG_PREFIX + tagName).each((i, elem) => {
             if (_.isFunction(tpl)) tpl = tpl(elem);
             $(elem).replaceWith(tpl);
         });

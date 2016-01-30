@@ -47,7 +47,7 @@ export class Tabs {
 
         this.$navList = $('<ul class="tabs-nav-list"></ul>');
         this.$contents = $('<div class="tabs-content"></div>');
-        _.each(this.tabs, (group, index) => {
+        this.tabs.forEach((group, index) => {
             group.title = group.trigger.innerHTML;
             group.trigger = $('<li class="tabs-nav-cell"></li>')
                 .data('index', index)

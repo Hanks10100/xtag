@@ -38,7 +38,7 @@ const shadow = {
         }
         return this;
     },
-    defineShadowValues(options = []) {
+    defineShadowValues(options = {}) {
         _.each(options, (option, name) => this.defineShadowValue(name, option));
         return this;
     },
@@ -124,7 +124,7 @@ const observer = {
             attributeFilter: filter
         }
         this.createObserver(dom, config, mutations => {
-            _.each(mutations, record => {
+            mutations.forEach(record => {
                 if (record.type !== 'attributes') return;
                 manager.call(this, record.attributeName, record, record.oldValue);
             });
@@ -140,7 +140,7 @@ const observer = {
         }
 
         this.createObserver(dom, { childList: true }, mutations => {
-            _.each(mutations, record => {
+            mutations.forEach(record => {
                 if (record.type !== 'childList') return;
                 manager.call(this, record);
             });
@@ -149,7 +149,7 @@ const observer = {
     },
 
     disconnectObserver() {
-        _.each(this._observers, ob => ob.disconnect());
+        this._observers.forEach(ob => ob.disconnect());
         return this;
     },
 }

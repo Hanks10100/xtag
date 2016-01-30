@@ -16,7 +16,7 @@ function shouldCompile(element) {
 export function compileElement(element, scope) {
     const elements = _.isElement(element) ? [element] : _.toArray(element);
 
-    _.each(elements, elem => {
+    elements.forEach(elem => {
         if (!_.isElement(elem)) return;
 
         if (shouldCompile(elem)) {

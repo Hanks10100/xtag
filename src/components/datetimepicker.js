@@ -14,12 +14,11 @@ export class Datetimepicker {
 
     mapMethods() {
         const $picker = this.$input;
-        const methods = [
+        [
             'destroy', 'disable', 'enable', 'getDate', 'setDate', 'hide', 'show',
             'value', 'setEndDate', 'setStartDate', 'option', 'setDatesDisabled',
             'widget', 'setDaysOfWeekDisabled', 'setDaysOfWeekHighlighted'
-        ];
-        _.each(methods, method => this[method] = $picker.datetimepicker.bind($picker, method));
+        ].forEach(method => this[method] = $picker.datetimepicker.bind($picker, method));
     }
 
     afterMount() {

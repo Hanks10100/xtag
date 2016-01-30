@@ -1,23 +1,19 @@
 
 // 生成表格主体内容
 function generateTableHead(headArray = []) {
-    var $thead = $('<thead></thead>');
-    var $tr = $('<tr></tr>');
-    _.each(headArray, function(cell, col) {
-        $tr.append(`<th>${cell.text}</th>`);
-    });
+    const $thead = $('<thead></thead>');
+    const $tr = $('<tr></tr>');
+    headArray.forEach((cell, col) => $tr.append(`<th>${cell.text}</th>`));
     $thead.html($tr);
     return $thead;
 }
 
 // 生成表格主体内容
 function generateTableBody(bodyArray = []) {
-    var $tbody = $('<tbody></tbody>');
-    _.each(bodyArray, function(rowArray, row) {
-        var $tr = $('<tr></tr>');
-        _.each(rowArray, function(cell, col) {
-            $tr.append(`<td>${cell.text}</td>`);
-        });
+    const $tbody = $('<tbody></tbody>');
+    bodyArray.forEach((rowArray, row) => {
+        const $tr = $('<tr></tr>');
+        rowArray.forEach((cell, col) => $tr.append(`<td>${cell.text}</td>`));
         $tbody.append($tr);
     });
     return $tbody;
