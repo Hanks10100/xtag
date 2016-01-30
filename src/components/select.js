@@ -76,12 +76,12 @@ export class Select {
 
     getValue() {
         const original = this.$input.val();
-        return _.reduce(this._options, (res, opt) => (opt.name === original) ? opt.value : res, null);
+        return this._options.reduce((res, opt) => (opt.name === original) ? opt.value : res, null);
     }
 
     setValue(value) {
         const original = this.$input.val();
-        const newValue = _.reduce(this._options, (res, opt) => (opt.value === value) ? opt.name : res, original);
+        const newValue = this._options.reduce((res, opt) => (opt.value === value) ? opt.name : res, original);
 
         if (newValue !== original) {
             this.$input.val(newValue);

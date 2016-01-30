@@ -27,7 +27,7 @@ export class Tabs {
             activeTab: { set: idx => this.switchTo(idx).activeTab }
         });
 
-        this.tabs = _.map(options.children, (group, index) => {
+        this.tabs = options.children.map((group, index) => {
             if (group.getAttribute('active')) {
                 this.setShadowValue('activeTab', index);
             }
