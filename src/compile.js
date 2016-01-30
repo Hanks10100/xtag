@@ -40,6 +40,13 @@
         return elements;
     }
 
+    function isBackboneView(View) {
+        return _.isFunction(View)
+            && root.Backbone
+            && View.prototype === root.Backbone.View
+            || View.prototype instanceof root.Backbone.View
+    }
+
     // 将虚拟 DOM 转换成组件对象
     function convert(vdom) {
         // TODO: 判断 vdom 格式，支持 React/Deku 等框架
@@ -49,7 +56,7 @@
                 return new Framework[type](vdom.options, vdom.configs);
             }
         } else if (_.isFunction(type)) {
-            if (root.Backbone && type.prototype instanceof root.Backbone.View) {
+            if (isBackboneView(type)) {
                 return new type(vdom.options, vdom.configs);
             }
         }
