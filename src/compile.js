@@ -1,10 +1,11 @@
 ;(function(root, Framework){
     'use strict';
 
-    function compile(env) {
-        var scope = env || {};
-        var elements = scope.el || document.getElementsByTagName('body')[0];
+    function compile(context) {
+        var scope = context || {};
+        var elements = scope.el || document.getElementsByTagName('body');
         compileElement(elements, scope);
+        scope.el = elements;
         return scope;
     }
 
@@ -90,13 +91,13 @@
         };
     }
 
-    function parseOption(elem, env) {
+    function parseOption(element, scope) {
         var options = {};
-        _.each(elem.attributes, function(attr) {
+        _.each(element.attributes, function(attr) {
             if (attr.nodeType !== 2) return;
 
             var value = attr.nodeValue;
-            if (_.isFunction(env[value])) value = env[value]();
+            if (_.isFunction(scope[value])) value = scope[value]();
 
             if (attr.nodeName === 'options') {
                 _.extend(options, value);
@@ -104,7 +105,7 @@
                 options[attr.nodeName] = value;
             }
         });
-        options.children = _.toArray(elem.children);
+        options.children = _.toArray(element.children);
         return options;
     }
 
