@@ -1,3 +1,4 @@
+import utils from './shared/utils';
 import mixins from './shared/mixins';
 import components from './components/index';
 
