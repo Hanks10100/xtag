@@ -1,7 +1,7 @@
 
 // 自定义事件的 mixin
 const events = _.extend({
-    onChange: function(callback) {
+    onChange(callback) {
         if (!_.isFunction(callback)) return this;
         this.on('change', _.bind(callback, this));
         return this;
@@ -11,27 +11,27 @@ const events = _.extend({
 
 // 与“启用”、“禁用” 相关的 函数
 const authorize = {
-    setAvailable: function(value) {
+    setAvailable(value) {
         this.$el.toggleClass('disabled', !value);
         this.$input && this.$input.prop('disabled', !value);
         return this;
     },
-    isEnabled: function() {
+    isEnabled() {
         if (this.$input) return this.$input.is(':enabled');
         return !this.$el.hasClass('disabled');
     },
-    enable:       function() { return this.setAvailable(true); },
-    disable:      function() { return this.setAvailable(false); },
-    toggleEnable: function() { return this.setAvailable(!this.isEnabled()); },
+    enable()       { return this.setAvailable(true);  },
+    disable()      { return this.setAvailable(false); },
+    toggleEnable() { return this.setAvailable(!this.isEnabled()); },
 }
 
 // 实现 getter/setter 相关的功能
 const KEY = '[[__SHADOW_OBJECT__]]';
 const shadow = {
-    hasShadowObject: function() {
+    hasShadowObject() {
         return !!this[KEY];
     },
-    createShadowObject: function() {
+    createShadowObject() {
         if (!this.hasShadowObject()) {
             try {
                 Object.defineProperty(this, KEY, { value: Object.create(null) });
@@ -39,22 +39,19 @@ const shadow = {
         }
         return this;
     },
-    defineShadowValues: function(options) {
+    defineShadowValues(options) {
         // TODO: 校验参数
-        var self = this;
-        _.each(options, function(option, name) {
-            self.defineShadowValue(name, option)
-        });
+        _.each(options, (option, name) => this.defineShadowValue(name, option));
         return this;
     },
-    defineShadowValue: function(name, option) {
+    defineShadowValue(name, option) {
         var opt = _.pick(option, 'get', 'set', 'defaultValue');
 
         if (!_.isFunction(opt.get)) {
-            opt.get = function() { return this[KEY][name]; }
+            opt.get = () => this[KEY][name];
         }
         if (!_.isFunction(opt.set)) {
-            opt.set = function(value) { return this[KEY][name] = value; }
+            opt.set = value => this[KEY][name] = value;
         }
 
         this.createShadowObject();
@@ -63,7 +60,7 @@ const shadow = {
             this[KEY][name] = opt.defaultValue || null;
             Object.defineProperty(this, name, {
                 get: _.bind(opt.get, this),
-                set: function() {
+                set() {
                     this[KEY][name] = opt.set.apply(this, arguments);
                 }
             });
@@ -72,7 +69,7 @@ const shadow = {
         }
         return this;
     },
-    setShadowValue: function(name, value) {
+    setShadowValue(name, value) {
         if (this.hasShadowObject()) {
             this[KEY][name] = value;
         } else {
@@ -83,7 +80,7 @@ const shadow = {
 }
 
 const observer = {
-    createObserver: function(dom, config, manager) {
+    createObserver(dom, config, manager) {
         if ($ && dom instanceof $) dom = dom[0];
         if (!manager || !_.isFunction(manager)) {
             throw new TypeError('`manager` must be a function');
@@ -106,9 +103,8 @@ const observer = {
     },
 
     // 仅监听 attributes 的变化
-    observeAttributes: function(dom, filter, manager) {
-        var self = this;
-        var args = _.toArray(arguments);
+    observeAttributes(dom, filter, manager) {
+        const args = _.toArray(arguments);
 
         // 使支持缺省参数值
         // 参数长度 1: manager
@@ -123,42 +119,38 @@ const observer = {
             manager = args[1];
         }
 
-        var config = {
+        const config = {
             attributes: true,
             attributeOldValue: true,
             attributeFilter: filter
         }
-        this.createObserver(dom, config, function(mutations) {
-            _.each(mutations, function(record) {
+        this.createObserver(dom, config, mutations => {
+            _.each(mutations, record => {
                 if (record.type !== 'attributes') return;
-                manager.call(self, record.attributeName, record, record.oldValue);
+                manager.call(this, record.attributeName, record, record.oldValue);
             });
         });
         return this;
     },
 
     // 仅监听子节点的变化
-    observeChildList: function(dom, manager) {
-        var self = this;
-
+    observeChildList(dom, manager) {
         if (_.isFunction(arguments[0])) {
             dom = this.$el[0];
             manager = arguments[0];
         }
 
-        this.createObserver(dom, { childList: true }, function(mutations) {
-            _.each(mutations, function(record) {
+        this.createObserver(dom, { childList: true }, mutations => {
+            _.each(mutations, record => {
                 if (record.type !== 'childList') return;
-                manager.call(self, record);
+                manager.call(this, record);
             });
         });
         return this;
     },
 
-    disconnectObserver: function() {
-        _.each(this._observers, function(observer) {
-            observer.disconnect();
-        });
+    disconnectObserver() {
+        _.each(this._observers, observer => observer.disconnect());
         return this;
     },
 }
