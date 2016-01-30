@@ -20,15 +20,15 @@ export class Checkbox {
 
 // Switcher 和 Checkbox 公用的原型
 const proto = {
-    initialize: function(options = {}) {
+    initialize(options = {}) {
         this.defineShadowValue('value', {
-            get: function() { return this.isChecked(); },
-            set: function(value) { this.setValue(value); return value; }
+            get: () => this.isChecked(),
+            set: value => { this.setValue(value); return value; }
         });
         return this;
     },
 
-    initElement: function(options = {}) {
+    initElement(options = {}) {
         this.setShadowValue('value', !!options.checked);
         this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
         this.$el = $('<label></label>')
@@ -41,17 +41,16 @@ const proto = {
         return this.$el;
     },
 
-    onChange: function(callback) {
-        if (!_.isFunction(callback)) return this;
-        this.$input.on('change', _.bind(callback, this));
+    onChange(callback) {
+        _.isFunction(callback) && this.$input.on('change', _.bind(callback, this));
         return this;
     },
 
     // 若 silent 为 true ，则不会触发 onChange 事件
-    setValue: function(value, silent = false) {
+    setValue(value, silent = false) {
         if (!this.isEnabled()) return this;
 
-        var oldValue = this.isChecked();
+        const oldValue = this.isChecked();
         if (!!value !== oldValue) {
             this.$input.prop('checked', !!value);
             silent || this.$input.trigger('change');
@@ -59,17 +58,16 @@ const proto = {
         return this;
     },
 
-    check:     function() { return this.setValue(true);  },
-    uncheck:   function() { return this.setValue(false); },
-    toggle:    function() { return this.setValue(!this.isChecked()); },
-    isChecked: function() { return this.$input.is(':checked'); },
+    check()     { return this.setValue(true);  },
+    uncheck()   { return this.setValue(false); },
+    toggle()    { return this.setValue(!this.isChecked()); },
+    isChecked() { return this.$input.is(':checked'); },
 
     // 使当前组件可以和其他组件保持一致
-    consistentWith: function(twin, silent = false) {
+    consistentWith(twin, silent = false) {
         if ((twin instanceof Switcher) || (twin instanceof Checkbox)) {
-            var self = this;
-            this.onChange(function() { twin.setValue(self.value, !!silent) });
-            twin.onChange(function() { self.setValue(twin.value, !!silent) });
+            this.onChange(() => twin.setValue(this.value, !!silent));
+            twin.onChange(() => this.setValue(twin.value, !!silent));
         }
         return this;
     },
