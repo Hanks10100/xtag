@@ -4,8 +4,8 @@ import { compileElement } from '../compile';
 
 // Tab 页签
 export function Tabs() {
-    this.initialize.apply(this, arguments);
-    this.initElement.apply(this, arguments);
+    this.initialize(...arguments);
+    this.initElement(...arguments);
     this.bindEvents();
 }
 

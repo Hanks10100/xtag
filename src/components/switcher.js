@@ -4,8 +4,8 @@ import mixins from '../shared/mixins';
 export class Switcher {
     constructor() {
         this.className = 'switch';
-        this.initialize.apply(this, arguments);
-        this.initElement.apply(this, arguments);
+        this.initialize(...arguments);
+        this.initElement(...arguments);
     }
 }
 
@@ -13,14 +13,14 @@ export class Switcher {
 export class Checkbox {
     constructor() {
         this.className = 'i-checks';
-        this.initialize.apply(this, arguments);
-        this.initElement.apply(this, arguments);
+        this.initialize(...arguments);
+        this.initElement(...arguments);
     }
 }
 
 // Switcher 和 Checkbox 公用的原型
 const proto = {
-    initialize: function(options) {
+    initialize: function(options = {}) {
         this.defineShadowValue('value', {
             get: function() { return this.isChecked(); },
             set: function(value) { this.setValue(value); return value; }
@@ -28,8 +28,7 @@ const proto = {
         return this;
     },
 
-    initElement: function(options) {
-        options || (options = {});
+    initElement: function(options = {}) {
         this.setShadowValue('value', !!options.checked);
         this.$input = $('<input type="checkbox">').prop('checked', !!options.checked);
         this.$el = $('<label></label>')
@@ -49,7 +48,7 @@ const proto = {
     },
 
     // 若 silent 为 true ，则不会触发 onChange 事件
-    setValue: function(value, silent) {
+    setValue: function(value, silent = false) {
         if (!this.isEnabled()) return this;
 
         var oldValue = this.isChecked();
@@ -66,7 +65,7 @@ const proto = {
     isChecked: function() { return this.$input.is(':checked'); },
 
     // 使当前组件可以和其他组件保持一致
-    consistentWith: function(twin, silent) {
+    consistentWith: function(twin, silent = false) {
         if ((twin instanceof Switcher) || (twin instanceof Checkbox)) {
             var self = this;
             this.onChange(function() { twin.setValue(self.value, !!silent) });

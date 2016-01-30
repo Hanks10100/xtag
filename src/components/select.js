@@ -8,7 +8,7 @@ export class Select {
             set: function(value) { this.setValue(value); return value; }
         });
 
-        this.initElement.apply(this, arguments);
+        this.initElement(...arguments);
         this.bindEvents();
     }
 
