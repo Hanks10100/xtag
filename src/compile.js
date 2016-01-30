@@ -70,24 +70,20 @@ export function mount(element, widget = {}) {
 
 // 解析标签元素，转为 vdom
 export function parse(element, scope = {}) {
-    var res = element.tagName.toLowerCase().match(/(\w+)[\-\:](\w+)/i);
-    var namespace = res[1];
+    const res = element.tagName.toLowerCase().match(/(\w+)[\-\:](\w+)/i);
+    const namespace = res[1];
     var type = res[2];
 
-    if (namespace === 'v' && scope.viewTags) {
-        // TODO: 在 scope 中找到相应的视图构造函数，使其支持 Backbone 的 View
-        type = scope.viewTags[type];
-    } else if (namespace === 'x') {
-        // 将首字母转成大写，其他字母均为小写（待修改）
-        type = type.replace(/^\S/, s => s.toUpperCase());
-    } else {
-        type = '?' + type;
+    switch (namespace) {
+        case 'v': if (scope.viewTags) type = scope.viewTags[type];  break;
+        case 'x': type = type.replace(/^\S/, s => s.toUpperCase()); break;
+        default : type = '?' + type;
     }
 
     return {
-        type: type,
+        type,
         options: parseOption(element, scope),
-        configs: { scope: scope }
+        configs: { scope }
     };
 }
 
