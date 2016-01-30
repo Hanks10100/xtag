@@ -35,10 +35,7 @@
         createShadowObject: function() {
             if (!this.hasShadowObject()) {
                 try {
-                    Object.defineProperty(this, KEY, {
-                        writable: true,
-                        value: Object.create(null),
-                    });
+                    Object.defineProperty(this, KEY, { value: Object.create(null) });
                 } catch (e) {}
             }
             return this;
@@ -99,7 +96,10 @@
                 var observer = new MutationObserver(manager);
                 observer.observe(dom, config);
 
-                this._observers = this._observers || [];
+                if (!this._observers) {
+                    Object.defineProperty(this, '_observers', { value: [] });
+                }
+
                 this._observers.push(observer);
             } catch (e) {
                 return null;
