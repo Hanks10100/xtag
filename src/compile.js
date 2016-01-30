@@ -1,9 +1,6 @@
 ;(function(root, Framework){
     'use strict';
 
-    var TAG_PREFIX = 'X-';
-    var CUSTOM_TAGS = ['Tabs', 'Select', 'Table', 'Datetimepicker', 'Switcher', 'Checkbox'];
-
     function compile(env) {
         var scope = env || {};
         var elements = scope.el || document.getElementsByTagName('body')[0];
@@ -110,9 +107,6 @@
         options.children = _.toArray(elem.children);
         return options;
     }
-
-    Framework.tags = CUSTOM_TAGS;
-    if (Object.freeze) Object.freeze(Framework.tags);
 
     Framework.compile = compile;
     Framework.compileElement = compileElement;
