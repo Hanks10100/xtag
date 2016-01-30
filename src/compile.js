@@ -1,4 +1,5 @@
 import mixins from './shared/mixins';
+import components from './components/index';
 
 export function compile(context) {
     var scope = context || {};
@@ -44,8 +45,8 @@ export function convert(vdom) {
     // TODO: 判断 vdom 格式，支持 React/Deku 等框架
     var type = vdom.type;
     if (_.isString(type)) {
-        if (_.isFunction(XTag[type])) {
-            return new XTag[type](vdom.options, vdom.configs);
+        if (_.isFunction(components[type])) {
+            return new components[type](vdom.options, vdom.configs);
         }
     } else if (_.isFunction(type)) {
         if (utils.isBackboneView(type)) {
