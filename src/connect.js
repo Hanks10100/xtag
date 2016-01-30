@@ -1,3 +1,5 @@
+import { compile } from './compile';
+import { preCompile } from './shared/staticTags';
 
 export function connectToFish(fish) {
     var fish = fish || root.fish;
@@ -11,7 +13,7 @@ export function connectToFish(fish) {
     _.extend(fish.View.prototype, {
         __render: function() {
             var res = originalRender.apply(this, arguments);
-            Framework.compile(this);
+            compile(this);
             return res;
         }
     });
@@ -21,7 +23,7 @@ export function connectToFish(fish) {
 function customHandlebarsCompile() {
     var HandlebarsCompile = Handlebars.compile;
     Handlebars.compile = function(template, options) {
-        var tpl = Framework.preCompile(template);
+        var tpl = preCompile(template);
         return HandlebarsCompile(tpl, options);
     }
 }
