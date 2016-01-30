@@ -16,7 +16,7 @@ function shouldCompile(element) {
 export function compileElement(element, scope) {
     const elements = _.isElement(element) ? [element] : _.toArray(element);
 
-    _.each(elements, function(elem) {
+    _.each(elements, elem => {
         if (!_.isElement(elem)) return;
 
         if (shouldCompile(elem)) {
@@ -79,7 +79,7 @@ export function parse(element, scope = {}) {
         type = scope.viewTags[type];
     } else if (namespace === 'x') {
         // 将首字母转成大写，其他字母均为小写（待修改）
-        type = type.replace(/^\S/, function(s){return s.toUpperCase()});
+        type = type.replace(/^\S/, s => s.toUpperCase());
     } else {
         type = '?' + type;
     }
@@ -95,7 +95,7 @@ function parseOption(element, scope = {}) {
     var options = {};
     if (!_.isElement(element)) return options;
 
-    _.each(element.attributes, function(attr) {
+    _.each(element.attributes, attr => {
         if (attr.nodeType !== 2) return;
 
         var value = attr.nodeValue;
