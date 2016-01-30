@@ -1,0 +1,19 @@
+{
+  "name": "x-tag",
+  "version": "0.1.0",
+  "description": "x-tag components",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tag",
+    "html6",
+    "webcomponents"
+  ],
+  "author": "Hanks",
+  "license": "MIT"
+}
