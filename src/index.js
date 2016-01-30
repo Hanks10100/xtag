@@ -11,11 +11,14 @@ import { Tabs } from './components/Tabs';
 import { compile, compileElement } from './compile';
 import { connectToFish } from './connect';
 
+import components from './components/index';
+
 connectToFish(fish);
 
 const XTag = {
     utils,
     mixins,
+    components,
     preCompile,
     registerTag,
     unregisterTag,
