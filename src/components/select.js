@@ -4,8 +4,8 @@ import mixins from '../shared/mixins';
 export class Select {
     constructor() {
         this.defineShadowValue('value', {
-            get: function() { return this.getValue(); },
-            set: function(value) { this.setValue(value); return value; }
+            get: () => this.getValue(),
+            set: value => { this.setValue(value); return value; }
         });
 
         this.initElement(...arguments);
@@ -13,8 +13,6 @@ export class Select {
     }
 
     initElement(options) {
-        var self = this;
-
         this.$root = $('body');
 
         // 模拟 Fish Combobox 组件的 DOM 结构
@@ -26,14 +24,11 @@ export class Select {
 
         this._options = [];
         this.$options = $('<ul class="dropdown-list"></ul>');
-        _.each(options.children, function(child, index) {
-            // console.dir(child);
-            var value = child.getAttribute('value');
-            self._options.push({ value: value, name: child.innerHTML });
-            self.$options.append(
-                $('<li></li>').attr('index', index)
-                    .data('value', value)
-                    .html(child.innerHTML)
+        _.each(options.children, (child, index) => {
+            const value = child.getAttribute('value');
+            this._options.push({ value, name: child.innerHTML });
+            this.$options.append(
+                $(`<li>${child.innerHTML}</li>`).attr('index', index) .data('value', value)
             );
         });
 
@@ -42,23 +37,23 @@ export class Select {
     }
 
     bindEvents() {
-        var self = this;
 
-        this.$el.on('click', '.input-group-addon', function(event) {
+        this.$el.on('click', '.input-group-addon', event => {
             event.stopPropagation();
-            self.isEnabled() && self.toggleDropdown();
+            this.isEnabled() && this.toggleDropdown();
         });
 
-        this.$root.on('click', function() {
-            self.$options.detach();
-            self._optionsIsOpen = false;
+        this.$root.on('click', event => {
+            this.$options.detach();
+            this._optionsIsOpen = false;
         });
 
-        this.$options.on('click', 'li', function(event) {
-            var $li = $(event.currentTarget);
+        this.$options.on('click', 'li', event => {
+            const $li = $(event.currentTarget);
             $li.addClass('selected').siblings().removeClass('selected');
-            self.setValue($li.data('value'));
+            this.setValue($li.data('value'));
         });
+
         return this;
     }
 
@@ -67,32 +62,26 @@ export class Select {
             this.$options.detach();
             this._optionsIsOpen = false;
         } else {
-            var offset = this.$el.offset();
+            const offset = this.$el.offset();
 
-            this.$options.css('top', offset.top + this.$el.height() - 1)
-                .css('left', offset.left)
+            this.$options.css('left', offset.left)
+                .css('top', offset.top + this.$el.height() - 1)
                 .width(this.$el.width())
+                .appendTo(this.$root)
 
-            this.$options.appendTo(this.$root);
             this._optionsIsOpen = true;
         }
         return this;
     }
 
     getValue() {
-        var original = this.$input.val();
-        return _.reduce(this._options, function(res, option) {
-            if (option.name === original) return option.value;
-            return res;
-        }, null);
+        const original = this.$input.val();
+        return _.reduce(this._options, (res, opt) => (opt.name === original) ? opt.value : res, null);
     }
 
     setValue(value) {
-        var original = this.$input.val();
-        var newValue = _.reduce(this._options, function(res, option) {
-            if (option.value === value) return option.name;
-            return res;
-        }, original);
+        const original = this.$input.val();
+        const newValue = _.reduce(this._options, (res, opt) => (opt.value === value) ? opt.name : res, original);
 
         if (newValue !== original) {
             this.$input.val(newValue);
