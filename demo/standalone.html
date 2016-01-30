@@ -9,26 +9,16 @@
     <link rel="stylesheet" href="test.css">
     <link rel="stylesheet" href="tabs/tabs.css">
 
-    <!-- 引入了 fish 的文件是因为会用到 jQuery 和 underscore -->
-    <script src="../frm/fish-desktop/js/fish-desktop-all.js"></script>
-
     <!--[if lte IE 8]>
         <script src="../frm/fish-desktop/libs/bootstrap/html5shiv.js"></script>
         <script src="../frm/fish-desktop/console.silent.js"></script>
     <![endif]-->
 
-    <!-- 下列代码应该按序打包进同一个库里 -->
+    <!-- 引入了 fish 的文件是因为会用到 jQuery 和 underscore -->
+    <script src="../frm/fish-desktop/js/fish-desktop-all.js"></script>
+
     <script>window.XTag={}</script>
-    <script src="../src/shared/utils.js"></script>
-    <script src="../src/shared/mixins.js"></script>
-    <script src="../src/shared/staticTags.js"></script>
-    <script src="../src/components/tabs.js"></script>
-    <script src="../src/components/select.js"></script>
-    <script src="../src/components/table.js"></script>
-    <script src="../src/components/switcher.js"></script>
-    <script src="../src/components/datetimepicker.js"></script>
-    <script src="../src/compile.js"></script>
-    <script src="../src/connect.js"></script>
+    <script src="../dist/xtag.min.js"></script>
     <script>$(function(){ window.demo = XTag.compile() })</script>
 
 </head>
