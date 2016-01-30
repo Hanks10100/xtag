@@ -1,6 +1,9 @@
 var webpack = require('webpack');
 
 module.exports = {
+    output: {
+        filename: 'xtag.js'
+    },
     module: {
         loaders: [
             {
@@ -13,6 +16,7 @@ module.exports = {
             },
         ]
     },
+    devtool: 'source-map',
     resolve: {
         extensions: ['', '.js']
     }

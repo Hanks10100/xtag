@@ -2,8 +2,6 @@ var gulp = require('gulp');
 var del = require('del');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
 var webpack = require('webpack-stream');
 var webpackConfig = require('./webpack.config.js');
 
@@ -18,15 +16,22 @@ gulp.task('clean', function() {
   return del('./dist');
 });
 
-gulp.task('script', function() {
+gulp.task('script:compile', function() {
   return gulp.src(filePath)
-    .pipe(sourcemaps.init())
-    .pipe(concat('xtag.js'))
-    .pipe(gulp.dest('dist'))
+    .pipe(webpack(webpackConfig))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('script:min', ['script:compile'], function() {
+  return gulp.src('dist/*.js')
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('script', ['clean'], function() {
+    gulp.start('script:compile');
+    gulp.start('script:min');
 });
 
 gulp.task('default', ['clean'], function() {
