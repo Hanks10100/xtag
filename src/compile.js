@@ -2,8 +2,7 @@ import utils from './shared/utils';
 import mixins from './shared/mixins';
 import components from './components/index';
 
-export function compile(context) {
-    var scope = context || {};
+export function compile(scope = {}) {
     var elements = scope.el || document.getElementsByTagName('body');
     compileElement(elements, scope);
     scope.el = elements;
@@ -15,17 +14,17 @@ function shouldCompile(element) {
 }
 
 export function compileElement(element, scope) {
-    var elements = _.isElement(element) ? [element] : _.toArray(element);
+    const elements = _.isElement(element) ? [element] : _.toArray(element);
 
     _.each(elements, function(elem) {
         if (!_.isElement(elem)) return;
 
         if (shouldCompile(elem)) {
-            var widget = convert(parse(elem, scope));
+            let widget = convert(parse(elem, scope));
 
             if (widget) {
                 widget.$el.attr('data-via', 'compiled');
-                var name = elem.getAttribute('name');
+                let name = elem.getAttribute('name');
                 if (name && _.isString(name)) {
                     scope[name] = widget;
                     scope['$' + name] = widget.$el;
@@ -44,7 +43,7 @@ export function compileElement(element, scope) {
 // 将虚拟 DOM 转换成组件对象
 export function convert(vdom) {
     // TODO: 判断 vdom 格式，支持 React/Deku 等框架
-    var type = vdom.type;
+    const type = vdom.type;
     if (_.isString(type)) {
         if (_.isFunction(components[type])) {
             return new components[type](vdom.options, vdom.configs);
@@ -57,7 +56,7 @@ export function convert(vdom) {
 }
 
 // 将组件实例挂载到 DOM 节点上
-export function mount(element, widget) {
+export function mount(element, widget = {}) {
     if (_.isElement(element) && _.isElement(widget.el)) {
         element.parentNode.replaceChild(widget.el, element);
 
@@ -70,7 +69,7 @@ export function mount(element, widget) {
 }
 
 // 解析标签元素，转为 vdom
-export function parse(element, scope) {
+export function parse(element, scope = {}) {
     var res = element.tagName.toLowerCase().match(/(\w+)[\-\:](\w+)/i);
     var namespace = res[1];
     var type = res[2];
@@ -92,7 +91,7 @@ export function parse(element, scope) {
     };
 }
 
-function parseOption(element, scope) {
+function parseOption(element, scope = {}) {
     var options = {};
     if (!_.isElement(element)) return options;
 
