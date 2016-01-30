@@ -5,12 +5,13 @@ var rename = require('gulp-rename');
 var webpack = require('webpack-stream');
 var webpackConfig = require('./webpack.config.js');
 
-var filePath = [
-    'src/shared/*.js',
-    'src/components/*.js',
-    'src/compile.js',
-    'src/connect.js',
-];
+// var filePath = [
+//     'src/shared/*.js',
+//     'src/components/*.js',
+//     'src/compile.js',
+//     'src/connect.js',
+// ];
+var filePath = 'src/index.js';
 
 gulp.task('clean', function() {
   return del('./dist');
