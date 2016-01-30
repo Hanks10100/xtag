@@ -1,6 +1,6 @@
 import utils from './shared/utils';
 import mixins from './shared/mixins';
-import components from './components/index';
+import * as components from './components/index';
 
 export function compile(scope = {}) {
     var elements = scope.el || document.getElementsByTagName('body');
