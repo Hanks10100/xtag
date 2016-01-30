@@ -9,7 +9,7 @@
     }
 
     function shouldCompile(element) {
-        return /[xv][\-\:]/i.test(element.tagName);
+        return /^[xv][\-\:]\w+$/i.test(element.tagName);
     }
 
     function compileElement(element, scope) {
@@ -70,10 +70,9 @@
 
     // 解析标签元素，转为 vdom
     function parse(element, scope) {
-        var tagName = element.tagName.toLowerCase();
-        var tags = tagName.split('-');
-        var namespace = _.first(tags);
-        var type = _.last(tags);
+        var res = element.tagName.toLowerCase().match(/(\w+)[\-\:](\w+)/i);
+        var namespace = res[1];
+        var type = res[2];
 
         if (namespace === 'v' && scope.viewTags) {
             // TODO: 在 scope 中找到相应的视图构造函数，使其支持 Backbone 的 View
