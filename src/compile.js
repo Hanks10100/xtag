@@ -13,12 +13,7 @@
     }
 
     function compileElement(element, scope) {
-        var elements = [];
-        if (_.isElement(element)) {
-            elements.push(element);
-        } else {
-            elements = _.toArray(element);
-        }
+        var elements = _.isElement(element) ? [element] : _.toArray(element);
 
         _.each(elements, function(elem) {
             if (!_.isElement(elem)) return;
@@ -37,7 +32,7 @@
                     mount(elem, widget);
                 }
             } else {
-                compileElement(_.toArray(elem.children), scope);
+                compileElement(elem.children, scope);
             }
         });
 
