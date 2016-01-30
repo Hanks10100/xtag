@@ -6,6 +6,10 @@ import { Switcher, Checkbox } from './components/switcher';
 import { Datetimepicker } from './components/datetimepicker';
 import { Select } from './components/select';
 import { Table } from './components/Table';
+import { Tabs } from './components/Tabs';
+
+import { compile, compileElement } from './compile';
+import { connectToFish } from './connect';
 
 const XTag = {
     utils,
@@ -18,7 +22,12 @@ const XTag = {
     Select,
     Datetimepicker,
     Table,
+    Tabs,
+    compile,
+    compileElement,
+    connectToFish,
 };
-console.log(XTag);
 
 window.XTag = XTag;
+
+export default XTag;
