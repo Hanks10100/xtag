@@ -29,10 +29,17 @@ function shouldCompile(element) {
     return /^[xv][\-\:]\w+$/i.test(element.tagName);
 }
 
+// 将字符串首字母改成大写
+function capitalize(string) {
+    if (!_.isString) return string;
+    return string.replace(/^\S/, s => s.toUpperCase());
+}
+
 export default {
     isBackboneView,
     isBackboneInstance,
     isReactComponent,
     isReactElement,
     shouldCompile,
+    capitalize,
 }

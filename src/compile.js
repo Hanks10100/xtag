@@ -71,7 +71,7 @@ export function parse(element, scope = {}) {
 
     switch (namespace) {
         case 'v': if (scope.viewTags) type = scope.viewTags[type];  break;
-        case 'x': type = type.replace(/^\S/, s => s.toUpperCase()); break;
+        case 'x': type = utils.capitalize(type); break;
         default : type = '?' + type;
     }
 
