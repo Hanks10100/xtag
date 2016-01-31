@@ -9,17 +9,13 @@ export function compile(scope = {}) {
     return scope;
 }
 
-function shouldCompile(element) {
-    return /^[xv][\-\:]\w+$/i.test(element.tagName);
-}
-
 export function compileElement(element, scope) {
     const elements = _.isElement(element) ? [element] : _.toArray(element);
 
     elements.forEach(elem => {
         if (!_.isElement(elem)) return;
 
-        if (shouldCompile(elem)) {
+        if (utils.shouldCompile(elem)) {
             let widget = convert(parse(elem, scope));
 
             if (widget) {

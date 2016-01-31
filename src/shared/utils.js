@@ -7,6 +7,12 @@ function isBackboneView(View) {
         || View.prototype instanceof window.Backbone.View
 }
 
+// 判断元素是否需要编译
+function shouldCompile(element) {
+    return /^[xv][\-\:]\w+$/i.test(element.tagName);
+}
+
 export default {
-    isBackboneView
+    isBackboneView,
+    shouldCompile,
 }
