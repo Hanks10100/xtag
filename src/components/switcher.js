@@ -82,3 +82,19 @@ _.extend(proto, mixins.shadow);
 _.extend(Switcher.prototype, proto, { type: 'Switcher' });
 _.extend(Checkbox.prototype, proto, { type: 'Checkbox' });
 
+
+
+if (document.head.createShadowRoot) {
+    const XProto = Object.create(HTMLElement.prototype);
+
+    XProto.createdCallback = function() {
+        const switcher = new Switcher();
+        _.extend(this, switcher);
+
+        this.initialize();
+        this.createShadowRoot().appendChild(switcher.el);
+    }
+    document.registerElement('s-switcher', {
+        prototype: _.extend(XProto, proto, { type: 'Switcher' })
+    });
+}

@@ -11,6 +11,10 @@ define(function(LayoutTpl) {
             '<h3>Switch Button</h3>'+
             '<x-switcher name="switcher" checked="checked"></x-switcher>'+
             '<x-checkbox name="checkbox" checked="checked"></x-checkbox>'+
+        '</section>'+
+        '<section class="page-section">'+
+            '<h3>Shadow Switcher</h3>'+
+            '<s-switcher name="switcher" checked="checked"></s-switcher>'+
         '</section>';
 
     function LayoutTpl() {return tpl}

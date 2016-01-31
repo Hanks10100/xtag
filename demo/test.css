@@ -37,26 +37,26 @@ label {
     margin: 0 auto;
 }
 /* switch 组件的样式 */
-x-switcher::shadow .switch {
+s-switcher::shadow .switch {
   position: relative;
   cursor: pointer;
 }
-x-switcher::shadow .switch.disabled {
+s-switcher::shadow .switch.disabled {
   background-color: #ddd;
   cursor: not-allowed;
 }
-x-switcher::shadow .switch > input {
+s-switcher::shadow .switch > input {
   position: absolute;
   opacity: 0;
   filter: alpha(opacity=0);
 }
-x-switcher::shadow .switch > input:checked + span {
+s-switcher::shadow .switch > input:checked + span {
   background-color: #4dd865;
 }
-x-switcher::shadow .switch > input:checked + span:after {
+s-switcher::shadow .switch > input:checked + span:after {
   left: 20px;
 }
-x-switcher::shadow .switch > span {
+s-switcher::shadow .switch > span {
   position: relative;
   display: inline-block;
   width: 40px;
@@ -68,7 +68,7 @@ x-switcher::shadow .switch > span {
   border-radius: 30px;
   background-color: #fff;
 }
-x-switcher::shadow .switch > span:after {
+s-switcher::shadow .switch > span:after {
   position: absolute;
   top: 1px;
   bottom: 1px;
