@@ -55,7 +55,7 @@ export function mount(element, widget = {}) {
     if (_.isElement(element) && _.isElement(widget.el)) {
         element.parentNode.replaceChild(widget.el, element);
 
-        if (window.Backbone && widget instanceof window.Backbone.View) {
+        if (utils.isBackboneInstance(widget)) {
             widget.render();
         } else if (_.isFunction(widget.afterMount)) {
             widget.afterMount();
