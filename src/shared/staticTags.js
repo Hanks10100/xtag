@@ -1,13 +1,13 @@
-const TAG_PREFIX = 'X-';
+const TAG_PREFIX = 'H-';
 
 // 静态的编译函数
-var staticTags = {
+const staticTags = {
     header: elem => `<header class="page-header">${elem.innerHTML}</header>`,
     footer: elem => `<footer class="page-footer">${elem.innerHTML}</footer>`,
 }
 
 export function preCompile(template) {
-    var $tpl = $(`<code>${template}</code>`);
+    const $tpl = $(`<code>${template}</code>`);
     _.each(staticTags, (tpl, tagName) => {
         $tpl.find(TAG_PREFIX + tagName).each((i, elem) => {
             if (_.isFunction(tpl)) tpl = tpl(elem);
