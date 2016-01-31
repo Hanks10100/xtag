@@ -19,14 +19,15 @@ export function compileElement(element, scope) {
             let widget = convert(parse(elem, scope));
 
             if (widget) {
-                widget.$el.attr('data-via', 'compiled');
+                mount(elem, widget);
+
+                widget.$el && widget.$el.attr('data-via', 'compiled');
+
                 let name = elem.getAttribute('name');
                 if (name && _.isString(name)) {
                     scope[name] = widget;
                     scope['$' + name] = widget.$el;
                 }
-
-                mount(elem, widget);
             }
         } else {
             compileElement(elem.children, scope);
